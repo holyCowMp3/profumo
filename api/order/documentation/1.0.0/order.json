@@ -625,6 +625,15 @@
                 "type": "string"
               }
             }
+          },
+          "status": {
+            "type": "string",
+            "default": "",
+            "enum": [
+              "payed",
+              "error",
+              "processing"
+            ]
           }
         }
       },
@@ -642,6 +651,15 @@
           },
           "user": {
             "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "default": "",
+            "enum": [
+              "payed",
+              "error",
+              "processing"
+            ]
           }
         }
       }

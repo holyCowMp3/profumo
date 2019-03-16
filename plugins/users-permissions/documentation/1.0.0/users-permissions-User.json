@@ -1183,6 +1183,9 @@
                 },
                 "user": {
                   "type": "string"
+                },
+                "status": {
+                  "type": "string"
                 }
               }
             }
