@@ -1,0 +1,31 @@
+{
+  "connection": "default",
+  "collectionName": "comment",
+  "info": {
+    "name": "comment",
+    "description": "Comments which was written by customers of shop\n"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "text": {
+      "default": "",
+      "type": "text"
+    },
+    "rate": {
+      "default": "",
+      "max": 5,
+      "type": "integer"
+    },
+    "date": {
+      "default": "",
+      "type": "date"
+    },
+    "user": {
+      "model": "user",
+      "via": "comment",
+      "plugin": "users-permissions"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "connection": "default",
+  "collectionName": "discounts",
+  "info": {
+    "name": "discount",
+    "description": "Discounts linked for the object\n"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "expiration_date": {
+      "default": "",
+      "type": "integer"
+    },
+    "percent": {
+      "default": "",
+      "max": 100,
+      "type": "integer"
+    },
+    "product": {
+      "model": "product",
+      "via": "discounts",
+      "columnName": ""
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "connection": "default",
+  "collectionName": "product",
+  "info": {
+    "name": "product",
+    "description": "Product model which describe main fields of product."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "desc": {
+      "default": "",
+      "type": "text"
+    },
+    "photos": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "added_at": {
+      "default": "",
+      "type": "date"
+    },
+    "price": {
+      "default": "",
+      "type": "decimal"
+    },
+    "rating": {
+      "default": "",
+      "max": 5,
+      "type": "integer"
+    },
+    "available": {
+      "default": false,
+      "type": "boolean"
+    },
+    "category": {
+      "model": "category",
+      "via": "product"
+    },
+    "sex": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "male",
+        "female"
+      ]
+    },
+    "discounts": {
+      "model": "discount",
+      "via": "product"
+    },
+    "order": {
+      "model": "order",
+      "via": "products"
+    },
+    "props": {
+      "default": "",
+      "type": "json"
+    }
+  }
+}

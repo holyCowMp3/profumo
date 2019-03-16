@@ -1,0 +1,25 @@
+{
+  "connection": "default",
+  "collectionName": "category",
+  "info": {
+    "name": "category",
+    "description": "Categories for site, for simple site management"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "desc": {
+      "default": "",
+      "type": "text"
+    },
+    "product": {
+      "model": "product",
+      "via": "category"
+    }
+  }
+}
