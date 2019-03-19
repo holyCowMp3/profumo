@@ -19,8 +19,9 @@
     "eslint-plugin-react": "^7.7.0"
   },
   "dependencies": {
+    "liqpay-sdk": "^3.2.0",
     "lodash": "^4.17.5",
-    "strapi": "3.0.0-alpha.24.1",
+    "strapi": "^3.0.0-alpha.25",
     "strapi-hook-mongoose": "3.0.0-alpha.24.1"
   },
   "author": {

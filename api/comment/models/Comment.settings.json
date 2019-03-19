@@ -26,6 +26,10 @@
       "model": "user",
       "via": "comment",
       "plugin": "users-permissions"
+    },
+    "verified": {
+      "default": false,
+      "type": "boolean"
     }
   }
 }
