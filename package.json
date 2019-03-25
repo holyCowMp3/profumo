@@ -1,7 +1,7 @@
 {
   "name": "profumo",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Strapi application.",
   "main": "./server.js",
   "scripts": {
@@ -36,13 +36,15 @@
       "url": ""
     }
   ],
-  "strapi": {
-    "packageManager": "npm",
-    "uuid": false
-  },
+  "strapi": "3.0.0-alpha.25",
   "engines": {
     "node": ">= 10.0.0",
     "npm": ">= 6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "customs": {
+    "packageManager": "npm",
+    "uuid": false
+  },
+  "node": "10.15.3"
 }

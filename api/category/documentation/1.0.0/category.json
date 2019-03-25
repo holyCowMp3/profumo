@@ -516,10 +516,6 @@
           "id": {
             "type": "string"
           },
-          "name": {
-            "type": "string",
-            "default": ""
-          },
           "desc": {
             "type": "string",
             "default": ""
@@ -532,7 +528,7 @@
               "id": {
                 "type": "string"
               },
-              "name": {
+              "name_ua": {
                 "type": "string"
               },
               "desc": {
@@ -553,9 +549,6 @@
               "rating": {
                 "type": "integer"
               },
-              "available": {
-                "type": "boolean"
-              },
               "category": {
                 "type": "string"
               },
@@ -570,23 +563,135 @@
               },
               "props": {
                 "type": "json"
+              },
+              "name_ru": {
+                "type": "string"
+              },
+              "name_en": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "rozetka_exp": {
+                "type": "boolean"
               }
             }
+          },
+          "child": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "product": {
+                "type": "string"
+              },
+              "child": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "name_en": {
+                "type": "string"
+              },
+              "name_ru": {
+                "type": "string"
+              },
+              "name_ua": {
+                "type": "string"
+              }
+            }
+          },
+          "parent": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "product": {
+                  "type": "string"
+                },
+                "child": {
+                  "type": "string"
+                },
+                "parent": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "name_en": {
+                  "type": "string"
+                },
+                "name_ru": {
+                  "type": "string"
+                },
+                "name_ua": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "name_en": {
+            "type": "string",
+            "default": ""
+          },
+          "name_ru": {
+            "type": "string",
+            "default": ""
+          },
+          "name_ua": {
+            "type": "string",
+            "default": ""
           }
         }
       },
       "NewCategory": {
         "properties": {
-          "name": {
-            "type": "string",
-            "default": ""
-          },
           "desc": {
             "type": "string",
             "default": ""
           },
           "product": {
             "type": "string"
+          },
+          "child": {
+            "type": "string"
+          },
+          "parent": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name_en": {
+            "type": "string",
+            "default": ""
+          },
+          "name_ru": {
+            "type": "string",
+            "default": ""
+          },
+          "name_ua": {
+            "type": "string",
+            "default": ""
           }
         }
       }

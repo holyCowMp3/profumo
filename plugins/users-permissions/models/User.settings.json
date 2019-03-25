@@ -51,11 +51,11 @@
     },
     "order": {
       "collection": "order",
-      "via": "user"
+      "via": "owner"
     },
     "comment": {
       "model": "comment",
-      "via": "user"
+      "via": "owner"
     },
     "address": {
       "default": "",

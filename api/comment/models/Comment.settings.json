@@ -22,7 +22,7 @@
       "default": "",
       "type": "date"
     },
-    "user": {
+    "owner": {
       "model": "user",
       "via": "comment",
       "plugin": "users-permissions"

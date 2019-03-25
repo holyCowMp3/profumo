@@ -530,7 +530,7 @@
                 "id": {
                   "type": "string"
                 },
-                "name": {
+                "name_ua": {
                   "type": "string"
                 },
                 "desc": {
@@ -551,9 +551,6 @@
                 "rating": {
                   "type": "integer"
                 },
-                "available": {
-                  "type": "boolean"
-                },
                 "category": {
                   "type": "string"
                 },
@@ -568,11 +565,23 @@
                 },
                 "props": {
                   "type": "json"
+                },
+                "name_ru": {
+                  "type": "string"
+                },
+                "name_en": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "integer"
+                },
+                "rozetka_exp": {
+                  "type": "boolean"
                 }
               }
             }
           },
-          "user": {
+          "owner": {
             "required": [
               "id",
               "username",
@@ -649,7 +658,7 @@
               "type": "string"
             }
           },
-          "user": {
+          "owner": {
             "type": "string"
           },
           "status": {

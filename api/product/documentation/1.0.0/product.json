@@ -516,7 +516,7 @@
           "id": {
             "type": "string"
           },
-          "name": {
+          "name_ua": {
             "type": "string",
             "default": ""
           },
@@ -585,10 +585,6 @@
             "type": "integer",
             "default": ""
           },
-          "available": {
-            "type": "boolean",
-            "default": false
-          },
           "category": {
             "required": [
               "id"
@@ -597,13 +593,28 @@
               "id": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
               "desc": {
                 "type": "string"
               },
               "product": {
+                "type": "string"
+              },
+              "child": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "name_en": {
+                "type": "string"
+              },
+              "name_ru": {
+                "type": "string"
+              },
+              "name_ua": {
                 "type": "string"
               }
             }
@@ -655,7 +666,7 @@
                   "type": "string"
                 }
               },
-              "user": {
+              "owner": {
                 "type": "string"
               },
               "status": {
@@ -666,12 +677,28 @@
           "props": {
             "type": "json",
             "default": ""
+          },
+          "name_ru": {
+            "type": "string",
+            "default": ""
+          },
+          "name_en": {
+            "type": "string",
+            "default": ""
+          },
+          "amount": {
+            "type": "integer",
+            "default": ""
+          },
+          "rozetka_exp": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
       "NewProduct": {
         "properties": {
-          "name": {
+          "name_ua": {
             "type": "string",
             "default": ""
           },
@@ -690,10 +717,6 @@
           "rating": {
             "type": "integer",
             "default": ""
-          },
-          "available": {
-            "type": "boolean",
-            "default": false
           },
           "category": {
             "type": "string"
@@ -715,6 +738,22 @@
           "props": {
             "type": "json",
             "default": ""
+          },
+          "name_ru": {
+            "type": "string",
+            "default": ""
+          },
+          "name_en": {
+            "type": "string",
+            "default": ""
+          },
+          "amount": {
+            "type": "integer",
+            "default": ""
+          },
+          "rozetka_exp": {
+            "type": "boolean",
+            "default": false
           }
         }
       }

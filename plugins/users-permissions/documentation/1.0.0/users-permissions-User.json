@@ -1181,7 +1181,7 @@
                     "type": "string"
                   }
                 },
-                "user": {
+                "owner": {
                   "type": "string"
                 },
                 "status": {
@@ -1207,8 +1207,11 @@
               "date": {
                 "type": "string"
               },
-              "user": {
+              "owner": {
                 "type": "string"
+              },
+              "verified": {
+                "type": "boolean"
               }
             }
           },

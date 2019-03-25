@@ -528,7 +528,7 @@
             "type": "string",
             "default": ""
           },
-          "user": {
+          "owner": {
             "required": [
               "id",
               "username",
@@ -581,6 +581,10 @@
                 "type": "string"
               }
             }
+          },
+          "verified": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -598,8 +602,12 @@
             "type": "string",
             "default": ""
           },
-          "user": {
+          "owner": {
             "type": "string"
+          },
+          "verified": {
+            "type": "boolean",
+            "default": false
           }
         }
       }

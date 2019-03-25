@@ -9,7 +9,7 @@
     "timestamps": true
   },
   "attributes": {
-    "name": {
+    "name_ua": {
       "default": "",
       "type": "string"
     },
@@ -36,10 +36,6 @@
       "max": 5,
       "type": "integer"
     },
-    "available": {
-      "default": false,
-      "type": "boolean"
-    },
     "category": {
       "model": "category",
       "via": "product"
@@ -63,6 +59,22 @@
     "props": {
       "default": "",
       "type": "json"
+    },
+    "name_ru": {
+      "default": "",
+      "type": "string"
+    },
+    "name_en": {
+      "default": "",
+      "type": "string"
+    },
+    "amount": {
+      "default": "",
+      "type": "biginteger"
+    },
+    "rozetka_exp": {
+      "default": false,
+      "type": "boolean"
     }
   }
 }

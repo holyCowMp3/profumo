@@ -24,8 +24,7 @@
     },
     "product": {
       "model": "product",
-      "via": "discounts",
-      "columnName": ""
+      "via": "discounts"
     }
   }
 }

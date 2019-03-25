@@ -17,7 +17,7 @@
       "collection": "product",
       "via": "order"
     },
-    "user": {
+    "owner": {
       "model": "user",
       "via": "order",
       "plugin": "users-permissions"

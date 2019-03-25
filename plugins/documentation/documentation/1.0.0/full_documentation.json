@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/19/2019 12:14:29 PM"
+    "x-generation-date": "03/25/2019 9:57:00 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -44,6 +44,511 @@
     }
   ],
   "paths": {
+    "/callbacks": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Callback"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Callback"
+        ],
+        "parameters": [
+          {
+            "name": "_limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of results possible",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "required": false,
+            "description": "Sort according to a specific field.",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "required": false,
+            "description": "Skip a specific number of entries (especially useful for pagination)",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "=",
+            "in": "query",
+            "required": false,
+            "description": "Get entries that matches exactly your input",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_ne",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are not equals to something",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lt",
+            "in": "query",
+            "required": false,
+            "description": "Get record that are lower than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are lower than or equal to a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gt",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than  or equal a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_contains",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_containss",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains (case sensitive) a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_in",
+            "in": "query",
+            "required": false,
+            "description": "Get records that matches any value in the array of values",
+            "schema": {
+              "type": "array"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_nin",
+            "in": "query",
+            "required": false,
+            "description": "Get records that doesn't match any value in the array of values",
+            "schema": {
+              "type": "array"
+            },
+            "deprecated": false
+          }
+        ]
+      },
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Callback"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Callback"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCallback"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/callbacks/count": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Callback"
+        ],
+        "parameters": []
+      }
+    },
+    "/callbacks/{_id}": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Callback"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Callback"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "deprecated": false,
+        "description": "Update a record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Callback"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Callback"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCallback"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "deprecated": false,
+        "description": "Delete a record",
+        "responses": {
+          "200": {
+            "description": "deletes a single record based on the ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Callback"
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/categories": {
       "get": {
         "deprecated": false,
@@ -5130,7 +5635,7 @@
   },
   "components": {
     "schemas": {
-      "Category": {
+      "Callback": {
         "required": [
           "id"
         ],
@@ -5138,9 +5643,309 @@
           "id": {
             "type": "string"
           },
-          "name": {
+          "acq_id": {
+            "type": "integer",
+            "default": ""
+          },
+          "action": {
+            "type": "string",
+            "default": "",
+            "enum": [
+              "pay",
+              "hold",
+              "paysplit",
+              "subscribe",
+              "paydonate",
+              "auth",
+              "regular"
+            ]
+          },
+          "agent_commission": {
+            "type": "integer",
+            "default": ""
+          },
+          "amount": {
+            "type": "integer",
+            "default": ""
+          },
+          "amount_bonus": {
+            "type": "integer",
+            "default": ""
+          },
+          "amount_credit": {
+            "type": "integer",
+            "default": ""
+          },
+          "amount_debit": {
+            "type": "integer",
+            "default": ""
+          },
+          "authcode_credit": {
             "type": "string",
             "default": ""
+          },
+          "authcode_debit": {
+            "type": "string",
+            "default": ""
+          },
+          "card_token": {
+            "type": "string",
+            "default": ""
+          },
+          "commission_debit": {
+            "type": "integer",
+            "default": ""
+          },
+          "commission_credit": {
+            "type": "integer",
+            "default": ""
+          },
+          "customer": {
+            "type": "string",
+            "default": ""
+          },
+          "err_code": {
+            "type": "string",
+            "default": ""
+          },
+          "err_description": {
+            "type": "string",
+            "default": ""
+          },
+          "ip": {
+            "type": "string",
+            "default": ""
+          },
+          "liqpay_order_id": {
+            "type": "string",
+            "default": ""
+          },
+          "order_id": {
+            "type": "string",
+            "default": ""
+          },
+          "payment_id": {
+            "type": "string",
+            "default": ""
+          },
+          "paytype": {
+            "type": "string",
+            "default": "",
+            "enum": [
+              "card",
+              "liqpay",
+              "privat24",
+              "masterpass",
+              "cash",
+              "invoice",
+              "qr"
+            ]
+          },
+          "sender_card_mask2": {
+            "type": "string",
+            "default": ""
+          },
+          "sender_card_type": {
+            "type": "string",
+            "default": ""
+          },
+          "sender_first_name": {
+            "type": "string",
+            "default": ""
+          },
+          "sender_last_name": {
+            "type": "string",
+            "default": ""
+          },
+          "sender_phone": {
+            "type": "string",
+            "default": ""
+          },
+          "status": {
+            "type": "string",
+            "default": "",
+            "enum": [
+              "error",
+              "failure",
+              "reversed",
+              "sandbox",
+              "subscribed",
+              "success",
+              "unsubscribed",
+              "prepared",
+              "processing"
+            ]
+          },
+          "token": {
+            "type": "string",
+            "default": ""
+          },
+          "type": {
+            "type": "string",
+            "default": ""
+          },
+          "verifycode": {
+            "type": "string",
+            "default": ""
+          }
+        }
+      },
+      "NewCallback": {
+        "properties": {
+          "acq_id": {
+            "type": "integer",
+            "default": ""
+          },
+          "action": {
+            "type": "string",
+            "default": "",
+            "enum": [
+              "pay",
+              "hold",
+              "paysplit",
+              "subscribe",
+              "paydonate",
+              "auth",
+              "regular"
+            ]
+          },
+          "agent_commission": {
+            "type": "integer",
+            "default": ""
+          },
+          "amount": {
+            "type": "integer",
+            "default": ""
+          },
+          "amount_bonus": {
+            "type": "integer",
+            "default": ""
+          },
+          "amount_credit": {
+            "type": "integer",
+            "default": ""
+          },
+          "amount_debit": {
+            "type": "integer",
+            "default": ""
+          },
+          "authcode_credit": {
+            "type": "string",
+            "default": ""
+          },
+          "authcode_debit": {
+            "type": "string",
+            "default": ""
+          },
+          "card_token": {
+            "type": "string",
+            "default": ""
+          },
+          "commission_debit": {
+            "type": "integer",
+            "default": ""
+          },
+          "commission_credit": {
+            "type": "integer",
+            "default": ""
+          },
+          "customer": {
+            "type": "string",
+            "default": ""
+          },
+          "err_code": {
+            "type": "string",
+            "default": ""
+          },
+          "err_description": {
+            "type": "string",
+            "default": ""
+          },
+          "ip": {
+            "type": "string",
+            "default": ""
+          },
+          "liqpay_order_id": {
+            "type": "string",
+            "default": ""
+          },
+          "order_id": {
+            "type": "string",
+            "default": ""
+          },
+          "payment_id": {
+            "type": "string",
+            "default": ""
+          },
+          "paytype": {
+            "type": "string",
+            "default": "",
+            "enum": [
+              "card",
+              "liqpay",
+              "privat24",
+              "masterpass",
+              "cash",
+              "invoice",
+              "qr"
+            ]
+          },
+          "sender_card_mask2": {
+            "type": "string",
+            "default": ""
+          },
+          "sender_card_type": {
+            "type": "string",
+            "default": ""
+          },
+          "sender_first_name": {
+            "type": "string",
+            "default": ""
+          },
+          "sender_last_name": {
+            "type": "string",
+            "default": ""
+          },
+          "sender_phone": {
+            "type": "string",
+            "default": ""
+          },
+          "status": {
+            "type": "string",
+            "default": "",
+            "enum": [
+              "error",
+              "failure",
+              "reversed",
+              "sandbox",
+              "subscribed",
+              "success",
+              "unsubscribed",
+              "prepared",
+              "processing"
+            ]
+          },
+          "token": {
+            "type": "string",
+            "default": ""
+          },
+          "type": {
+            "type": "string",
+            "default": ""
+          },
+          "verifycode": {
+            "type": "string",
+            "default": ""
+          }
+        }
+      },
+      "Category": {
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
           },
           "desc": {
             "type": "string",
@@ -5154,7 +5959,7 @@
               "id": {
                 "type": "string"
               },
-              "name": {
+              "name_ua": {
                 "type": "string"
               },
               "desc": {
@@ -5175,9 +5980,6 @@
               "rating": {
                 "type": "integer"
               },
-              "available": {
-                "type": "boolean"
-              },
               "category": {
                 "type": "string"
               },
@@ -5192,23 +5994,135 @@
               },
               "props": {
                 "type": "json"
+              },
+              "name_ru": {
+                "type": "string"
+              },
+              "name_en": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "rozetka_exp": {
+                "type": "boolean"
               }
             }
+          },
+          "child": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "product": {
+                "type": "string"
+              },
+              "child": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "name_en": {
+                "type": "string"
+              },
+              "name_ru": {
+                "type": "string"
+              },
+              "name_ua": {
+                "type": "string"
+              }
+            }
+          },
+          "parent": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "product": {
+                  "type": "string"
+                },
+                "child": {
+                  "type": "string"
+                },
+                "parent": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "name_en": {
+                  "type": "string"
+                },
+                "name_ru": {
+                  "type": "string"
+                },
+                "name_ua": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "name_en": {
+            "type": "string",
+            "default": ""
+          },
+          "name_ru": {
+            "type": "string",
+            "default": ""
+          },
+          "name_ua": {
+            "type": "string",
+            "default": ""
           }
         }
       },
       "NewCategory": {
         "properties": {
-          "name": {
-            "type": "string",
-            "default": ""
-          },
           "desc": {
             "type": "string",
             "default": ""
           },
           "product": {
             "type": "string"
+          },
+          "child": {
+            "type": "string"
+          },
+          "parent": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "name_en": {
+            "type": "string",
+            "default": ""
+          },
+          "name_ru": {
+            "type": "string",
+            "default": ""
+          },
+          "name_ua": {
+            "type": "string",
+            "default": ""
           }
         }
       },
@@ -5232,7 +6146,7 @@
             "type": "string",
             "default": ""
           },
-          "user": {
+          "owner": {
             "required": [
               "id",
               "username",
@@ -5285,6 +6199,10 @@
                 "type": "string"
               }
             }
+          },
+          "verified": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -5302,8 +6220,12 @@
             "type": "string",
             "default": ""
           },
-          "user": {
+          "owner": {
             "type": "string"
+          },
+          "verified": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -5335,7 +6257,7 @@
               "id": {
                 "type": "string"
               },
-              "name": {
+              "name_ua": {
                 "type": "string"
               },
               "desc": {
@@ -5356,9 +6278,6 @@
               "rating": {
                 "type": "integer"
               },
-              "available": {
-                "type": "boolean"
-              },
               "category": {
                 "type": "string"
               },
@@ -5373,6 +6292,18 @@
               },
               "props": {
                 "type": "json"
+              },
+              "name_ru": {
+                "type": "string"
+              },
+              "name_en": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "rozetka_exp": {
+                "type": "boolean"
               }
             }
           }
@@ -5419,7 +6350,7 @@
                 "id": {
                   "type": "string"
                 },
-                "name": {
+                "name_ua": {
                   "type": "string"
                 },
                 "desc": {
@@ -5440,9 +6371,6 @@
                 "rating": {
                   "type": "integer"
                 },
-                "available": {
-                  "type": "boolean"
-                },
                 "category": {
                   "type": "string"
                 },
@@ -5457,11 +6385,23 @@
                 },
                 "props": {
                   "type": "json"
+                },
+                "name_ru": {
+                  "type": "string"
+                },
+                "name_en": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "integer"
+                },
+                "rozetka_exp": {
+                  "type": "boolean"
                 }
               }
             }
           },
-          "user": {
+          "owner": {
             "required": [
               "id",
               "username",
@@ -5538,7 +6478,7 @@
               "type": "string"
             }
           },
-          "user": {
+          "owner": {
             "type": "string"
           },
           "status": {
@@ -5560,7 +6500,7 @@
           "id": {
             "type": "string"
           },
-          "name": {
+          "name_ua": {
             "type": "string",
             "default": ""
           },
@@ -5629,10 +6569,6 @@
             "type": "integer",
             "default": ""
           },
-          "available": {
-            "type": "boolean",
-            "default": false
-          },
           "category": {
             "required": [
               "id"
@@ -5641,13 +6577,28 @@
               "id": {
                 "type": "string"
               },
-              "name": {
-                "type": "string"
-              },
               "desc": {
                 "type": "string"
               },
               "product": {
+                "type": "string"
+              },
+              "child": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "name_en": {
+                "type": "string"
+              },
+              "name_ru": {
+                "type": "string"
+              },
+              "name_ua": {
                 "type": "string"
               }
             }
@@ -5699,7 +6650,7 @@
                   "type": "string"
                 }
               },
-              "user": {
+              "owner": {
                 "type": "string"
               },
               "status": {
@@ -5710,12 +6661,28 @@
           "props": {
             "type": "json",
             "default": ""
+          },
+          "name_ru": {
+            "type": "string",
+            "default": ""
+          },
+          "name_en": {
+            "type": "string",
+            "default": ""
+          },
+          "amount": {
+            "type": "integer",
+            "default": ""
+          },
+          "rozetka_exp": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
       "NewProduct": {
         "properties": {
-          "name": {
+          "name_ua": {
             "type": "string",
             "default": ""
           },
@@ -5734,10 +6701,6 @@
           "rating": {
             "type": "integer",
             "default": ""
-          },
-          "available": {
-            "type": "boolean",
-            "default": false
           },
           "category": {
             "type": "string"
@@ -5759,6 +6722,22 @@
           "props": {
             "type": "json",
             "default": ""
+          },
+          "name_ru": {
+            "type": "string",
+            "default": ""
+          },
+          "name_en": {
+            "type": "string",
+            "default": ""
+          },
+          "amount": {
+            "type": "integer",
+            "default": ""
+          },
+          "rozetka_exp": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -6100,7 +7079,7 @@
                     "type": "string"
                   }
                 },
-                "user": {
+                "owner": {
                   "type": "string"
                 },
                 "status": {
@@ -6126,8 +7105,11 @@
               "date": {
                 "type": "string"
               },
-              "user": {
+              "owner": {
                 "type": "string"
+              },
+              "verified": {
+                "type": "boolean"
               }
             }
           },
@@ -6238,6 +7220,9 @@
     }
   },
   "tags": [
+    {
+      "name": "Callback"
+    },
     {
       "name": "Category"
     },

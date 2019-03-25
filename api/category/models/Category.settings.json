@@ -9,10 +9,6 @@
     "timestamps": true
   },
   "attributes": {
-    "name": {
-      "default": "",
-      "type": "string"
-    },
     "desc": {
       "default": "",
       "type": "text"
@@ -20,6 +16,26 @@
     "product": {
       "model": "product",
       "via": "category"
+    },
+    "child": {
+      "model": "category",
+      "via": "parent"
+    },
+    "parent": {
+      "collection": "category",
+      "via": "child"
+    },
+    "name_en": {
+      "default": "",
+      "type": "string"
+    },
+    "name_ru": {
+      "default": "",
+      "type": "string"
+    },
+    "name_ua": {
+      "default": "",
+      "type": "string"
     }
   }
 }
