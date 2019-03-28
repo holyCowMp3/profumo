@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/25/2019 9:57:00 PM"
+    "x-generation-date": "03/28/2019 10:23:42 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6006,6 +6006,12 @@
               },
               "rozetka_exp": {
                 "type": "boolean"
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -6142,10 +6148,6 @@
             "type": "integer",
             "default": ""
           },
-          "date": {
-            "type": "string",
-            "default": ""
-          },
           "owner": {
             "required": [
               "id",
@@ -6180,14 +6182,17 @@
               "role": {
                 "type": "string"
               },
-              "order": {
+              "orders": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
               },
-              "comment": {
-                "type": "string"
+              "comments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "address": {
                 "type": "json"
@@ -6203,6 +6208,86 @@
           "verified": {
             "type": "boolean",
             "default": false
+          },
+          "name": {
+            "type": "string",
+            "default": ""
+          },
+          "gender": {
+            "type": "string",
+            "default": "",
+            "enum": [
+              "male",
+              " female"
+            ]
+          },
+          "response": {
+            "type": "string",
+            "default": ""
+          },
+          "product": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name_ua": {
+                "type": "string"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "photos": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "added_at": {
+                "type": "string"
+              },
+              "price": {
+                "type": "number"
+              },
+              "rating": {
+                "type": "integer"
+              },
+              "category": {
+                "type": "string"
+              },
+              "sex": {
+                "type": "string"
+              },
+              "discounts": {
+                "type": "string"
+              },
+              "order": {
+                "type": "string"
+              },
+              "props": {
+                "type": "json"
+              },
+              "name_ru": {
+                "type": "string"
+              },
+              "name_en": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "rozetka_exp": {
+                "type": "boolean"
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -6216,16 +6301,31 @@
             "type": "integer",
             "default": ""
           },
-          "date": {
-            "type": "string",
-            "default": ""
-          },
           "owner": {
             "type": "string"
           },
           "verified": {
             "type": "boolean",
             "default": false
+          },
+          "name": {
+            "type": "string",
+            "default": ""
+          },
+          "gender": {
+            "type": "string",
+            "default": "",
+            "enum": [
+              "male",
+              " female"
+            ]
+          },
+          "response": {
+            "type": "string",
+            "default": ""
+          },
+          "product": {
+            "type": "string"
           }
         }
       },
@@ -6304,6 +6404,12 @@
               },
               "rozetka_exp": {
                 "type": "boolean"
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -6397,6 +6503,12 @@
                 },
                 "rozetka_exp": {
                   "type": "boolean"
+                },
+                "comments": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -6435,14 +6547,17 @@
               "role": {
                 "type": "string"
               },
-              "order": {
+              "orders": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
               },
-              "comment": {
-                "type": "string"
+              "comments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "address": {
                 "type": "json"
@@ -6677,6 +6792,43 @@
           "rozetka_exp": {
             "type": "boolean",
             "default": false
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "rate": {
+                  "type": "integer"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "verified": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                },
+                "product": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -6738,6 +6890,12 @@
           "rozetka_exp": {
             "type": "boolean",
             "default": false
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -6947,14 +7105,17 @@
                 "role": {
                   "type": "string"
                 },
-                "order": {
+                "orders": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   }
                 },
-                "comment": {
-                  "type": "string"
+                "comments": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "address": {
                   "type": "json"
@@ -7060,7 +7221,7 @@
               }
             }
           },
-          "order": {
+          "orders": {
             "type": "array",
             "items": {
               "required": [
@@ -7088,28 +7249,40 @@
               }
             }
           },
-          "comment": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "text": {
-                "type": "string"
-              },
-              "rate": {
-                "type": "integer"
-              },
-              "date": {
-                "type": "string"
-              },
-              "owner": {
-                "type": "string"
-              },
-              "verified": {
-                "type": "boolean"
+          "comments": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "rate": {
+                  "type": "integer"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "verified": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                },
+                "product": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -7162,14 +7335,17 @@
           "role": {
             "type": "string"
           },
-          "order": {
+          "orders": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "comment": {
-            "type": "string"
+          "comments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "address": {
             "type": "json",

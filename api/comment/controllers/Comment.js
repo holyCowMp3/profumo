@@ -15,10 +15,22 @@ module.exports = {
    */
 
   find: async (ctx) => {
+
     if (ctx.query._q) {
-      return strapi.services.comment.search(ctx.query);
+       const comment = await strapi.services.comment.search(ctx.query);
+      const {owner} = comment;
+      console.log(owner);
+      return comment;
     } else {
-      return strapi.services.comment.fetchAll(ctx.query);
+      return await strapi.services.comment.fetchAll(ctx.query).then(col => {
+        for (var i in col) {
+
+          if (ctx.state.user == undefined || col[i]['owner']['_id'].toString()!==ctx.state.user._id.toString()) {
+            col[i]['owner']=undefined;
+            }
+        }
+        return col;
+      });
     }
   },
 
@@ -33,7 +45,13 @@ module.exports = {
       return ctx.notFound();
     }
 
-    return strapi.services.comment.fetch(ctx.params);
+    return strapi.services.comment.fetch(ctx.params).then(col => {
+        if (ctx.state.user == undefined || col['owner']['id'].toString()!== ctx.state.user._id.toString()) {
+            col['owner'] =undefined;
+        }
+        console.log(col);
+      return col;
+    });
   },
 
   /**
@@ -73,6 +91,7 @@ module.exports = {
    */
 
   destroy: async (ctx, next) => {
+    if (ctx.params.id) 
     return strapi.services.comment.remove(ctx.params);
   }
 };

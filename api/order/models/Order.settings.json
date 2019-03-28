@@ -19,7 +19,7 @@
     },
     "owner": {
       "model": "user",
-      "via": "order",
+      "via": "orders",
       "plugin": "users-permissions"
     },
     "status": {

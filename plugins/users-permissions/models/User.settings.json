@@ -49,12 +49,12 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "order": {
+    "orders": {
       "collection": "order",
       "via": "owner"
     },
-    "comment": {
-      "model": "comment",
+    "comments": {
+      "collection": "comment",
       "via": "owner"
     },
     "address": {

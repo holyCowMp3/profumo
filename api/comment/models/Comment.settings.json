@@ -18,18 +18,34 @@
       "max": 5,
       "type": "integer"
     },
-    "date": {
-      "default": "",
-      "type": "date"
-    },
     "owner": {
       "model": "user",
-      "via": "comment",
+      "via": "comments",
       "plugin": "users-permissions"
     },
     "verified": {
       "default": false,
       "type": "boolean"
+    },
+    "name": {
+      "default": "",
+      "type": "string"
+    },
+    "gender": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "male",
+        " female"
+      ]
+    },
+    "response": {
+      "default": "",
+      "type": "text"
+    },
+    "product": {
+      "model": "product",
+      "via": "comments"
     }
   }
 }

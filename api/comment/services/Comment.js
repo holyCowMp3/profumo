@@ -96,10 +96,8 @@ module.exports = {
     // Extract values related to relational data.
     const relations = _.pick(values, Comment.associations.map(a => a.alias));
     const data = _.omit(values, Comment.associations.map(a => a.alias));
-
     // Update entry with no-relational data.
     const entry = await Comment.updateOne(params, data, { multi: true });
-
     // Update relational data and return the entry.
     return Comment.updateRelations(Object.assign(params, { values: relations }));
   },

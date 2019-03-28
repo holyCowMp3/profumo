@@ -577,6 +577,12 @@
                 },
                 "rozetka_exp": {
                   "type": "boolean"
+                },
+                "comments": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -615,14 +621,17 @@
               "role": {
                 "type": "string"
               },
-              "order": {
+              "orders": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
               },
-              "comment": {
-                "type": "string"
+              "comments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "address": {
                 "type": "json"

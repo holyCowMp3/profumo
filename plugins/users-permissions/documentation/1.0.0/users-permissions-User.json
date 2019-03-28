@@ -1162,7 +1162,7 @@
               }
             }
           },
-          "order": {
+          "orders": {
             "type": "array",
             "items": {
               "required": [
@@ -1190,28 +1190,40 @@
               }
             }
           },
-          "comment": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "text": {
-                "type": "string"
-              },
-              "rate": {
-                "type": "integer"
-              },
-              "date": {
-                "type": "string"
-              },
-              "owner": {
-                "type": "string"
-              },
-              "verified": {
-                "type": "boolean"
+          "comments": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "rate": {
+                  "type": "integer"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "verified": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                },
+                "product": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -1264,14 +1276,17 @@
           "role": {
             "type": "string"
           },
-          "order": {
+          "orders": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "comment": {
-            "type": "string"
+          "comments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "address": {
             "type": "json",

@@ -693,6 +693,43 @@
           "rozetka_exp": {
             "type": "boolean",
             "default": false
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "rate": {
+                  "type": "integer"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "verified": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "string"
+                },
+                "product": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -754,6 +791,12 @@
           "rozetka_exp": {
             "type": "boolean",
             "default": false
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

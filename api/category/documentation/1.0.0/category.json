@@ -575,6 +575,12 @@
               },
               "rozetka_exp": {
                 "type": "boolean"
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },

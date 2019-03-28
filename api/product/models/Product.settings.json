@@ -75,6 +75,10 @@
     "rozetka_exp": {
       "default": false,
       "type": "boolean"
+    },
+    "comments": {
+      "collection": "comment",
+      "via": "product"
     }
   }
 }
