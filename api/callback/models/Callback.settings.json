@@ -1,0 +1,158 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "callback",
+    "description": "Callback from LiqPay API payments"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "acq_id": {
+      "default": "",
+      "type": "biginteger"
+    },
+    "action": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "pay",
+        "hold",
+        "paysplit",
+        "subscribe",
+        "paydonate",
+        "auth",
+        "regular"
+      ]
+    },
+    "agent_commission": {
+      "default": "",
+      "type": "integer"
+    },
+    "amount": {
+      "default": "",
+      "type": "integer"
+    },
+    "amount_bonus": {
+      "default": "",
+      "type": "integer"
+    },
+    "amount_credit": {
+      "default": "",
+      "type": "biginteger"
+    },
+    "amount_debit": {
+      "default": "",
+      "type": "biginteger"
+    },
+    "authcode_credit": {
+      "default": "",
+      "type": "string"
+    },
+    "authcode_debit": {
+      "default": "",
+      "type": "string"
+    },
+    "card_token": {
+      "default": "",
+      "type": "string"
+    },
+    "commission_debit": {
+      "default": "",
+      "type": "biginteger"
+    },
+    "commission_credit": {
+      "default": "",
+      "type": "biginteger"
+    },
+    "customer": {
+      "default": "",
+      "type": "string"
+    },
+    "err_code": {
+      "default": "",
+      "type": "string"
+    },
+    "err_description": {
+      "default": "",
+      "type": "string"
+    },
+    "ip": {
+      "default": "",
+      "type": "string"
+    },
+    "liqpay_order_id": {
+      "default": "",
+      "type": "string"
+    },
+    "order_id": {
+      "default": "",
+      "type": "string"
+    },
+    "payment_id": {
+      "default": "",
+      "type": "string"
+    },
+    "paytype": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "card",
+        "liqpay",
+        "privat24",
+        "masterpass",
+        "cash",
+        "invoice",
+        "qr"
+      ]
+    },
+    "sender_card_mask2": {
+      "default": "",
+      "type": "string"
+    },
+    "sender_card_type": {
+      "default": "",
+      "type": "string"
+    },
+    "sender_first_name": {
+      "default": "",
+      "type": "string"
+    },
+    "sender_last_name": {
+      "default": "",
+      "type": "string"
+    },
+    "sender_phone": {
+      "default": "",
+      "type": "string"
+    },
+    "status": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "error",
+        "failure",
+        "reversed",
+        "sandbox",
+        "subscribed",
+        "success",
+        "unsubscribed",
+        "prepared",
+        "processing"
+      ]
+    },
+    "token": {
+      "default": "",
+      "type": "string"
+    },
+    "type": {
+      "default": "",
+      "type": "string"
+    },
+    "verifycode": {
+      "default": "",
+      "type": "string"
+    }
+  }
+}
