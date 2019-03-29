@@ -615,6 +615,9 @@
               },
               "name_ua": {
                 "type": "string"
+              },
+              "rozetkacat": {
+                "type": "integer"
               }
             }
           },
@@ -651,6 +654,9 @@
                 },
                 "name_ua": {
                   "type": "string"
+                },
+                "rozetkacat": {
+                  "type": "integer"
                 }
               }
             }
@@ -665,6 +671,10 @@
           },
           "name_ua": {
             "type": "string",
+            "default": ""
+          },
+          "rozetkacat": {
+            "type": "integer",
             "default": ""
           }
         }
@@ -697,6 +707,10 @@
           },
           "name_ua": {
             "type": "string",
+            "default": ""
+          },
+          "rozetkacat": {
+            "type": "integer",
             "default": ""
           }
         }

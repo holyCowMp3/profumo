@@ -10,6 +10,14 @@
     },
     {
       "method": "GET",
+      "path": "/products/build",
+      "handler": "Product.build",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/products/count",
       "handler": "Product.count",
       "config": {

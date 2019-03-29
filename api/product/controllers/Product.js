@@ -5,7 +5,7 @@
  *
  * @description: A set of functions called "actions" for managing `Product`.
  */
-
+const builder = require('xmlbuilder');
 module.exports = {
 
   /**
@@ -21,7 +21,22 @@ module.exports = {
       return strapi.services.product.fetchAll(ctx.query);
     }
   },
-
+  build: async (ctx) =>{
+    let xml = builder.create('yml_catalog', { encoding: 'utf-8' })
+      .att('date', new Date().toISOString()
+        .replace(/T/, ' ')
+        .replace(/\..+/, '')
+        .substring(0,16))
+      .ele('shop')
+      .ele('name','Profumo')
+      .ele('company','Profumo')
+      .ele('url','profumo.com.ua')
+      .ele('currencies')
+      .end({pretty:true});
+    ctx.status =200;
+    ctx.type = 'application/xml; charset=utf-8';
+    ctx.send(xml);
+  },
   /**
    * Retrieve a product record.
    *
@@ -73,5 +88,7 @@ module.exports = {
 
   destroy: async (ctx, next) => {
     return strapi.services.product.remove(ctx.params);
-  }
+  },
+
+
 };

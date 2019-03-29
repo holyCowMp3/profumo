@@ -36,6 +36,10 @@
     "name_ua": {
       "default": "",
       "type": "string"
+    },
+    "rozetkacat": {
+      "default": "",
+      "type": "biginteger"
     }
   }
 }
