@@ -23,10 +23,6 @@
       "plugin": "upload",
       "required": false
     },
-    "added_at": {
-      "default": "",
-      "type": "date"
-    },
     "price": {
       "default": "",
       "type": "decimal"
@@ -34,7 +30,7 @@
     "rating": {
       "default": "",
       "max": 5,
-      "type": "integer"
+      "type": "float"
     },
     "category": {
       "model": "category",

@@ -248,7 +248,7 @@
         }
       }
     },
-    "/products/build": {
+    "/products/build.xml": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -630,16 +630,12 @@
               }
             }
           },
-          "added_at": {
-            "type": "string",
-            "default": ""
-          },
           "price": {
             "type": "number",
             "default": ""
           },
           "rating": {
-            "type": "integer",
+            "type": "number",
             "default": ""
           },
           "category": {
@@ -768,7 +764,7 @@
                   "type": "string"
                 },
                 "rate": {
-                  "type": "integer"
+                  "type": "number"
                 },
                 "owner": {
                   "type": "string"
@@ -803,16 +799,12 @@
             "type": "string",
             "default": ""
           },
-          "added_at": {
-            "type": "string",
-            "default": ""
-          },
           "price": {
             "type": "number",
             "default": ""
           },
           "rating": {
-            "type": "integer",
+            "type": "number",
             "default": ""
           },
           "category": {

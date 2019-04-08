@@ -25,7 +25,7 @@
       "description": "Development server"
     },
     {
-      "url": "YOUR_STAGING_SERVER",
+      "url": "process.env.STAGING_SERVER",
       "description": "Staging server server"
     },
     {

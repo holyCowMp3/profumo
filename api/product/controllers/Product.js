@@ -22,19 +22,26 @@ module.exports = {
     }
   },
   build: async (ctx) =>{
-    let xml = builder.create('yml_catalog', { encoding: 'utf-8' })
+    let products =  await Product.find({'rozetka_exp':'true'}).then();
+    let categories ='';
+    console.log(products);
+    products.forEach(prod => {Category.findOne(prod.category).then(i => console.log(i.parent))});
+    let xml = builder.create('yml_catalog', { encoding: 'utf-8'})
       .att('date', new Date().toISOString()
         .replace(/T/, ' ')
         .replace(/\..+/, '')
         .substring(0,16))
       .ele('shop')
-      .ele('name','Profumo')
-      .ele('company','Profumo')
-      .ele('url','profumo.com.ua')
-      .ele('currencies')
-      .end({pretty:true});
+      .ele('name','Profumo').up()
+      .ele('company','Profumo').up()
+      .ele('url','profumo.com.ua').up()
+        .ele('currencies')
+        .ele('currency', {id:'UAH',rate:1}).up().up()
+      .ele('categories').up()
+      .ele('offers').up().end();
     ctx.status =200;
     ctx.type = 'application/xml; charset=utf-8';
+
     ctx.send(xml);
   },
   /**

@@ -521,7 +521,7 @@
             "default": ""
           },
           "rate": {
-            "type": "integer",
+            "type": "number",
             "default": ""
           },
           "owner": {
@@ -621,14 +621,11 @@
                   "type": "string"
                 }
               },
-              "added_at": {
-                "type": "string"
-              },
               "price": {
                 "type": "number"
               },
               "rating": {
-                "type": "integer"
+                "type": "number"
               },
               "category": {
                 "type": "string"
@@ -674,7 +671,7 @@
             "default": ""
           },
           "rate": {
-            "type": "integer",
+            "type": "number",
             "default": ""
           },
           "owner": {

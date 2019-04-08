@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/28/2019 8:16:32 PM"
+    "x-generation-date": "03/30/2019 12:45:11 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -2817,7 +2817,7 @@
         }
       }
     },
-    "/products/build": {
+    "/products/build.xml": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -6028,14 +6028,11 @@
                   "type": "string"
                 }
               },
-              "added_at": {
-                "type": "string"
-              },
               "price": {
                 "type": "number"
               },
               "rating": {
-                "type": "integer"
+                "type": "number"
               },
               "category": {
                 "type": "string"
@@ -6216,7 +6213,7 @@
             "default": ""
           },
           "rate": {
-            "type": "integer",
+            "type": "number",
             "default": ""
           },
           "owner": {
@@ -6316,14 +6313,11 @@
                   "type": "string"
                 }
               },
-              "added_at": {
-                "type": "string"
-              },
               "price": {
                 "type": "number"
               },
               "rating": {
-                "type": "integer"
+                "type": "number"
               },
               "category": {
                 "type": "string"
@@ -6369,7 +6363,7 @@
             "default": ""
           },
           "rate": {
-            "type": "integer",
+            "type": "number",
             "default": ""
           },
           "owner": {
@@ -6440,14 +6434,11 @@
                   "type": "string"
                 }
               },
-              "added_at": {
-                "type": "string"
-              },
               "price": {
                 "type": "number"
               },
               "rating": {
-                "type": "integer"
+                "type": "number"
               },
               "category": {
                 "type": "string"
@@ -6539,14 +6530,11 @@
                     "type": "string"
                   }
                 },
-                "added_at": {
-                  "type": "string"
-                },
                 "price": {
                   "type": "number"
                 },
                 "rating": {
-                  "type": "integer"
+                  "type": "number"
                 },
                 "category": {
                   "type": "string"
@@ -6743,16 +6731,12 @@
               }
             }
           },
-          "added_at": {
-            "type": "string",
-            "default": ""
-          },
           "price": {
             "type": "number",
             "default": ""
           },
           "rating": {
-            "type": "integer",
+            "type": "number",
             "default": ""
           },
           "category": {
@@ -6881,7 +6865,7 @@
                   "type": "string"
                 },
                 "rate": {
-                  "type": "integer"
+                  "type": "number"
                 },
                 "owner": {
                   "type": "string"
@@ -6916,16 +6900,12 @@
             "type": "string",
             "default": ""
           },
-          "added_at": {
-            "type": "string",
-            "default": ""
-          },
           "price": {
             "type": "number",
             "default": ""
           },
           "rating": {
-            "type": "integer",
+            "type": "number",
             "default": ""
           },
           "category": {
@@ -7337,7 +7317,7 @@
                   "type": "string"
                 },
                 "rate": {
-                  "type": "integer"
+                  "type": "number"
                 },
                 "owner": {
                   "type": "string"

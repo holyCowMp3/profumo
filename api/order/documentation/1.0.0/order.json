@@ -542,14 +542,11 @@
                     "type": "string"
                   }
                 },
-                "added_at": {
-                  "type": "string"
-                },
                 "price": {
                   "type": "number"
                 },
                 "rating": {
-                  "type": "integer"
+                  "type": "number"
                 },
                 "category": {
                   "type": "string"

@@ -1204,7 +1204,7 @@
                   "type": "string"
                 },
                 "rate": {
-                  "type": "integer"
+                  "type": "number"
                 },
                 "owner": {
                   "type": "string"

@@ -10,7 +10,7 @@
     },
     {
       "method": "GET",
-      "path": "/products/build",
+      "path": "/products/build.xml",
       "handler": "Product.build",
       "config": {
         "policies": []
