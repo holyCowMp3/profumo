@@ -25,7 +25,7 @@
       "description": "Development server"
     },
     {
-      "url": "process.env.STAGING_SERVER",
+      "url": "https://pure-chamber-16886.herokuapp.com",
       "description": "Staging server server"
     },
     {
