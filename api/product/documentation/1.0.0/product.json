@@ -653,13 +653,13 @@
                 "type": "string"
               },
               "child": {
-                "type": "string"
-              },
-              "parent": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
+              },
+              "parent": {
+                "type": "string"
               },
               "name_en": {
                 "type": "string"
@@ -786,6 +786,18 @@
                 }
               }
             }
+          },
+          "avaliable": {
+            "type": "boolean",
+            "default": false
+          },
+          "vendor": {
+            "type": "string",
+            "default": ""
+          },
+          "name_rozetka": {
+            "type": "string",
+            "default": ""
           }
         }
       },
@@ -849,6 +861,18 @@
             "items": {
               "type": "string"
             }
+          },
+          "avaliable": {
+            "type": "boolean",
+            "default": false
+          },
+          "vendor": {
+            "type": "string",
+            "default": ""
+          },
+          "name_rozetka": {
+            "type": "string",
+            "default": ""
           }
         }
       }

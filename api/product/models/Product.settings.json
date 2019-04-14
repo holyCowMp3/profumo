@@ -75,6 +75,18 @@
     "comments": {
       "collection": "comment",
       "via": "product"
+    },
+    "avaliable": {
+      "default": false,
+      "type": "boolean"
+    },
+    "vendor": {
+      "default": "",
+      "type": "string"
+    },
+    "name_rozetka": {
+      "default": "",
+      "type": "string"
     }
   }
 }

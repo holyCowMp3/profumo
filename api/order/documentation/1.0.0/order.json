@@ -580,6 +580,15 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "avaliable": {
+                  "type": "boolean"
+                },
+                "vendor": {
+                  "type": "string"
+                },
+                "name_rozetka": {
+                  "type": "string"
                 }
               }
             }

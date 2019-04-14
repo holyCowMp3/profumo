@@ -18,11 +18,11 @@
       "via": "category"
     },
     "child": {
-      "model": "category",
+      "collection": "category",
       "via": "parent"
     },
     "parent": {
-      "collection": "category",
+      "model": "category",
       "via": "child"
     },
     "name_en": {

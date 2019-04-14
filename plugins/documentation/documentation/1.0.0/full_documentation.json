@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/08/2019 10:08:16 AM"
+    "x-generation-date": "04/14/2019 9:15:49 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6066,47 +6066,19 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "avaliable": {
+                "type": "boolean"
+              },
+              "vendor": {
+                "type": "string"
+              },
+              "name_rozetka": {
+                "type": "string"
               }
             }
           },
           "child": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "desc": {
-                "type": "string"
-              },
-              "product": {
-                "type": "string"
-              },
-              "child": {
-                "type": "string"
-              },
-              "parent": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "name_en": {
-                "type": "string"
-              },
-              "name_ru": {
-                "type": "string"
-              },
-              "name_ua": {
-                "type": "string"
-              },
-              "rozetkacat": {
-                "type": "integer"
-              }
-            }
-          },
-          "parent": {
             "type": "array",
             "items": {
               "required": [
@@ -6123,13 +6095,13 @@
                   "type": "string"
                 },
                 "child": {
-                  "type": "string"
-                },
-                "parent": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   }
+                },
+                "parent": {
+                  "type": "string"
                 },
                 "name_en": {
                   "type": "string"
@@ -6143,6 +6115,43 @@
                 "rozetkacat": {
                   "type": "integer"
                 }
+              }
+            }
+          },
+          "parent": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "product": {
+                "type": "string"
+              },
+              "child": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "parent": {
+                "type": "string"
+              },
+              "name_en": {
+                "type": "string"
+              },
+              "name_ru": {
+                "type": "string"
+              },
+              "name_ua": {
+                "type": "string"
+              },
+              "rozetkacat": {
+                "type": "integer"
               }
             }
           },
@@ -6174,13 +6183,13 @@
             "type": "string"
           },
           "child": {
-            "type": "string"
-          },
-          "parent": {
             "type": "array",
             "items": {
               "type": "string"
             }
+          },
+          "parent": {
+            "type": "string"
           },
           "name_en": {
             "type": "string",
@@ -6351,6 +6360,15 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "avaliable": {
+                "type": "boolean"
+              },
+              "vendor": {
+                "type": "string"
+              },
+              "name_rozetka": {
+                "type": "string"
               }
             }
           }
@@ -6472,6 +6490,15 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "avaliable": {
+                "type": "boolean"
+              },
+              "vendor": {
+                "type": "string"
+              },
+              "name_rozetka": {
+                "type": "string"
               }
             }
           }
@@ -6568,6 +6595,15 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "avaliable": {
+                  "type": "boolean"
+                },
+                "vendor": {
+                  "type": "string"
+                },
+                "name_rozetka": {
+                  "type": "string"
                 }
               }
             }
@@ -6754,13 +6790,13 @@
                 "type": "string"
               },
               "child": {
-                "type": "string"
-              },
-              "parent": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
+              },
+              "parent": {
+                "type": "string"
               },
               "name_en": {
                 "type": "string"
@@ -6887,6 +6923,18 @@
                 }
               }
             }
+          },
+          "avaliable": {
+            "type": "boolean",
+            "default": false
+          },
+          "vendor": {
+            "type": "string",
+            "default": ""
+          },
+          "name_rozetka": {
+            "type": "string",
+            "default": ""
           }
         }
       },
@@ -6950,6 +6998,18 @@
             "items": {
               "type": "string"
             }
+          },
+          "avaliable": {
+            "type": "boolean",
+            "default": false
+          },
+          "vendor": {
+            "type": "string",
+            "default": ""
+          },
+          "name_rozetka": {
+            "type": "string",
+            "default": ""
           }
         }
       },
