@@ -57,16 +57,16 @@ module.exports = {
         .ele('currency', {id:'UAH',rate:1}).up().up()
       .ele('categories');
     for (let key in categories) {
-      xml.ele('category',{id:key}, categories[key])
+      var elememt =
+        xml.ele('category',{id:key}, categories[key]).up()
     }
     for (let key in childCategories) {
-      xml.ele('category',{id:key, parentId:childCategories[key].split("||")[0]}, childCategories[key].split("||")[1]);
+       var middleElem = elememt.ele('category',{id:key, parentId:childCategories[key].split("||")[0]}, childCategories[key].split("||")[1] ).up();
     }
-      xml
-      .up()
-      .ele('offers');
+    middleElem = middleElem.up();
+    var smth =  middleElem.ele('offers');
     for (let i in products) {
-      xml.ele('offer', {id: products[i]._id, avaliable: products[i].avaliable})
+      var elem = smth.ele('offer', {id: products[i]._id, avaliable: products[i].avaliable})
         .ele('url', 'https://profumo.com.ua/products/$' + products[i]._id)
         .up()
         .ele('price', products[i].price)
@@ -74,11 +74,13 @@ module.exports = {
         .ele('currencyId', 'UAH')
         .up()
         .ele('categoryId', products[i].category._id)
-        .up()
+        .up();
       for (let picture in products[i].photos) {
-        xml.ele('picture', 'https://profumo.com.ua' + products[i].photos[picture].url).up();
+        elem
+          .ele('picture', 'https://profumo.com.ua' + products[i].photos[picture].url)
+          .up();
       }
-      xml
+      elem
         .ele('vendor', products[i].vendor)
         .up()
         .ele('stock_quantity', products[i].amount)
@@ -89,7 +91,7 @@ module.exports = {
         .cdata(md.render(products[i].desc)).up().up()
       for (let key in products[i].props) {
 
-        xml.ele('param', {name: key}, products[i].props[key]).up()
+        elem.ele('param', {name: key}, products[i].props[key]).up()
       }
     }
     ctx.status =200;
