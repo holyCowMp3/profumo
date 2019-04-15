@@ -67,7 +67,7 @@ module.exports = {
     var smth =  middleElem.ele('offers');
     for (let i in products) {
       var elem = smth.ele('offer', {id: products[i]._id, avaliable: products[i].avaliable})
-        .ele('url', 'https://profumo.com.ua/products/$' + products[i]._id)
+        .ele('url', 'https://profumo.com.ua/products/'+ products[i]._id)
         .up()
         .ele('price', products[i].price)
         .up()
