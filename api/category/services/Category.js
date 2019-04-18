@@ -8,7 +8,7 @@
 
 // Public dependencies.
 const _ = require('lodash');
-
+const {convertRestQueryParams, buildQuery} = require('strapi-utils');
 module.exports = {
 
   /**
@@ -17,23 +17,20 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchAll: (params) => {
-    // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('category', params);
-    // Select field to populate.
-    const populate = Category.associations
-      .filter(ast => ast.autoPopulate !== false)
-      .map(ast => ast.alias)
-      .join(' ');
+  fetchAll: (params, populate) => {
+    const filters = convertRestQueryParams(params);
 
-    return Category
-      .find()
-      .where(filters.where)
-      .sort(filters.sort)
-      .skip(filters.start)
-      .limit(filters.limit)
-      .populate(filters.populate || populate);
+    const populateOpt = populate || Category.associations
+      .filter(ast => ast.autoPopulate !== false)
+      .map(ast => ast.alias);
+
+    return buildQuery({
+      model: Category,
+      filters,
+      populate: populateOpt,
+    });
   },
+
 
   /**
    * Promise to fetch a/an category.
@@ -60,12 +57,13 @@ module.exports = {
    */
 
   count: (params) => {
-    // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('category', params);
+    const filters = convertRestQueryParams(params);
 
-    return Category
-      .countDocuments()
-      .where(filters.where);
+    return buildQuery({
+      model: Category,
+      filters: {where: filters.where},
+    })
+      .count();
   },
 
   /**
@@ -83,7 +81,7 @@ module.exports = {
     const entry = await Category.create(data);
 
     // Create relational data and return the entry.
-    return Category.updateRelations({ _id: entry.id, values: relations });
+    return Category.updateRelations({_id: entry.id, values: relations});
   },
 
   /**
@@ -98,10 +96,10 @@ module.exports = {
     const data = _.omit(values, Category.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Category.updateOne(params, data, { multi: true });
+    const entry = await Category.updateOne(params, data, {multi: true});
 
     // Update relational data and return the entry.
-    return Category.updateRelations(Object.assign(params, { values: relations }));
+    return Category.updateRelations(Object.assign(params, {values: relations}));
   },
 
   /**
@@ -133,15 +131,15 @@ module.exports = {
           return true;
         }
 
-        const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
-        const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
+        const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? {[association.via]: data._id} : {[association.via]: {$in: [data._id]}};
+        const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? {[association.via]: null} : {$pull: {[association.via]: data._id}};
 
         // Retrieve model.
         const model = association.plugin ?
           strapi.plugins[association.plugin].models[association.model || association.collection] :
           strapi.models[association.model || association.collection];
 
-        return model.update(search, update, { multi: true });
+        return model.update(search, update, {multi: true});
       })
     );
 
@@ -169,17 +167,17 @@ module.exports = {
         case 'float':
         case 'decimal':
           if (!_.isNaN(_.toNumber(params._q))) {
-            return acc.concat({ [curr]: params._q });
+            return acc.concat({[curr]: params._q});
           }
 
           return acc;
         case 'string':
         case 'text':
         case 'password':
-          return acc.concat({ [curr]: { $regex: params._q, $options: 'i' } });
+          return acc.concat({[curr]: {$regex: params._q, $options: 'i'}});
         case 'boolean':
           if (params._q === 'true' || params._q === 'false') {
-            return acc.concat({ [curr]: params._q === 'true' });
+            return acc.concat({[curr]: params._q === 'true'});
           }
 
           return acc;
@@ -189,7 +187,7 @@ module.exports = {
     }, []);
 
     return Category
-      .find({ $or })
+      .find({$or})
       .sort(filters.sort)
       .skip(filters.start)
       .limit(filters.limit)

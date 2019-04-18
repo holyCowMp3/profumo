@@ -8,7 +8,7 @@
 
 // Public dependencies.
 const _ = require('lodash');
-
+const { convertRestQueryParams, buildQuery } = require('strapi-utils');
 module.exports = {
 
   /**
@@ -17,29 +17,26 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchAll: (params) => {
-    // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('product', params);
-    // Select field to populate.
-    const populate = Product.associations
-      .filter(ast => ast.autoPopulate !== false)
-      .map(ast => ast.alias)
-      .join(' ');
+  fetchAll: (params, populate) => {
+    const filters = convertRestQueryParams(params);
 
-    return Product
-      .find()
-      .where(filters.where)
-      .sort(filters.sort)
-      .skip(filters.start)
-      .limit(filters.limit)
-      .populate(filters.populate || populate);
-  },
+    const populateOpt = populate || Product.associations
+  .filter(ast => ast.autoPopulate !== false)
+  .map(ast => ast.alias);
 
-  /**
-   * Promise to fetch a/an product.
-   *
-   * @return {Promise}
-   */
+  return buildQuery({
+    model: Product,
+    filters,
+    populate: populateOpt,
+    });
+    },
+
+
+    /**
+     * Promise to fetch a/an product.
+     *
+     * @return {Promise}
+     */
 
   fetch: (params) => {
     // Select field to populate.
@@ -60,12 +57,14 @@ module.exports = {
    */
 
   count: (params) => {
-    // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('product', params);
+    const filters = convertRestQueryParams(params);
 
-    return Product
-      .countDocuments()
-      .where(filters.where);
+    return buildQuery({
+      model: Product,
+  filters: { where: filters.where },
+  })
+  .count();
+
   },
 
   /**

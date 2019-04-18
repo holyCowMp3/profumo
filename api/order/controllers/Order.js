@@ -14,11 +14,11 @@ module.exports = {
    * @return {Object|Array}
    */
 
-  find: async (ctx) => {
+  find: async (ctx, next, { populate } = {}) => {
     if (ctx.query._q) {
       return strapi.services.order.search(ctx.query);
     } else {
-      return strapi.services.order.fetchAll(ctx.query);
+      return strapi.services.order.fetchAll(ctx.query, populate);
     }
   },
 

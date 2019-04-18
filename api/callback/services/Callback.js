@@ -8,7 +8,7 @@
 
 // Public dependencies.
 const _ = require('lodash');
-
+const { convertRestQueryParams, buildQuery } = require('strapi-utils');
 module.exports = {
 
   /**
@@ -17,29 +17,26 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchAll: (params) => {
-    // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('callback', params);
-    // Select field to populate.
-    const populate = Callback.associations
-      .filter(ast => ast.autoPopulate !== false)
-      .map(ast => ast.alias)
-      .join(' ');
+  fetchAll: (params, populate) => {
+    const filters = convertRestQueryParams(params);
 
-    return Callback
-      .find()
-      .where(filters.where)
-      .sort(filters.sort)
-      .skip(filters.start)
-      .limit(filters.limit)
-      .populate(filters.populate || populate);
-  },
+    const populateOpt = populate || Callback.associations
+  .filter(ast => ast.autoPopulate !== false)
+  .map(ast => ast.alias);
 
-  /**
-   * Promise to fetch a/an callback.
-   *
-   * @return {Promise}
-   */
+  return buildQuery({
+    model: Callback,
+    filters,
+    populate: populateOpt,
+    });
+    },
+
+
+    /**
+     * Promise to fetch a/an callback.
+     *
+     * @return {Promise}
+     */
 
   fetch: (params) => {
     // Select field to populate.
@@ -60,19 +57,21 @@ module.exports = {
    */
 
   count: (params) => {
-    // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('callback', params);
+    const filters = convertRestQueryParams(params);
 
-    return Callback
-      .countDocuments()
-      .where(filters.where);
+    return buildQuery({
+      model: Callback,
+  filters: { where: filters.where },
+  })
+  .count();
   },
 
-  /**
-   * Promise to add a/an callback.
-   *
-   * @return {Promise}
-   */
+
+    /**
+     * Promise to add a/an callback.
+     *
+     * @return {Promise}
+     */
 
   add: async (values) => {
     // Extract values related to relational data.
@@ -195,4 +194,5 @@ module.exports = {
       .limit(filters.limit)
       .populate(populate);
   }
+
 };

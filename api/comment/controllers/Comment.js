@@ -14,7 +14,7 @@ module.exports = {
    * @return {Object|Array}
    */
 
-  find: async (ctx) => {
+  find: async (ctx, next, { populate } = {})=> {
 
     if (ctx.query._q) {
        const comment = await strapi.services.comment.search(ctx.query);
@@ -22,7 +22,7 @@ module.exports = {
       console.log(owner);
       return comment;
     } else {
-      return await strapi.services.comment.fetchAll(ctx.query).then(col => {
+      return await strapi.services.comment.fetchAll(ctx.query, populate).then(col => {
         for (var i in col) {
 
           if (ctx.state.user == undefined || col[i]['owner']['_id'].toString()!==ctx.state.user._id.toString()) {

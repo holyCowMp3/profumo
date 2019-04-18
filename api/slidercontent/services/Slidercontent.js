@@ -8,7 +8,7 @@
 
 // Public dependencies.
 const _ = require('lodash');
-
+const { convertRestQueryParams, buildQuery } = require('strapi-utils');
 module.exports = {
 
   /**
@@ -17,29 +17,27 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchAll: (params) => {
-    // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('slidercontent', params);
-    // Select field to populate.
-    const populate = Slidercontent.associations
-      .filter(ast => ast.autoPopulate !== false)
-      .map(ast => ast.alias)
-      .join(' ');
+  fetchAll: (params, populate) => {
+    const filters = convertRestQueryParams(params);
 
-    return Slidercontent
-      .find()
-      .where(filters.where)
-      .sort(filters.sort)
-      .skip(filters.start)
-      .limit(filters.limit)
-      .populate(filters.populate || populate);
-  },
+    const populateOpt = populate || Slidercontent.associations
+  .filter(ast => ast.autoPopulate !== false)
+  .map(ast => ast.alias);
 
-  /**
-   * Promise to fetch a/an slidercontent.
-   *
-   * @return {Promise}
-   */
+  return buildQuery({
+    model: Slidercontent,
+    filters,
+    populate: populateOpt,
+    });
+    },
+
+
+
+    /**
+     * Promise to fetch a/an slidercontent.
+     *
+     * @return {Promise}
+     */
 
   fetch: (params) => {
     // Select field to populate.
@@ -60,12 +58,14 @@ module.exports = {
    */
 
   count: (params) => {
-    // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('slidercontent', params);
+    const filters = convertRestQueryParams(params);
 
-    return Slidercontent
-      .countDocuments()
-      .where(filters.where);
+    return buildQuery({
+      model: Slidercontent,
+  filters: { where: filters.where },
+  })
+  .count();
+
   },
 
   /**

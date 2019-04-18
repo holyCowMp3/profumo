@@ -8,7 +8,7 @@
 
 // Public dependencies.
 const _ = require('lodash');
-
+const { convertRestQueryParams, buildQuery } = require('strapi-utils');
 module.exports = {
 
   /**
@@ -17,29 +17,26 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchAll: (params) => {
-    // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('discount', params);
-    // Select field to populate.
-    const populate = Discount.associations
-      .filter(ast => ast.autoPopulate !== false)
-      .map(ast => ast.alias)
-      .join(' ');
+  fetchAll: (params, populate) => {
+    const filters = convertRestQueryParams(params);
 
-    return Discount
-      .find()
-      .where(filters.where)
-      .sort(filters.sort)
-      .skip(filters.start)
-      .limit(filters.limit)
-      .populate(filters.populate || populate);
-  },
+    const populateOpt = populate || Discount.associations
+  .filter(ast => ast.autoPopulate !== false)
+  .map(ast => ast.alias);
 
-  /**
-   * Promise to fetch a/an discount.
-   *
-   * @return {Promise}
-   */
+  return buildQuery({
+    model: Discount,
+    filters,
+    populate: populateOpt,
+    });
+    },
+
+
+    /**
+     * Promise to fetch a/an discount.
+     *
+     * @return {Promise}
+     */
 
   fetch: (params) => {
     // Select field to populate.
@@ -60,19 +57,20 @@ module.exports = {
    */
 
   count: (params) => {
-    // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('discount', params);
+    const filters = convertRestQueryParams(params);
 
-    return Discount
-      .countDocuments()
-      .where(filters.where);
-  },
+    return buildQuery({
+      model: Discount,
+  filters: { where: filters.where },
+  })
+  .count();
+},
 
-  /**
-   * Promise to add a/an discount.
-   *
-   * @return {Promise}
-   */
+    /**
+     * Promise to add a/an discount.
+     *
+     * @return {Promise}
+     */
 
   add: async (values) => {
     // Extract values related to relational data.
