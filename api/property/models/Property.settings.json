@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "Свойства",
   "info": {
     "name": "property",
     "description": ""
@@ -20,8 +20,8 @@
     },
     "products": {
       "collection": "product",
-      "dominant": true,
-      "via": "properties"
+      "via": "properties",
+      "dominant": true
     }
   }
 }

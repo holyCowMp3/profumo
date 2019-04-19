@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "comment",
+  "collectionName": "Комментарий",
   "info": {
     "name": "comment",
     "description": "Comments which was written by customers of shop\n"
