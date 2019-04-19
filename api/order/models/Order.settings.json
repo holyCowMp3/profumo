@@ -1,0 +1,35 @@
+{
+  "connection": "default",
+  "collectionName": "order",
+  "info": {
+    "name": "order",
+    "description": "Order for clients\n"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "dateOrder": {
+      "default": "",
+      "type": "date"
+    },
+    "products": {
+      "collection": "product",
+      "via": "order"
+    },
+    "status": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "payed",
+        "error",
+        "processing"
+      ]
+    },
+    "owner": {
+      "model": "user",
+      "via": "orders",
+      "plugin": "users-permissions"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "property",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "property_name": {
+      "type": "string"
+    },
+    "property_val": {
+      "type": "string"
+    },
+    "short_name": {
+      "type": "string"
+    },
+    "products": {
+      "collection": "product",
+      "dominant": true,
+      "via": "properties"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "connection": "default",
+  "collectionName": "product",
+  "info": {
+    "name": "product",
+    "description": "Product model which describe main fields of product."
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name_ua": {
+      "default": "",
+      "type": "string"
+    },
+    "desc": {
+      "default": "",
+      "type": "text"
+    },
+    "photos": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "price": {
+      "default": "",
+      "type": "decimal"
+    },
+    "rating": {
+      "default": "",
+      "max": 5,
+      "type": "float"
+    },
+    "category": {
+      "model": "category",
+      "via": "product"
+    },
+    "sex": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "male",
+        "female"
+      ]
+    },
+    "discounts": {
+      "model": "discount",
+      "via": "product"
+    },
+    "order": {
+      "model": "order",
+      "via": "products"
+    },
+    "name_ru": {
+      "default": "",
+      "type": "string"
+    },
+    "name_en": {
+      "default": "",
+      "type": "string"
+    },
+    "amount": {
+      "default": "",
+      "type": "biginteger"
+    },
+    "rozetka_exp": {
+      "type": "boolean"
+    },
+    "comments": {
+      "collection": "comment",
+      "via": "product"
+    },
+    "avaliable": {
+      "type": "boolean"
+    },
+    "vendor": {
+      "default": "",
+      "type": "string"
+    },
+    "name_rozetka": {
+      "default": "",
+      "type": "string"
+    },
+    "properties": {
+      "collection": "property",
+      "via": "products"
+    }
+  }
+}
