@@ -40,11 +40,6 @@ module.exports = {
       }
     }
 
-
-    console.log(categories);
-    console.log("************************************");
-    console.log(childCategories);
-
    // products.forEach(prod => {Category.findOne(prod.category).then(i => console.log(i.parent))});
     let xml = builder.create('yml_catalog', { encoding: 'utf-8'})
       .att('date', new Date().toISOString()
