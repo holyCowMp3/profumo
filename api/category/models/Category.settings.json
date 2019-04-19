@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "category",
+  "collectionName": "Категория",
   "info": {
     "name": "category",
     "description": "Categories for site, for simple site management"
