@@ -91,9 +91,8 @@ module.exports = {
         .up()
         .ele('desc')
         .cdata(md.render(products[i].desc)).up().up()
-      for (let key in products[i].props) {
-
-        elem.ele('param', {name: key}, products[i].props[key]).up()
+      for (let k in products[i].properties) {
+        elem.ele('param', {name: products[i].properties[k].property_name}, products[i].properties[k].property_val).up()
       }
     }
     ctx.status =200;

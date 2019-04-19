@@ -516,13 +516,13 @@
           "id": {
             "type": "string"
           },
+          "short_name": {
+            "type": "string"
+          },
           "property_name": {
             "type": "string"
           },
           "property_val": {
-            "type": "string"
-          },
-          "short_name": {
             "type": "string"
           },
           "products": {
@@ -605,13 +605,13 @@
       },
       "NewProperty": {
         "properties": {
+          "short_name": {
+            "type": "string"
+          },
           "property_name": {
             "type": "string"
           },
           "property_val": {
-            "type": "string"
-          },
-          "short_name": {
             "type": "string"
           },
           "products": {
