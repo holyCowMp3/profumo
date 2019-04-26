@@ -119,7 +119,7 @@ module.exports = {
       obj.body = splitArr.slice(1,splitArr.length).join('');
       return obj;
     });
-    newRes.desc = mapped;
+    newRes.desc = JSON.stringify(mapped);
     return Promise.resolve(newRes);
   },
 
