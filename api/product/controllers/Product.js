@@ -105,7 +105,22 @@ module.exports = {
     if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
       return ctx.notFound();
     }
-    return strapi.services.product.fetch(ctx.params);
+    var result  = await strapi.services.product.fetch(ctx.params);
+    var length = result.comments.length;
+    var newRes = result.toObject();
+    newRes['comments_len'] = length;
+    var desc = result.desc;
+    var formattedDesc = desc.split("####");
+    var filtered = formattedDesc.filter( i => i.length>0);
+    var mapped = filtered.map(i => {
+      var obj = {};
+      var splitArr = i.split("\r\n");
+      obj.header = splitArr[0];
+      obj.body = splitArr.slice(1,splitArr.length).join('');
+      return obj;
+    });
+    newRes.desc = mapped;
+    return Promise.resolve(newRes);
   },
 
   /**
