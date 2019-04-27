@@ -116,7 +116,7 @@ module.exports = {
       var obj = {};
       var splitArr = i.split("\r\n");
       obj.header = splitArr[0];
-      obj.body = splitArr.slice(1,splitArr.length).join('');
+      obj.body = splitArr.slice(1,splitArr.length).join('\n');
       return obj;
     });
     newRes.descJSON = mapped;
