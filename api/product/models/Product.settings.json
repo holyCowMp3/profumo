@@ -84,6 +84,12 @@
     "properties": {
       "collection": "property",
       "via": "products"
+    },
+    "comments_len": {
+      "type": "integer"
+    },
+    "descJSON": {
+      "type": "json"
     }
   }
 }

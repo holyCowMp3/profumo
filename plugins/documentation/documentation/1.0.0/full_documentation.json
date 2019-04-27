@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/19/2019 1:11:56 PM"
+    "x-generation-date": "04/27/2019 8:49:57 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6583,6 +6583,12 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "comments_len": {
+                "type": "integer"
+              },
+              "descJSON": {
+                "type": "json"
               }
             }
           },
@@ -6822,6 +6828,12 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "comments_len": {
+                "type": "integer"
+              },
+              "descJSON": {
+                "type": "json"
               }
             }
           },
@@ -7002,6 +7014,12 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "comments_len": {
+                "type": "integer"
+              },
+              "descJSON": {
+                "type": "json"
               }
             }
           }
@@ -7110,6 +7128,12 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "comments_len": {
+                  "type": "integer"
+                },
+                "descJSON": {
+                  "type": "json"
                 }
               }
             }
@@ -7454,6 +7478,12 @@
                 }
               }
             }
+          },
+          "comments_len": {
+            "type": "integer"
+          },
+          "descJSON": {
+            "type": "json"
           }
         }
       },
@@ -7529,6 +7559,12 @@
             "items": {
               "type": "string"
             }
+          },
+          "comments_len": {
+            "type": "integer"
+          },
+          "descJSON": {
+            "type": "json"
           }
         }
       },
@@ -7621,6 +7657,12 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "comments_len": {
+                  "type": "integer"
+                },
+                "descJSON": {
+                  "type": "json"
                 }
               }
             }

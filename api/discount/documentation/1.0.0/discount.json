@@ -598,6 +598,12 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "comments_len": {
+                "type": "integer"
+              },
+              "descJSON": {
+                "type": "json"
               }
             }
           }

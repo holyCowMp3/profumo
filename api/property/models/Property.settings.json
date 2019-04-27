@@ -20,8 +20,8 @@
     },
     "products": {
       "collection": "product",
-      "via": "properties",
-      "dominant": true
+      "dominant": true,
+      "via": "properties"
     }
   }
 }
