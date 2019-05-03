@@ -545,7 +545,8 @@
           },
           "product": {
             "required": [
-              "id"
+              "id",
+              "price"
             ],
             "properties": {
               "id": {

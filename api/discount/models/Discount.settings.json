@@ -1,9 +1,9 @@
 {
   "connection": "default",
-  "collectionName": "Скидки",
+  "collectionName": "",
   "info": {
     "name": "discount",
-    "description": "Discounts linked for the object\n"
+    "description": "Скидка | Скидки"
   },
   "options": {
     "timestamps": true

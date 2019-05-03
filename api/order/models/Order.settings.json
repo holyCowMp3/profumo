@@ -1,9 +1,9 @@
 {
   "connection": "default",
-  "collectionName": "order",
+  "collectionName": "",
   "info": {
     "name": "order",
-    "description": "Order for clients\n"
+    "description": "Заказ | Заказы"
   },
   "options": {
     "timestamps": true

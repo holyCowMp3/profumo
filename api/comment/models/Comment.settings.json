@@ -1,9 +1,9 @@
 {
   "connection": "default",
-  "collectionName": "Комментарий",
+  "collectionName": "",
   "info": {
     "name": "comment",
-    "description": "Comments which was written by customers of shop\n"
+    "description": "Отзыв | Отзывы"
   },
   "options": {
     "timestamps": true

@@ -8,6 +8,7 @@ const _ = require('lodash');
 
 module.exports = {
   models: async ctx => {
+    
     const pluginsStore = strapi.store({
       environment: '',
       type: 'plugin',
@@ -16,6 +17,16 @@ module.exports = {
 
     const models = await pluginsStore.get({ key: 'schema' });
 
+    for (let ob in models.models){
+      if(ob=='plugins') continue;
+      try {
+        models.models[ob].label = models.models[ob].info.description.split('|')[0];
+        models.models[ob].labelPlural = models.models[ob].info.description.split('|')[1];
+      } catch (e) {
+        break;
+      }
+
+    }
     ctx.body = {
       models,
     };
@@ -25,9 +36,9 @@ module.exports = {
     // Search
     if (!_.isEmpty(ctx.request.query._q)) {
       ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].search(ctx.params, ctx.request.query);
-
       return;
     }
+
 
     // Default list with filters or not.
     ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].fetchAll(ctx.params, ctx.request.query);

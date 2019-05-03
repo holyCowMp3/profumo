@@ -52,6 +52,8 @@
   "app.components.InputFileDetails.originalName": "Первоначальное название:",
   "app.components.InputFileDetails.remove": "Удалить этот файл",
   "app.components.InputFileDetails.size": "Размер:",
+  "app.components.InstallPluginPage.Download.title": "Загрузка...",
+  "app.components.InstallPluginPage.Download.description": "Установка может занять несколько минут",
   "app.components.InstallPluginPage.InputSearch.label": " ",
   "app.components.InstallPluginPage.InputSearch.placeholder": "Искать плагин... (ex: authentication)",
   "app.components.InstallPluginPage.description": "Расширяйте ваше приложение без усилий.",

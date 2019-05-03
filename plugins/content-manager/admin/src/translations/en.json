@@ -62,7 +62,7 @@
   "containers.SettingPage.settings": "Settings",
   "containers.SettingPage.layout": "Layout",
   "containers.SettingsPage.Block.contentType.description": "Configure the specific settings",
-  "containers.SettingsPage.Block.contentType.title": "Content Types",
+  "containers.SettingsPage.Block.contentType.title": "Типы контента",
   "containers.SettingsPage.Block.generalSettings.description": "Configure the default options for your Content Types",
   "containers.SettingsPage.Block.generalSettings.title": "General",
   "containers.SettingsPage.pluginHeaderDescription": "Configure the default settings for all your Content types",

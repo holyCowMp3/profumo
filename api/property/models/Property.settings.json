@@ -1,9 +1,9 @@
 {
   "connection": "default",
-  "collectionName": "Свойства",
+  "collectionName": "",
   "info": {
     "name": "property",
-    "description": ""
+    "description": "Параметр | Параметры"
   },
   "options": {
     "timestamps": true
@@ -20,8 +20,8 @@
     },
     "products": {
       "collection": "product",
-      "dominant": true,
-      "via": "properties"
+      "via": "properties",
+      "dominant": true
     }
   }
 }

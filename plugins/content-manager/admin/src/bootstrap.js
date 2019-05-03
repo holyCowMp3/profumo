@@ -8,9 +8,9 @@ const bootstrap = plugin =>
       .then(models => {
         const menu = [
           {
-            name: 'Content Types',
+            name: 'Типы контента',
             links: map(omit(models.models.models, 'plugins'), (model, key) => ({
-              label: model.labelPlural || model.label || key,
+              label: model.label || key,
               destination: key,
             })),
           },

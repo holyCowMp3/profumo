@@ -1,9 +1,9 @@
 {
   "connection": "default",
-  "collectionName": "Категория",
+  "collectionName": "",
   "info": {
     "name": "category",
-    "description": "Categories for site, for simple site management"
+    "description": "Категория | Категории"
   },
   "options": {
     "timestamps": true

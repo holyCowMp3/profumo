@@ -3,7 +3,7 @@
   "collectionName": "",
   "info": {
     "name": "callback",
-    "description": "Callback from LiqPay API payments"
+    "description": "Отчет | Отчеты"
   },
   "options": {
     "timestamps": true

@@ -3,7 +3,7 @@
   "collectionName": "",
   "info": {
     "name": "slidercontent",
-    "description": ""
+    "description": "Слайдер | Слайдер"
   },
   "options": {
     "timestamps": true
@@ -16,8 +16,7 @@
     "image": {
       "model": "file",
       "via": "related",
-      "plugin": "upload",
-      "required": false
+      "plugin": "upload"
     },
     "link": {
       "default": "",

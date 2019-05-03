@@ -1,4 +1,4 @@
-"""Callback from LiqPay API payments"""
+"""Отчет | Отчеты"""
 type Callback {
   _id: ID!
   id: ID!
@@ -307,7 +307,7 @@ input CallbackInput {
   verifycode: String
 }
 
-"""Categories for site, for simple site management"""
+"""Категория | Категории"""
 type Category {
   _id: ID!
   id: ID!
@@ -414,7 +414,7 @@ input CategoryInput {
   rozetkacat: Long
 }
 
-"""Comments which was written by customers of shop"""
+"""Отзыв | Отзывы"""
 type Comment {
   _id: ID!
   id: ID!
@@ -712,7 +712,7 @@ type deleteUserPayload {
   user: UsersPermissionsUser
 }
 
-"""Discounts linked for the object"""
+"""Скидка | Скидки"""
 type Discount {
   _id: ID!
   id: ID!
@@ -1076,7 +1076,7 @@ type Mutation {
   upload(refId: ID, ref: String, source: String, file: Upload!): UploadFile!
 }
 
-"""Order for clients"""
+"""Заказ | Заказы"""
 type Order {
   _id: ID!
   id: ID!
@@ -1151,7 +1151,7 @@ input OrderInput {
   owner: ID
 }
 
-"""Product model which describe main fields of product."""
+"""Товар | Товары"""
 type Product {
   _id: ID!
   id: ID!
@@ -1159,7 +1159,7 @@ type Product {
   updatedAt: DateTime!
   name_ua: String
   desc: String
-  price: Float
+  price: Float!
   rating: Float
   category: Category
   sex: ENUM_PRODUCT_SEX
@@ -1189,25 +1189,21 @@ type ProductAggregator {
 }
 
 type ProductAggregatorAvg {
-  price: Float
   rating: Float
   comments_len: Float
 }
 
 type ProductAggregatorMax {
-  price: Float
   rating: Float
   comments_len: Float
 }
 
 type ProductAggregatorMin {
-  price: Float
   rating: Float
   comments_len: Float
 }
 
 type ProductAggregatorSum {
-  price: Float
   rating: Float
   comments_len: Float
 }
@@ -1351,7 +1347,7 @@ input ProductInput {
   name_ua: String
   desc: String
   photos: [ID]
-  price: Float
+  price: Float!
   rating: Float
   category: ID
   sex: ENUM_PRODUCT_SEX
@@ -1370,6 +1366,7 @@ input ProductInput {
   descJSON: JSON
 }
 
+"""Параметр | Параметры"""
 type Property {
   _id: ID!
   id: ID!
@@ -1492,6 +1489,7 @@ input RoleInput {
   users: [ID]
 }
 
+"""Слайдер | Слайдер"""
 type Slidercontent {
   _id: ID!
   id: ID!

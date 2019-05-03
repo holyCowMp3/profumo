@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/27/2019 8:49:57 AM"
+    "x-generation-date": "05/03/2019 3:29:36 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6515,7 +6515,8 @@
           },
           "product": {
             "required": [
-              "id"
+              "id",
+              "price"
             ],
             "properties": {
               "id": {
@@ -6760,7 +6761,8 @@
           },
           "product": {
             "required": [
-              "id"
+              "id",
+              "price"
             ],
             "properties": {
               "id": {
@@ -6946,7 +6948,8 @@
           },
           "product": {
             "required": [
-              "id"
+              "id",
+              "price"
             ],
             "properties": {
               "id": {
@@ -7060,7 +7063,8 @@
             "type": "array",
             "items": {
               "required": [
-                "id"
+                "id",
+                "price"
               ],
               "properties": {
                 "id": {
@@ -7225,7 +7229,8 @@
       },
       "Product": {
         "required": [
-          "id"
+          "id",
+          "price"
         ],
         "properties": {
           "id": {
@@ -7290,11 +7295,11 @@
           },
           "price": {
             "type": "number",
-            "default": ""
+            "default": "0"
           },
           "rating": {
             "type": "number",
-            "default": ""
+            "default": "0.0"
           },
           "category": {
             "required": [
@@ -7488,6 +7493,9 @@
         }
       },
       "NewProduct": {
+        "required": [
+          "price"
+        ],
         "properties": {
           "name_ua": {
             "type": "string",
@@ -7499,11 +7507,11 @@
           },
           "price": {
             "type": "number",
-            "default": ""
+            "default": "0"
           },
           "rating": {
             "type": "number",
-            "default": ""
+            "default": "0.0"
           },
           "category": {
             "type": "string"
@@ -7589,7 +7597,8 @@
             "type": "array",
             "items": {
               "required": [
-                "id"
+                "id",
+                "price"
               ],
               "properties": {
                 "id": {

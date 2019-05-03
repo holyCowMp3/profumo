@@ -1,9 +1,9 @@
 {
   "connection": "default",
-  "collectionName": "product",
+  "collectionName": "",
   "info": {
     "name": "product",
-    "description": "Product model which describe main fields of product."
+    "description": "Товар | Товары"
   },
   "options": {
     "timestamps": true
@@ -23,11 +23,12 @@
       "plugin": "upload"
     },
     "price": {
-      "default": "",
-      "type": "decimal"
+      "default": "0",
+      "type": "decimal",
+      "required": true
     },
     "rating": {
-      "default": "",
+      "default": "0.0",
       "max": 5,
       "type": "float"
     },

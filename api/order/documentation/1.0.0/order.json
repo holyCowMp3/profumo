@@ -524,7 +524,8 @@
             "type": "array",
             "items": {
               "required": [
-                "id"
+                "id",
+                "price"
               ],
               "properties": {
                 "id": {

@@ -13,7 +13,7 @@ const bootstrap = (plugin) => new Promise((resolve, reject) => {
           destination: 'user',
           plugin: 'content-manager',
         }],
-        name: 'Content Types',
+        name: 'Типы контента',
       });
 
       return resolve(plugin);
