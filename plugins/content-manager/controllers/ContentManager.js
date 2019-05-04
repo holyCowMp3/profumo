@@ -22,7 +22,16 @@ module.exports = {
       try {
         models.models[ob].label = models.models[ob].info.description.split('|')[0];
         models.models[ob].labelPlural = models.models[ob].info.description.split('|')[1];
+        for (let idre in models.models[ob].relations){
+          console.log(Object.keys(models.models).filter(s => s.substring(0, 3)== idre.substring(0,3))[0]);
+          var model = models.models[Object.keys(models.models).filter(s => s.substring(0, 3)== idre.substring(0,3))[0]];
+          if (model) {
+            models.models[ob].relations[idre].label = model.label;
+            models.models[ob].relations[idre].labelPlural = model.labelPlural;
+          }
+        }
       } catch (e) {
+        console.log(e);
         break;
       }
 
@@ -85,7 +94,7 @@ module.exports = {
 
   update: async ctx => {
     const { source } = ctx.request.query;
-
+    console.log(ctx.request.query);
     try {
       // Return the last one which is the current model.
       ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].edit(ctx.params, ctx.request.body, source);
@@ -98,6 +107,7 @@ module.exports = {
 
   updateSettings: async ctx => {
     const { schema } = ctx.request.body;
+    console.log(ctx.request.body);
     const pluginStore = strapi.store({
       environment: '',
       type: 'plugin',
