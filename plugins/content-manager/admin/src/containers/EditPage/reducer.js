@@ -33,7 +33,7 @@ const initialState = fromJS({
   isDraggingSibling: false,
   isLoading: true,
   modelName: '',
-  pluginHeaderTitle: 'New Entry',
+  pluginHeaderTitle: 'Новая запись',
   record: fromJS({}),
   resetProps: false,
   showLoader: false,

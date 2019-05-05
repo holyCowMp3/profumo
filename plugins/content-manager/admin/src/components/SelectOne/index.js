@@ -183,7 +183,7 @@ class SelectOne extends React.Component {
       <div className={`form-group ${styles.selectOne}`}>
         <nav className={styles.headline}>
           <label htmlFor={this.props.relation.alias}>
-            {this.props.relation.label}
+            {get(this.props.relation, 'label', this.props.relation.label)?get(this.props.relation, 'label', this.props.relation.label):this.props.relation.alias}
           </label>
           {entryLink}
         </nav>

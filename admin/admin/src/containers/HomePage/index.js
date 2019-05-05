@@ -40,6 +40,7 @@ import makeSelectHomePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import styles from './styles.scss';
+import Dashboard from '../../views/Dashboard/Dashboard';
 
 const FIRST_BLOCK = [
   {
@@ -176,7 +177,7 @@ export class HomePage extends React.PureComponent {
         title: {
           id: 'app.components.HomePage.welcome.again',
         },
-        name: upperFirst(`${get(auth.getUserInfo(), 'username')}!`),
+        name: upperFirst(` ${get(auth.getUserInfo(), 'username')}!`),
         content: () => <WelcomeContent hasContent />,
       },
     ];
@@ -184,81 +185,24 @@ export class HomePage extends React.PureComponent {
     return (
       <div className={cn('container-fluid', styles.containerFluid)}>
         <Helmet title="Home Page" />
+        <Dashboard/>
         <div className="row">
-          <div className="col-md-8 col-lg-8">
-            <Block>
-              {this.showFirstBlock() &&
-                FIRST_BLOCK.map((value, key) => (
-                  <Sub
-                    key={key}
-                    {...value}
-                    underline={key === 0}
-                    bordered={key === 0}
-                  />
-                ))}
-              {!this.showFirstBlock() &&
-                WELCOME_AGAIN_BLOCK.concat(articles).map((value, key) => (
-                  <Sub
-                    key={key}
-                    {...value}
-                    bordered={key === 0}
-                    style={key === 1 ? { marginBottom: '33px' } : {}}
-                    underline={key === 0}
-                  />
-                ))}
-              {this.renderButton()}
-              <div className={styles.homePageFlex}>
-                {FIRST_BLOCK_LINKS.map((value, key) => (
-                  <BlockLink {...value} key={key} />
-                ))}
-              </div>
-            </Block>
-            <Block>
-              <Sub {...SECOND_BLOCK} />
-              <div className={styles.homePageFlex}>
-                <div
-                  className="row"
-                  style={{ width: '100%', marginRight: '0' }}
-                >
-                  {SOCIAL_LINKS.map((value, key) => (
-                    <SocialLink key={key} {...value} />
-                  ))}
-                </div>
-                <div className={styles.newsLetterWrapper}>
-                  <div>
-                    <FormattedMessage id="app.components.HomePage.newsLetter" />
-                  </div>
-                  <form onSubmit={this.handleSubmit}>
-                    <div className={cn(styles.homePageForm, 'row')}>
-                      <div className="col-md-12">
-                        <Input
-                          value={body.email}
-                          onChange={this.props.onChange}
-                          name=""
-                          placeholder="johndoe@gmail.com"
-                          error={!isEmpty(this.state.errors)}
-                        />
-                        <FormattedMessage id="app.components.HomePage.cta">
-                          {message => <button type="submit">{message}</button>}
-                        </FormattedMessage>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </Block>
-          </div>
-          <div className="col-lg-4 col-md-4">
-            <Block className={styles.blockShirt}>
-              <div>
-                <SupportUsTitle />
-                <FormattedMessage id="app.components.HomePage.support.content">
-                  {message => <p>{message}</p>}
-                </FormattedMessage>
-                <SupportUsCta />
-              </div>
-            </Block>
-          </div>
+          {/*  <div className="col-md-3 col-lg-3">*/}
+          {/*    <Block>*/}
+          {/*    </Block>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-md-3 col-lg-3">*/}
+          {/*    <Block>*/}
+          {/*    </Block>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-md-3 col-lg-3">*/}
+          {/*    <Block>*/}
+          {/*    </Block>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-md-3 col-lg-3">*/}
+          {/*    <Block>*/}
+          {/*    </Block>*/}
+          {/*  </div>*/}
         </div>
       </div>
     );

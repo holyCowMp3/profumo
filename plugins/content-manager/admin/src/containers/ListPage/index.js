@@ -451,7 +451,7 @@ export class ListPage extends React.Component {
         id: 'addEntry',
         label: 'content-manager.containers.List.addAnEntry',
         labelValues: {
-          entity: capitalize(this.props.match.params.slug) || 'Content Manager',
+          entity: capitalize(this.getCurrentModel().label) || 'Content Manager',
         },
         kind: 'primaryAddShape',
         onClick: () => {
@@ -478,7 +478,7 @@ export class ListPage extends React.Component {
           },
         }}
         title={{
-          id: this.getCurrentModelName() || 'Content Manager',
+          id: this.getCurrentModel().labelPlural || 'Content Manager',
         }}
         withDescriptionAnim={this.showLoaders()}
       />

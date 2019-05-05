@@ -23,8 +23,8 @@ module.exports = {
         models.models[ob].label = models.models[ob].info.description.split('|')[0];
         models.models[ob].labelPlural = models.models[ob].info.description.split('|')[1];
         for (let idre in models.models[ob].relations){
-          console.log(Object.keys(models.models).filter(s => s.substring(0, 3)== idre.substring(0,3))[0]);
-          var model = models.models[Object.keys(models.models).filter(s => s.substring(0, 3)== idre.substring(0,3))[0]];
+          console.log(Object.keys(models.models).filter(s => s.substring(0, 5)== idre.substring(0,5))[0]);
+          var model = models.models[Object.keys(models.models).filter(s => s.substring(0, 5)== idre.substring(0,5))[0]];
           if (model) {
             models.models[ob].relations[idre].label = model.label;
             models.models[ob].relations[idre].labelPlural = model.labelPlural;
