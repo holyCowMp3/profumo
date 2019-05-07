@@ -9,9 +9,9 @@
     "timestamps": true
   },
   "attributes": {
-    "desc": {
+    "name_ru": {
       "default": "",
-      "type": "text"
+      "type": "string"
     },
     "product": {
       "model": "product",
@@ -29,9 +29,9 @@
       "default": "",
       "type": "string"
     },
-    "name_ru": {
+    "desc": {
       "default": "",
-      "type": "string"
+      "type": "text"
     },
     "name_ua": {
       "default": "",
@@ -40,6 +40,11 @@
     "rozetkacat": {
       "default": "",
       "type": "biginteger"
+    },
+    "properties": {
+      "collection": "property",
+      "via": "categories",
+      "dominant": true
     }
   }
 }

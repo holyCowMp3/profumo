@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/04/2019 6:42:43 PM"
+    "x-generation-date": "05/06/2019 10:31:03 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6590,6 +6590,15 @@
               },
               "descJSON": {
                 "type": "json"
+              },
+              "meta_title": {
+                "type": "string"
+              },
+              "meta_decription": {
+                "type": "string"
+              },
+              "meta_keywords": {
+                "type": "string"
               }
             }
           },
@@ -6629,6 +6638,12 @@
                 },
                 "rozetkacat": {
                   "type": "integer"
+                },
+                "properties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -6667,6 +6682,12 @@
               },
               "rozetkacat": {
                 "type": "integer"
+              },
+              "properties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -6685,6 +6706,40 @@
           "rozetkacat": {
             "type": "integer",
             "default": ""
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "short_name": {
+                  "type": "string"
+                },
+                "property_name": {
+                  "type": "string"
+                },
+                "property_val": {
+                  "type": "string"
+                },
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -6721,6 +6776,12 @@
           "rozetkacat": {
             "type": "integer",
             "default": ""
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -6836,6 +6897,15 @@
               },
               "descJSON": {
                 "type": "json"
+              },
+              "meta_title": {
+                "type": "string"
+              },
+              "meta_decription": {
+                "type": "string"
+              },
+              "meta_keywords": {
+                "type": "string"
               }
             }
           },
@@ -7023,6 +7093,15 @@
               },
               "descJSON": {
                 "type": "json"
+              },
+              "meta_title": {
+                "type": "string"
+              },
+              "meta_decription": {
+                "type": "string"
+              },
+              "meta_keywords": {
+                "type": "string"
               }
             }
           }
@@ -7138,6 +7217,15 @@
                 },
                 "descJSON": {
                   "type": "json"
+                },
+                "meta_title": {
+                  "type": "string"
+                },
+                "meta_decription": {
+                  "type": "string"
+                },
+                "meta_keywords": {
+                  "type": "string"
                 }
               }
             }
@@ -7335,6 +7423,12 @@
               },
               "rozetkacat": {
                 "type": "integer"
+              },
+              "properties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -7480,6 +7574,12 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -7489,6 +7589,15 @@
           },
           "descJSON": {
             "type": "json"
+          },
+          "meta_title": {
+            "type": "string"
+          },
+          "meta_decription": {
+            "type": "string"
+          },
+          "meta_keywords": {
+            "type": "string"
           }
         }
       },
@@ -7573,6 +7682,15 @@
           },
           "descJSON": {
             "type": "json"
+          },
+          "meta_title": {
+            "type": "string"
+          },
+          "meta_decription": {
+            "type": "string"
+          },
+          "meta_keywords": {
+            "type": "string"
           }
         }
       },
@@ -7672,6 +7790,61 @@
                 },
                 "descJSON": {
                   "type": "json"
+                },
+                "meta_title": {
+                  "type": "string"
+                },
+                "meta_decription": {
+                  "type": "string"
+                },
+                "meta_keywords": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "product": {
+                  "type": "string"
+                },
+                "child": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "parent": {
+                  "type": "string"
+                },
+                "name_en": {
+                  "type": "string"
+                },
+                "name_ru": {
+                  "type": "string"
+                },
+                "name_ua": {
+                  "type": "string"
+                },
+                "rozetkacat": {
+                  "type": "integer"
+                },
+                "properties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -7690,6 +7863,12 @@
             "type": "string"
           },
           "products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "categories": {
             "type": "array",
             "items": {
               "type": "string"

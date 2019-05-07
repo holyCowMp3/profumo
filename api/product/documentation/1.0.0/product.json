@@ -673,6 +673,12 @@
               },
               "rozetkacat": {
                 "type": "integer"
+              },
+              "properties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -818,6 +824,12 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -827,6 +839,15 @@
           },
           "descJSON": {
             "type": "json"
+          },
+          "meta_title": {
+            "type": "string"
+          },
+          "meta_decription": {
+            "type": "string"
+          },
+          "meta_keywords": {
+            "type": "string"
           }
         }
       },
@@ -911,6 +932,15 @@
           },
           "descJSON": {
             "type": "json"
+          },
+          "meta_title": {
+            "type": "string"
+          },
+          "meta_decription": {
+            "type": "string"
+          },
+          "meta_keywords": {
+            "type": "string"
           }
         }
       }

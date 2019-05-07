@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
@@ -15,6 +15,9 @@ import SelectMany from '../SelectMany';
 import styles from './styles.scss';
 
 function EditRelations(props) {
+
+  const  [categoryId, setCategoryId] = useState('');
+
   return (
     <div className={styles.editFormRelations}>
       {props.displayedRelations.map(relationName => {
@@ -23,6 +26,8 @@ function EditRelations(props) {
         if(['oneWay', 'oneToOne', 'manyToOne', 'oneToManyMorph', 'oneToOneMorph'].includes(relation.nature)) {
           return (
             <SelectOne
+              categoryId={categoryId}
+              setCategoryId={setCategoryId}
               currentModelName={props.currentModelName}
               key={relationName}
               record={props.record}
@@ -37,6 +42,8 @@ function EditRelations(props) {
         
         return (
           <SelectMany
+            categoryId={categoryId}
+            setCategoryId={setCategoryId}
             currentModelName={props.currentModelName}
             key={relationName}
             isDraggingSibling={props.isDraggingSibling}

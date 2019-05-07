@@ -604,6 +604,61 @@
                 },
                 "descJSON": {
                   "type": "json"
+                },
+                "meta_title": {
+                  "type": "string"
+                },
+                "meta_decription": {
+                  "type": "string"
+                },
+                "meta_keywords": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "product": {
+                  "type": "string"
+                },
+                "child": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "parent": {
+                  "type": "string"
+                },
+                "name_en": {
+                  "type": "string"
+                },
+                "name_ru": {
+                  "type": "string"
+                },
+                "name_ua": {
+                  "type": "string"
+                },
+                "rozetkacat": {
+                  "type": "integer"
+                },
+                "properties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -622,6 +677,12 @@
             "type": "string"
           },
           "products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "categories": {
             "type": "array",
             "items": {
               "type": "string"

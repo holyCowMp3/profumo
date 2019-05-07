@@ -21,13 +21,13 @@ import SortableList from './SortableList';
 // CSS.
 import styles from './styles.scss';
 
+
 class SelectMany extends React.PureComponent {
   state = {
     isLoading: true,
     options: [],
     start: 0,
   };
-
   componentDidMount() {
     this.getOptions('');
   }
@@ -35,16 +35,24 @@ class SelectMany extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {
     if (isEmpty(prevProps.record) && !isEmpty(this.props.record)) {
       const values = (get(this.props.record, this.props.relation.alias) || []).map(el => el.id || el._id);
-
       const options = this.state.options.filter(el => {
         return !values.includes(el.value.id || el.value._id);
       });
-
       this.state.options = options;
     }
-
     if (prevState.start !== this.state.start) {
       this.getOptions('');
+    }
+    if (this.props.relation.collection === 'property' && this.props.currentModelName ==='product') {
+      if (prevProps.categoryId !== this.props.categoryId) {
+        console.log(prevProps.categoryId + '   ****   ' + this.props.categoryId);
+        const values = get(this.props.record, this.props.relation.alias);
+        console.log(values);
+        for (let i in values){
+          this.handleRemove(i);
+        }
+        this.getOptions('');
+      }
     }
   }
 
@@ -54,7 +62,6 @@ class SelectMany extends React.PureComponent {
       _start: this.state.start,
       source: this.props.relation.plugin || 'content-manager',
     };
-
     // Set `query` parameter if necessary
     if (query) {
       delete params._limit;
@@ -62,9 +69,15 @@ class SelectMany extends React.PureComponent {
       params[`${this.props.relation.displayedAttribute}_contains`] = query;
     }
     // Request URL
-    const requestUrl = `/content-manager/explorer/${this.props.relation.model ||
-      this.props.relation.collection}`;
-
+    let requestUrl = `/content-manager/explorer/${this.props.relation.model ||
+      this.props.relation.collection }`;
+    if (this.props.relation.collection === 'property' && this.props.currentModelName==='product') {
+        delete params._skip;
+        delete params.source;
+        delete params._limit;
+        delete params._start;
+        requestUrl = `/properties`;
+    }
     // Call our request helper (see 'utils/request')
     return request(requestUrl, {
       method: 'GET',
@@ -92,6 +105,17 @@ class SelectMany extends React.PureComponent {
           }
         });
 
+        if (this.props.relation.collection === 'property' && this.props.currentModelName==='product') {
+         var newOpts = newOptions.filter(value => {
+             let propLen = value.value.categories.filter(cat => cat.id === this.props.categoryId);
+             console.log(propLen.length)
+           return propLen.length>0});
+          return this.setState({
+            options: newOpts,
+            isLoading: false,
+          });
+        }
+
         return this.setState({
           options: newOptions,
           isLoading: false,
@@ -105,18 +129,17 @@ class SelectMany extends React.PureComponent {
   handleInputChange = value => {
     const clonedOptions = this.state.options;
     const filteredValues = clonedOptions.filter(data => includes(data.label, value));
-
     if (filteredValues.length === 0) {
       return this.getOptions(value);
     }
   };
 
   handleChange = value => {
+
     // Remove new added value from available option;
     this.state.options = this.state.options.filter(
       el => !((el.value._id || el.value.id) === (value.value.id || value.value._id)),
     );
-
     this.props.onAddRelationalItem({
       key: this.props.relation.alias,
       value: value.value,
@@ -132,22 +155,19 @@ class SelectMany extends React.PureComponent {
   };
 
   handleRemove = index => {
-    const values = get(this.props.record, this.props.relation.alias);
-
-    // Add removed value from available option;
-    const toAdd = {
-      value: values[index],
-      label: templateObject({ mainField: this.props.relation.displayedAttribute }, values[index]).mainField,
-    };
-
-    this.setState(prevState => ({
-      options: prevState.options.concat([toAdd]),
-    }));
-
-    this.props.onRemoveRelationItem({
-      key: this.props.relation.alias,
-      index,
-    });
+      const values = get(this.props.record, this.props.relation.alias);
+      // Add removed value from available option;
+      const toAdd = {
+        value: values[index],
+        label: templateObject({mainField: this.props.relation.displayedAttribute}, values[index]).mainField,
+      };
+      this.setState(prevState => ({
+        options: prevState.options.concat([toAdd])
+      }));
+      this.props.onRemoveRelationItem({
+        key: this.props.relation.alias,
+        index,
+      });
   };
 
   // Redirect to the edit page
@@ -157,6 +177,7 @@ class SelectMany extends React.PureComponent {
       id: item.value.id || item.value._id,
       source: this.props.relation.plugin,
     });
+
   };
 
   render() {

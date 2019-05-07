@@ -24,7 +24,7 @@ module.exports = {
     const filters = convertRestQueryParams(params);
     const populateOpt = populate || Property.associations
       .filter(ast => ast.autoPopulate !== false)
-      .map(ast => ast.alias)
+      .map(ast => ast.alias);
 
     return buildQuery({
       model: Property,
@@ -64,7 +64,7 @@ module.exports = {
       model: Property,
       filters: { where: filters.where },
     })
-      .count()
+      .count();
   },
 
   /**

@@ -27,6 +27,10 @@ module.exports = {
     {
       label: '',
       destination: 'slidercontent'
+    },
+    {
+      label: '',
+      destination: 'user'
     }
   ],
 };

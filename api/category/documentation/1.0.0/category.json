@@ -597,6 +597,15 @@
               },
               "descJSON": {
                 "type": "json"
+              },
+              "meta_title": {
+                "type": "string"
+              },
+              "meta_decription": {
+                "type": "string"
+              },
+              "meta_keywords": {
+                "type": "string"
               }
             }
           },
@@ -636,6 +645,12 @@
                 },
                 "rozetkacat": {
                   "type": "integer"
+                },
+                "properties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -674,6 +689,12 @@
               },
               "rozetkacat": {
                 "type": "integer"
+              },
+              "properties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -692,6 +713,40 @@
           "rozetkacat": {
             "type": "integer",
             "default": ""
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "short_name": {
+                  "type": "string"
+                },
+                "property_name": {
+                  "type": "string"
+                },
+                "property_val": {
+                  "type": "string"
+                },
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -728,6 +783,12 @@
           "rozetkacat": {
             "type": "integer",
             "default": ""
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

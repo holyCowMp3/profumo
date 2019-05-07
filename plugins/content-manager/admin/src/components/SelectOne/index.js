@@ -117,6 +117,12 @@ class SelectOne extends React.Component {
   };
 
   handleChange = value => {
+    if(this.props.relation.model==='category') {
+      if(value) {
+        this.props.setCategoryId(value._id);
+      }
+    }
+
     const target = {
       name: `record.${this.props.relation.alias}`,
       value,

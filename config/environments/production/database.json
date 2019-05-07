@@ -8,9 +8,9 @@
         "uri": "",
         "host": "localhost",
         "port": "27017",
-        "database": "proddb",
-        "username": "Dmytro Teslov",
-        "password": "100599dima"
+        "database": "production",
+        "username": "",
+        "password": ""
       },
       "options": {
         "authenticationDatabase": "production",

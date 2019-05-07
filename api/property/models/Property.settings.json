@@ -22,6 +22,10 @@
       "collection": "product",
       "dominant": true,
       "via": "properties"
+    },
+    "categories": {
+      "collection": "category",
+      "via": "properties"
     }
   }
 }

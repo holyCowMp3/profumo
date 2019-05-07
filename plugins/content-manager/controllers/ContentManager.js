@@ -84,7 +84,7 @@ module.exports = {
     try {
       // Create an entry using `queries` system
       ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].add(ctx.params, ctx.request.body, source);
-
+      console.log(ctx.body);
       strapi.emit('didCreateFirstContentTypeEntry', ctx.params, source);
     } catch(error) {
       strapi.log.error(error);

@@ -605,6 +605,15 @@
               },
               "descJSON": {
                 "type": "json"
+              },
+              "meta_title": {
+                "type": "string"
+              },
+              "meta_decription": {
+                "type": "string"
+              },
+              "meta_keywords": {
+                "type": "string"
               }
             }
           }
