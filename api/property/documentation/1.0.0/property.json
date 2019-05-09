@@ -627,7 +627,7 @@
                 "id": {
                   "type": "string"
                 },
-                "desc": {
+                "name_ru": {
                   "type": "string"
                 },
                 "product": {
@@ -645,14 +645,14 @@
                 "name_en": {
                   "type": "string"
                 },
-                "name_ru": {
+                "desc": {
                   "type": "string"
                 },
                 "name_ua": {
                   "type": "string"
                 },
                 "rozetkacat": {
-                  "type": "integer"
+                  "type": "string"
                 },
                 "properties": {
                   "type": "array",

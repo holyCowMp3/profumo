@@ -19,6 +19,7 @@
     "eslint-plugin-react": "^7.7.0"
   },
   "dependencies": {
+    "eslint-plugin-react-hooks": "^1.6.0",
     "liqpay-sdk": "^3.2.0",
     "lodash": "^4.17.5",
     "markdown-it": "^8.4.2",

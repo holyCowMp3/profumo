@@ -33,7 +33,9 @@
   "bundleDependencies": false,
   "dependencies": {
     "pluralize": "^7.0.0",
-    "strapi-utils": "3.0.0-alpha.26"
+    "strapi-utils": "3.0.0-alpha.26",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "deprecated": false,
   "description": "A powerful UI to easily manage your data.",
@@ -41,6 +43,8 @@
     "codemirror": "^5.39.0",
     "draft-js": "^0.10.5",
     "react-select": "^1.2.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "showdown": "^1.8.6",
     "strapi-helper-plugin": "3.0.0-alpha.26"
   },

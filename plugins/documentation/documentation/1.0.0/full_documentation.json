@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/06/2019 10:31:03 PM"
+    "x-generation-date": "05/08/2019 10:45:03 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6509,7 +6509,7 @@
           "id": {
             "type": "string"
           },
-          "desc": {
+          "name_ru": {
             "type": "string",
             "default": ""
           },
@@ -6612,7 +6612,7 @@
                 "id": {
                   "type": "string"
                 },
-                "desc": {
+                "name_ru": {
                   "type": "string"
                 },
                 "product": {
@@ -6630,14 +6630,14 @@
                 "name_en": {
                   "type": "string"
                 },
-                "name_ru": {
+                "desc": {
                   "type": "string"
                 },
                 "name_ua": {
                   "type": "string"
                 },
                 "rozetkacat": {
-                  "type": "integer"
+                  "type": "string"
                 },
                 "properties": {
                   "type": "array",
@@ -6656,7 +6656,7 @@
               "id": {
                 "type": "string"
               },
-              "desc": {
+              "name_ru": {
                 "type": "string"
               },
               "product": {
@@ -6674,14 +6674,14 @@
               "name_en": {
                 "type": "string"
               },
-              "name_ru": {
+              "desc": {
                 "type": "string"
               },
               "name_ua": {
                 "type": "string"
               },
               "rozetkacat": {
-                "type": "integer"
+                "type": "string"
               },
               "properties": {
                 "type": "array",
@@ -6695,7 +6695,7 @@
             "type": "string",
             "default": ""
           },
-          "name_ru": {
+          "desc": {
             "type": "string",
             "default": ""
           },
@@ -6704,7 +6704,7 @@
             "default": ""
           },
           "rozetkacat": {
-            "type": "integer",
+            "type": "string",
             "default": ""
           },
           "properties": {
@@ -6745,7 +6745,7 @@
       },
       "NewCategory": {
         "properties": {
-          "desc": {
+          "name_ru": {
             "type": "string",
             "default": ""
           },
@@ -6765,7 +6765,7 @@
             "type": "string",
             "default": ""
           },
-          "name_ru": {
+          "desc": {
             "type": "string",
             "default": ""
           },
@@ -6774,7 +6774,7 @@
             "default": ""
           },
           "rozetkacat": {
-            "type": "integer",
+            "type": "string",
             "default": ""
           },
           "properties": {
@@ -7397,7 +7397,7 @@
               "id": {
                 "type": "string"
               },
-              "desc": {
+              "name_ru": {
                 "type": "string"
               },
               "product": {
@@ -7415,14 +7415,14 @@
               "name_en": {
                 "type": "string"
               },
-              "name_ru": {
+              "desc": {
                 "type": "string"
               },
               "name_ua": {
                 "type": "string"
               },
               "rozetkacat": {
-                "type": "integer"
+                "type": "string"
               },
               "properties": {
                 "type": "array",
@@ -7813,7 +7813,7 @@
                 "id": {
                   "type": "string"
                 },
-                "desc": {
+                "name_ru": {
                   "type": "string"
                 },
                 "product": {
@@ -7831,14 +7831,14 @@
                 "name_en": {
                   "type": "string"
                 },
-                "name_ru": {
+                "desc": {
                   "type": "string"
                 },
                 "name_ua": {
                   "type": "string"
                 },
                 "rozetkacat": {
-                  "type": "integer"
+                  "type": "string"
                 },
                 "properties": {
                   "type": "array",

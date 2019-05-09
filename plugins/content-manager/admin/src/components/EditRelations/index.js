@@ -4,7 +4,7 @@
  *
  */
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
@@ -16,18 +16,38 @@ import styles from './styles.scss';
 
 function EditRelations(props) {
 
-  const  [categoryId, setCategoryId] = useState('');
+  function Store(initialState = {categoryId:''}) {
+    this.state = initialState;
+  }
+  Store.prototype.mergeState = function(partialState) {
+    Object.assign(this.state,partialState);
+  };
+
+  Store.prototype.getState = function (){
+    return this.state;
+  };
+
+  const myStore = new Store();
+
 
   return (
     <div className={styles.editFormRelations}>
       {props.displayedRelations.map(relationName => {
         const relation = get(props.schema, ['relations', relationName], {});
 
-        if(['oneWay', 'oneToOne', 'manyToOne', 'oneToManyMorph', 'oneToOneMorph'].includes(relation.nature)) {
+        if (
+          [
+            'oneWay',
+            'oneToOne',
+            'manyToOne',
+            'oneToManyMorph',
+            'oneToOneMorph',
+          ].includes(relation.nature)
+        ) {
           return (
             <SelectOne
-              categoryId={categoryId}
-              setCategoryId={setCategoryId}
+              mergeState={myStore.mergeState.bind(myStore)}
+              getState={myStore.getState.bind(myStore)}
               currentModelName={props.currentModelName}
               key={relationName}
               record={props.record}
@@ -38,12 +58,12 @@ function EditRelations(props) {
               onRedirect={props.onRedirect}
             />
           );
-        } 
-        
+        }
+
         return (
           <SelectMany
-            categoryId={categoryId}
-            setCategoryId={setCategoryId}
+            mergeState={myStore.mergeState.bind(myStore)}
+            getState={myStore.getState.bind(myStore)}
             currentModelName={props.currentModelName}
             key={relationName}
             isDraggingSibling={props.isDraggingSibling}

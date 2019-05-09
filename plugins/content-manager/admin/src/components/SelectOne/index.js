@@ -81,7 +81,7 @@ class SelectOne extends React.Component {
               value: item,
               label: templateObject(
                 { mainField: this.props.relation.displayedAttribute },
-                item,
+                item
               ).mainField,
             }))
           : [
@@ -89,7 +89,7 @@ class SelectOne extends React.Component {
                 value: response,
                 label: templateObject(
                   { mainField: this.props.relation.displayedAttribute },
-                  response,
+                  response
                 ).mainField,
               },
             ];
@@ -111,15 +111,15 @@ class SelectOne extends React.Component {
       })
       .catch(() => {
         strapi.notification.error(
-          'content-manager.notification.error.relationship.fetch',
+          'content-manager.notification.error.relationship.fetch'
         );
       });
   };
 
   handleChange = value => {
-    if(this.props.relation.model==='category') {
-      if(value) {
-        this.props.setCategoryId(value._id);
+    if (this.props.relation.model === 'category') {
+      if (value) {
+        this.props.mergeState({categoryId:value._id});
       }
     }
 
@@ -152,7 +152,7 @@ class SelectOne extends React.Component {
   handleInputChange = value => {
     const clonedOptions = this.state.options;
     const filteredValues = clonedOptions.filter(data =>
-      includes(data.label, value),
+      includes(data.label, value)
     );
 
     if (filteredValues.length === 0) {
@@ -169,7 +169,7 @@ class SelectOne extends React.Component {
 
     const value = get(this.props.record, this.props.relation.alias);
     const excludeModel = ['role', 'permission', 'file'].includes(
-      this.props.relation.model || this.props.relation.collection,
+      this.props.relation.model || this.props.relation.collection
     ); // Temporary.
     const entryLink =
       isNull(value) || isUndefined(value) || excludeModel ? (
@@ -189,7 +189,9 @@ class SelectOne extends React.Component {
       <div className={`form-group ${styles.selectOne}`}>
         <nav className={styles.headline}>
           <label htmlFor={this.props.relation.alias}>
-            {get(this.props.relation, 'label', this.props.relation.label)?get(this.props.relation, 'label', this.props.relation.label):this.props.relation.alias}
+            {get(this.props.relation, 'label', this.props.relation.label)
+              ? get(this.props.relation, 'label', this.props.relation.label)
+              : this.props.relation.alias}
           </label>
           {entryLink}
         </nav>
@@ -211,7 +213,7 @@ class SelectOne extends React.Component {
                   label:
                     templateObject(
                       { mainField: this.props.relation.displayedAttribute },
-                      isFunction(value.toJS) ? value.toJS() : value,
+                      isFunction(value.toJS) ? value.toJS() : value
                     ).mainField ||
                     (isFunction(value.toJS)
                       ? get(value.toJS(), 'id')

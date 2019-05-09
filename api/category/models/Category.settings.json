@@ -39,7 +39,7 @@
     },
     "rozetkacat": {
       "default": "",
-      "type": "biginteger"
+      "type": "string"
     },
     "properties": {
       "collection": "property",
