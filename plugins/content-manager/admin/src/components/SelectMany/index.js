@@ -95,8 +95,7 @@ class SelectMany extends React.PureComponent {
     ) {
       delete params._skip;
       delete params.source;
-      delete params._limit;
-      delete params._start;
+      params['categories._id']=this.state.newCatId;
       requestUrl = '/properties';
     }
     // Call our request helper (see 'utils/request')
@@ -131,21 +130,21 @@ class SelectMany extends React.PureComponent {
           }
         });
 
-        if (
-          this.props.relation.collection === 'property' &&
-          this.props.currentModelName === 'product'
-        ) {
-          var newOpts = newOptions.filter(value => {
-            let propLen = value.value.categories.filter(
-              cat => cat.id === this.state.newCatId
-            );
-            return propLen.length > 0;
-          });
-          return this.setState({
-            options: newOpts,
-            isLoading: false,
-          });
-        }
+        // if (
+        //   this.props.relation.collection === 'property' &&
+        //   this.props.currentModelName === 'product'
+        // ) {
+        //   var newOpts = newOptions.filter(value => {
+        //     let propLen = value.value.categories.filter(
+        //       cat => cat.id === this.state.newCatId
+        //     );
+        //     return propLen.length > 0;
+        //   });
+        //   return this.setState({
+        //     options: newOpts,
+        //     isLoading: false,
+        //   });
+        // }
 
         return this.setState({
           options: newOptions,

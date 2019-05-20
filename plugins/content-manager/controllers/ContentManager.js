@@ -79,12 +79,139 @@ module.exports = {
   },
 
   create: async ctx => {
+
     const { source } = ctx.request.query;
+    function processText(string) {
+      return string.replace('\n','').replace('\n','');
+    }
+    function  getCategories(url, callback){
+      const jsdom = require('jsdom');
+      const { JSDOM } = jsdom;
+      var request = require('request');
+      var subCategories;
+      subCategories = [];
+      request(url, function (error, response, body) {
+        if (!error) {
+          const { document } = (new JSDOM(body)).window;
+          for (let elem of document.getElementById('menu_categories_left').getElementsByTagName('li')){
+            switch (elem.getAttribute('class')) {
+              case 'm-cat-l-i m-cat-l-i-roll' :{
+                try {
+                  subCategories.push({
+                    name_ru:  processText(elem.getElementsByClassName('m-cat-l-i-title-value')[0].innerHTML),
+                    rozetkacat: elem.getElementsByClassName('m-cat-subl-i-link')[0].getAttribute('href')
+                  });
+                } catch (e) {
+                  subCategories.push({
+                    name_ru: processText(elem.getElementsByClassName('m-cat-l-i-title-link')[0].innerHTML),
+                    rozetkacat:elem.getElementsByClassName('m-cat-l-i-title-link')[0].getAttribute('href')});
+                }
+              } break;
+              case  'm-cat-l-i':{
+                subCategories.push({
+                  name_ru:processText(elem.getElementsByClassName('m-cat-l-i-title-link')[0].innerHTML),
+                  rozetkacat:elem.getElementsByClassName('m-cat-l-i-title-link')[0].getAttribute('href')});
+              } break;
+            }
+          }
+          callback(subCategories);
+        } else {
+          console.log('Произошла ошибка: ' + error);
+        }
+      });
+
+    }
+
+    function trasformCategories(subCategories, callback){
+      const jsdom = require('jsdom');
+      const { JSDOM } = jsdom;
+      var request = require('request');
+      for(let category of subCategories){
+        request(category.rozetkacat, function (error, response, body) {
+
+          if (!error) {
+            let properties = [];
+            let {document} = (new JSDOM(body)).window;
+            let formElem = document.getElementById('parameters-filter-form');
+            if(!formElem){
+              return;
+            }
+            let parameterBlocks = formElem.getElementsByClassName('filter-parametrs-i ');
+            for (let block of parameterBlocks){
+              let props = {property_value:[]};
+              let name = block.querySelectorAll('[name=\'filter_parameters_title\']')[0].innerHTML;
+              if(name.includes('Производитель')
+                || name.includes('Программа лояльности')
+                || name.includes('Продавец') )
+              {continue;}
+              props.property_name = name;
+              for(let propertyIn of block.querySelectorAll('[name=\'filter_parameters_list\']')){
+                for (let param of propertyIn.getElementsByClassName('filter-parametrs-i-l-i-default-title')){
+                  props.property_value.push(param.innerHTML);
+                }
+                properties.push(props);
+              }
+            }
+            category.params = properties;
+            callback(category);
+          } else {
+            console.trace(error);
+          }
+
+        });
+
+      }
+
+
+    }
+
+    async function persistProperties(transformed,parentId, callback) {
+      transformed.parent = parentId;
+      let categoryPropsID = [];
+      for (let property of transformed.params){
+        for(let propValue of property.property_value){
+          let find = await strapi.services.property.fetch({
+            short_name:property.property_name.toLocaleUpperCase() +' '+ propValue.toLocaleUpperCase()});
+          if (find){
+            categoryPropsID.push(find.id);
+          } else {
+            categoryPropsID.push(await strapi.services.property.add({
+              short_name:property.property_name.toLocaleUpperCase() +' '+ propValue.toLocaleUpperCase(),
+              property_name:property.property_name,
+              property_val:propValue
+            })._id);
+          }
+        }
+      }
+
+      Promise.all(categoryPropsID).then( res=>{
+        transformed.properties = res;
+        callback(transformed);});
+
+    }
 
     try {
       // Create an entry using `queries` system
       ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].add(ctx.params, ctx.request.body, source);
-      console.log(ctx.body);
+      let parentId = ctx.body.id;
+      if('rozetkacat' in ctx.request.body.fields){
+        try {
+          getCategories(ctx.request.body.fields.rozetkacat, (res)=>{
+            trasformCategories(res,  (transformed) =>{
+              persistProperties(transformed,parentId,(persisted) => {
+                console.log(persisted);
+                strapi.services.category.add(persisted);
+              });
+
+
+            });
+          });
+
+        } catch (e) {
+          console.log(e);
+        }
+
+      }
       strapi.emit('didCreateFirstContentTypeEntry', ctx.params, source);
     } catch(error) {
       strapi.log.error(error);

@@ -39,7 +39,8 @@
     },
     "rozetkacat": {
       "default": "",
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "properties": {
       "collection": "property",
