@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, {Fragment} from 'react';
 import Select from 'react-select';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
@@ -17,6 +17,7 @@ import {
   get,
   findIndex,
   isEmpty,
+  groupBy,
 } from 'lodash';
 
 // Utils.
@@ -35,11 +36,12 @@ class SelectMany extends React.PureComponent {
     isLoading: true,
     options: [],
     start: 0,
-    oldCatId:'',
-    newCatId:''
+    oldCatId:'--',
+    newCatId:'---'
   };
   componentDidMount() {
-
+    console.log(this.props.relation);
+   // if (this.props.currentModelName==='product' && !(this.props.relation.alias==='properties')){}
     this.getOptions('');
   }
 
@@ -68,6 +70,7 @@ class SelectMany extends React.PureComponent {
           for (let i in values) {
             this.handleRemove(i);
           }
+
         }
         this.getOptions('');
       }
@@ -93,8 +96,8 @@ class SelectMany extends React.PureComponent {
       this.props.relation.collection === 'property' &&
       this.props.currentModelName === 'product'
     ) {
-      delete params._skip;
       delete params.source;
+      params._limit =-1;
       params['categories._id']=this.state.newCatId;
       requestUrl = '/properties';
     }
@@ -104,6 +107,8 @@ class SelectMany extends React.PureComponent {
       params,
     })
       .then(response => {
+        
+        console.log(response.length);
         /* eslint-disable indent */
         const options = isArray(response)
           ? response.map(item => ({
@@ -129,23 +134,16 @@ class SelectMany extends React.PureComponent {
             return newOptions.push(option);
           }
         });
+        if (
+          this.props.relation.collection === 'property' &&
+          this.props.currentModelName === 'product'
+        ) {
 
-        // if (
-        //   this.props.relation.collection === 'property' &&
-        //   this.props.currentModelName === 'product'
-        // ) {
-        //   var newOpts = newOptions.filter(value => {
-        //     let propLen = value.value.categories.filter(
-        //       cat => cat.id === this.state.newCatId
-        //     );
-        //     return propLen.length > 0;
-        //   });
-        //   return this.setState({
-        //     options: newOpts,
-        //     isLoading: false,
-        //   });
-        // }
-
+          return this.setState({
+            options: options,
+            isLoading: false,
+          });
+        }
         return this.setState({
           options: newOptions,
           isLoading: false,
@@ -245,18 +243,43 @@ class SelectMany extends React.PureComponent {
           <span>({value.length})</span>
         </label>
         {description}
-        <Select
-          className={`${styles.select}`}
-          id={this.props.relation.alias}
-          isLoading={this.state.isLoading}
-          onChange={this.handleChange}
-          onInputChange={this.handleInputChange}
-          onMenuScrollToBottom={this.handleBottomScroll}
-          options={this.state.options}
-          placeholder={
-            <FormattedMessage id="content-manager.containers.Edit.addAnItem" />
-          }
-        />
+        <div></div>
+        {
+          (this.props.currentModelName==='product' && this.props.relation.alias==='properties')?
+          Object.entries(
+            groupBy(this.state.options, option => option.value.property_name))
+            .map( (opts) => {
+              return( <Fragment>
+               <label htmlFor={opts[0]}>{opts[0]}</label>
+               <Select
+                 className={`${styles.select}`}
+                 id={this.props.relation.alias}
+                 isLoading={this.state.isLoading}
+                 onChange={this.handleChange}
+                 onInputChange={this.handleInputChange}
+                 onMenuScrollToBottom={undefined}
+                 options={opts[1]}
+                 placeholder={
+                   <FormattedMessage id="content-manager.containers.Edit.addAnItem" />
+                 }
+               />
+             </Fragment>
+          )
+            }):<Fragment>
+            <Select
+              className={`${styles.select}`}
+              id={this.props.relation.alias}
+              isLoading={this.state.isLoading}
+              onChange={this.handleChange}
+              onInputChange={this.handleInputChange}
+              onMenuScrollToBottom={this.handleBottomScroll}
+              options={this.state.options}
+              placeholder={
+                <FormattedMessage id="content-manager.containers.Edit.addAnItem" />
+              }
+            />
+          </Fragment>
+        }
         <SortableList
           items={
             /* eslint-disable indent */

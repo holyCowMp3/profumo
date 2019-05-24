@@ -55,9 +55,8 @@ module.exports = {
   create: async (ctx) => {
 
     let promise = strapi.services.order.add(ctx.request.body);
-    function getId(id) {
-     let dbResult = strapi.services.product.fetch({"params":{"id":id}});
-     return dbResult;
+    function getId(id) {let dbResult = strapi.services.product.fetch({"params":{"id":id}});
+    return dbResult;
     }
     let price = 0;
     let productCategories ='';

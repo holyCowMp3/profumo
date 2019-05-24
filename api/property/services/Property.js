@@ -21,11 +21,12 @@ module.exports = {
    */
 
   fetchAll: (params, populate) => {
+
     const filters = convertRestQueryParams(params);
     const populateOpt = populate || Property.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
-
+    console.log(populateOpt);
     return buildQuery({
       model: Property,
       filters,

@@ -39,13 +39,16 @@ class SelectOne extends React.Component {
   }
 
   componentDidMount() {
+    //
     this.getOptions('');
+
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.toSkip !== this.state.toSkip) {
       this.getOptions('');
     }
+
   }
 
   getOptions = query => {

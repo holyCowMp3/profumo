@@ -18,7 +18,13 @@ module.exports = {
     if (ctx.query._q) {
       return strapi.services.property.search(ctx.query);
     } else {
-      return strapi.services.property.fetchAll(ctx.query, populate);
+      let res =await strapi.services.property.fetchAll(ctx.query, populate);
+
+      return await res.map(field => {
+        let obj = field;
+        obj.categories = undefined;
+        return obj;
+      });
     }
   },
 
