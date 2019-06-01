@@ -90,7 +90,7 @@ module.exports = {
       var request = require('request');
       var subCategories;
       subCategories = [];
-      request.get({url:url},{timeout: 20000}, function (error, response, body) {
+      request.get(url,{timeout: 20000}, function (error, response, body) {
 
         if (!error) {
           const { document } = (new JSDOM(body)).window;
