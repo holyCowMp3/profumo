@@ -90,7 +90,8 @@ module.exports = {
       var request = require('request');
       var subCategories;
       subCategories = [];
-      request(url, function (error, response, body) {
+      request.get({url:url},{timeout: 20000}, function (error, response, body) {
+
         if (!error) {
           const { document } = (new JSDOM(body)).window;
           for (let elem of document.getElementById('menu_categories_left').getElementsByTagName('li')){
@@ -118,10 +119,9 @@ module.exports = {
         } else {
           console.log('Произошла ошибка: ' + error);
         }
-      });
+      }).end();
 
     }
-
     function trasformCategories(subCategories, callback){
       const jsdom = require('jsdom');
       const { JSDOM } = jsdom;
@@ -164,7 +164,6 @@ module.exports = {
 
 
     }
-
     async function persistProperties(transformed,parentId, callback) {
       transformed.parent = parentId;
       let categoryPropsID = [];
@@ -189,7 +188,18 @@ module.exports = {
         callback(transformed);});
 
     }
-
+    function getCategoryFromChild(url, callback) {
+      const jsdom = require('jsdom');
+      const { JSDOM } = jsdom;
+      var request = require('request');
+      var subCategories;
+      subCategories = [];
+      request(url, function (error, response, body) {
+        if (!error) {
+          const {document} = (new JSDOM(body)).window;
+        }
+      });
+    }
     try {
       // Create an entry using `queries` system
       ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].add(ctx.params, ctx.request.body, source);
@@ -202,8 +212,6 @@ module.exports = {
                 console.log(persisted);
                 strapi.services.category.add(persisted);
               });
-
-
             });
           });
 
