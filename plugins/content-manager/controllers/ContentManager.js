@@ -23,7 +23,6 @@ module.exports = {
         models.models[ob].label = models.models[ob].info.description.split('|')[0];
         models.models[ob].labelPlural = models.models[ob].info.description.split('|')[1];
         for (let idre in models.models[ob].relations){
-          console.log(Object.keys(models.models).filter(s => s.substring(0, 5)== idre.substring(0,5))[0]);
           var model = models.models[Object.keys(models.models).filter(s => s.substring(0, 5)== idre.substring(0,5))[0]];
           if (model) {
             models.models[ob].relations[idre].label = model.label;
@@ -173,7 +172,17 @@ module.exports = {
       const jsdom = require('jsdom');
       const { JSDOM } = jsdom;
       var request = require('request');
-      request(url, function (error, response, body) {
+      request({uri: url,
+        headers: {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Cache-Control': 'max-age=0',
+          'Connection': 'keep-alive',
+          'Upgrade-Insecure-Requests': '1',
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+      },
+      gzip: true
+    }, function (error, response, body) {
           if (!error) {
             let properties = [];
             let {document} = (new JSDOM(body)).window;
