@@ -172,7 +172,7 @@ module.exports = {
           let find = await strapi.services.property.fetch({
             short_name:property.property_name.toLocaleUpperCase() +' '+ propValue.toLocaleUpperCase()});
           if (find){
-            categoryPropsID.push(find.id);
+            categoryPropsID.push(find._id);
           } else {
             categoryPropsID.push(await strapi.services.property.add({
               short_name:property.property_name.toLocaleUpperCase() +' '+ propValue.toLocaleUpperCase(),
