@@ -172,7 +172,9 @@ module.exports = {
       const jsdom = require('jsdom');
       const { JSDOM } = jsdom;
       var request = require('request');
-      request({uri: url,
+      request({path: url,
+        host:"178.219.175.128",
+        port:53464,
         headers: {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
           'Accept-Encoding': 'gzip, deflate, br',
