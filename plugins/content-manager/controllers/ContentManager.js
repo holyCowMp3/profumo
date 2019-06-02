@@ -91,13 +91,18 @@ module.exports = {
       var subCategories;
       subCategories = [];
       request.get(url,{timeout: 20000}, function (error, response, body) {
-
         if (!error) {
           const { document } = (new JSDOM(body)).window;
           for (let elem of document.getElementById('menu_categories_left').getElementsByTagName('li')){
             switch (elem.getAttribute('class')) {
               case 'm-cat-l-i m-cat-l-i-roll' :{
                 try {
+                  // var subCatWithSubCats = elem.getElementsByClassName("m-cat-l-i-title m-cat-l-i-title-roll m-cat-l-i-with-link")[0];
+                  // if(subCatWithSubCats){
+                  //   var linkToSubCat = subCatWithSubCats.getElementsByClassName("m-cat-subl-i-more")[0].getElementsByTagName("a")[0];
+                  //
+                  //
+                  // }
                   subCategories.push({
                     name_ru:  processText(elem.getElementsByClassName('m-cat-l-i-title-value')[0].innerHTML),
                     rozetkacat: elem.getElementsByClassName('m-cat-subl-i-link')[0].getAttribute('href')
@@ -122,6 +127,7 @@ module.exports = {
       }).end();
 
     }
+
     function trasformCategories(subCategories, callback){
       const jsdom = require('jsdom');
       const { JSDOM } = jsdom;
@@ -161,59 +167,91 @@ module.exports = {
         });
 
       }
-
-
     }
-    async function persistProperties(transformed,parentId, callback) {
-      transformed.parent = parentId;
-      let categoryPropsID = [];
-      for (let property of transformed.params){
-        for(let propValue of property.property_value){
-          let find = await strapi.services.property.fetch({
-            short_name:property.property_name.toLocaleUpperCase() +' '+ propValue.toLocaleUpperCase()});
-          if (find){
-            categoryPropsID.push(find._id);
-          } else {
-            categoryPropsID.push(await strapi.services.property.add({
-              short_name:property.property_name.toLocaleUpperCase() +' '+ propValue.toLocaleUpperCase(),
-              property_name:property.property_name,
-              property_val:propValue
-            })._id);
-          }
-        }
-      }
 
-      Promise.all(categoryPropsID).then( res=>{
-        transformed.properties = res;
-        callback(transformed);});
-
-    }
-    function getCategoryFromChild(url, callback) {
+    function saveCategory(url, obj, callback){
       const jsdom = require('jsdom');
       const { JSDOM } = jsdom;
       var request = require('request');
-      var subCategories;
-      subCategories = [];
       request(url, function (error, response, body) {
-        if (!error) {
-          const {document} = (new JSDOM(body)).window;
-        }
-      });
+          if (!error) {
+            let properties = [];
+            let {document} = (new JSDOM(body)).window;
+            let formElem = document.getElementById('parameters-filter-form');
+            if(!formElem){
+              return;
+            }
+            let parameterBlocks = formElem.getElementsByClassName('filter-parametrs-i ');
+            for (let block of parameterBlocks){
+              let props = {property_value:[]};
+              let name = block.querySelectorAll('[name=\'filter_parameters_title\']')[0].innerHTML;
+              if(name.includes('Производитель')
+                || name.includes('Программа лояльности')
+                || name.includes('Продавец') )
+              {continue;}
+              props.property_name = name;
+              for(let propertyIn of block.querySelectorAll('[name=\'filter_parameters_list\']')){
+                for (let param of propertyIn.getElementsByClassName('filter-parametrs-i-l-i-default-title')){
+                  props.property_value.push(param.innerHTML);
+                }
+                properties.push(props);
+              }
+            }
+            obj.params = properties;
+            callback(obj);
+          } else {
+            console.trace(error);
+          }
+
+        });
     }
+
+
+
+    async function persistProperties(transformed,parentId, callback) {
+    //  transformed.parent = parentId;
+      let categoryPropsID = [];
+      for (let property of transformed.params){
+        for(let propValue of property.property_value){
+          let find = await strapi.services.property.fetch({short_name:property.property_name.toLocaleUpperCase() +' '+ propValue.toLocaleUpperCase()});
+          if (find!==undefined){
+            categoryPropsID.push(find._id);
+          } else {
+            let add = await strapi.services.property.add({
+              short_name:property.property_name.toLocaleUpperCase() +' '+ propValue.toLocaleUpperCase(),
+              property_name:property.property_name,
+              property_val:propValue
+            });
+            categoryPropsID.push(add._id);
+          }
+        }
+      }
+      Promise.all(categoryPropsID).then( res=>{
+        transformed.properties = res;
+        callback(transformed);});
+    }
+
     try {
       // Create an entry using `queries` system
       ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].add(ctx.params, ctx.request.body, source);
+      let body = ctx.body;
       let parentId = ctx.body.id;
       if('rozetkacat' in ctx.request.body.fields){
+
         try {
-          getCategories(ctx.request.body.fields.rozetkacat, (res)=>{
-            trasformCategories(res,  (transformed) =>{
-              persistProperties(transformed,parentId,(persisted) => {
-                console.log(persisted);
-                strapi.services.category.add(persisted);
-              });
-            });
-          });
+          // getCategories(ctx.request.body.fields.rozetkacat, (res)=>{
+          //   trasformCategories(res,  (transformed) =>{
+          //     persistProperties(transformed,parentId,(persisted) => {
+          //       console.log(persisted);
+          //       strapi.services.category.add(persisted);
+          //     });
+          //   });
+          // });
+          saveCategory(ctx.request.body.fields.rozetkacat, body, (res)=>{
+            persistProperties(res,'', result =>{
+              strapi.services.category.edit({_id:parentId}, result);
+            })
+          })
 
         } catch (e) {
           console.log(e);

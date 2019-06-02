@@ -11,7 +11,8 @@
   "attributes": {
     "name_ru": {
       "default": "",
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "product": {
       "model": "product",
