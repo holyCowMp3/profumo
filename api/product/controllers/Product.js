@@ -47,8 +47,8 @@ module.exports = {
         .replace(/\..+/, '')
         .substring(0,16))
       .ele('shop')
-      .ele('name','Profumo').up()
-      .ele('company','Profumo').up()
+      .ele('name','O-la-la').up()
+      .ele('company','O-la-la inc.').up()
       .ele('url','profumo.com.ua').up()
         .ele('currencies')
         .ele('currency', {id:'UAH',rate:1}).up().up()
@@ -90,8 +90,8 @@ module.exports = {
         elem.ele('param', {name: products[i].properties[k].property_name}, products[i].properties[k].property_val).up()
       }
     }
-    ctx.status =200;
-    ctx.type = 'application/xml; charset=utf-8';
+    ctx.response.status =200;
+    ctx.response.type = 'xml';
 
     ctx.send(xml.end());
   },
