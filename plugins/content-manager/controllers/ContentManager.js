@@ -133,7 +133,6 @@ module.exports = {
       var request = require('request');
       for(let category of subCategories){
         request(category.rozetkacat, function (error, response, body) {
-
           if (!error) {
             let properties = [];
             let {document} = (new JSDOM(body)).window;
@@ -172,19 +171,7 @@ module.exports = {
       const jsdom = require('jsdom');
       const { JSDOM } = jsdom;
       var request = require('request');
-      request({uri: url,
-        host:"178.219.175.128",
-        port:53464,
-        headers: {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-          'Accept-Encoding': 'gzip, deflate, br',
-          'Cache-Control': 'max-age=0',
-          'Connection': 'keep-alive',
-          'Upgrade-Insecure-Requests': '1',
-          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
-      },
-      gzip: true
-    }, function (error, response, body) {
+      request(url, function (error, response, body) {
           if (!error) {
             let properties = [];
             let {document} = (new JSDOM(body)).window;
