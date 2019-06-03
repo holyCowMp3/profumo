@@ -34,7 +34,7 @@
     },
     "category": {
       "model": "category",
-      "via": "product"
+      "via": "products"
     },
     "sex": {
       "default": "",

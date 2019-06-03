@@ -14,8 +14,8 @@
       "type": "string",
       "unique": true
     },
-    "product": {
-      "model": "product",
+    "products": {
+      "collection": "product",
       "via": "category"
     },
     "child": {
