@@ -39,9 +39,18 @@ class SelectOne extends React.Component {
   }
 
   componentDidMount() {
+
     //
     this.getOptions('');
 
+  }
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (this.props.relation.model === 'category') {
+      if (nextProps.record.category) {
+        this.props.mergeState({categoryId:nextProps.record.category._id});
+      }
+    }
+    
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -125,13 +134,11 @@ class SelectOne extends React.Component {
         this.props.mergeState({categoryId:value._id});
       }
     }
-
     const target = {
       name: `record.${this.props.relation.alias}`,
       value,
       type: 'select',
     };
-
     this.props.setRecordAttribute({ target });
   };
 

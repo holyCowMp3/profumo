@@ -17,7 +17,7 @@ import {
   get,
   findIndex,
   isEmpty,
-  groupBy,
+  groupBy, isFunction,
 } from 'lodash';
 
 // Utils.
@@ -41,7 +41,6 @@ class SelectMany extends React.PureComponent {
   };
   componentDidMount() {
     console.log(this.props.relation);
-   // if (this.props.currentModelName==='product' && !(this.props.relation.alias==='properties')){}
     this.getOptions('');
   }
 
@@ -62,13 +61,14 @@ class SelectMany extends React.PureComponent {
       this.props.relation.collection === 'property' &&
       this.props.currentModelName === 'product'
     ) {
+
       if (prevProps.getState().categoryId !== '') {
         this.state.newCatId = prevProps.getState().categoryId;
         if (this.state.newCatId !== this.state.oldCatId) {
           this.state.oldCatId = prevProps.getState().categoryId;
           const values = get(this.props.record, this.props.relation.alias);
           for (let i in values) {
-            this.handleRemove(i);
+           // this.handleRemove(i);
           }
 
         }
@@ -167,15 +167,31 @@ class SelectMany extends React.PureComponent {
   };
 
   handleChange = value => {
-    // Remove new added value from available option;
-    this.state.options = this.state.options.filter(
-      el =>
-        !((el.value._id || el.value.id) === (value.value.id || value.value._id))
-    );
-    this.props.onAddRelationalItem({
-      key: this.props.relation.alias,
-      value: value.value,
-    });
+    if (
+      this.props.relation.collection === 'property' &&
+      this.props.currentModelName === 'product'
+    ) {
+      this.state.options = this.state.options.filter(
+        el =>
+          !((el.value._id || el.value.id) === (value.id || value._id))
+      );
+      this.props.onAddRelationalItem({
+        key: this.props.relation.alias,
+        value: value,
+      });
+
+    } else{
+      this.state.options = this.state.options.filter(
+        el =>
+          !((el.value._id || el.value.id) === (value.value.id || value.value._id))
+      );
+      this.props.onAddRelationalItem({
+        key: this.props.relation.alias,
+        value: value.value,
+      });
+    }
+    
+    
   };
 
   handleBottomScroll = () => {
@@ -244,6 +260,36 @@ class SelectMany extends React.PureComponent {
         </label>
         {description}
         <div></div>
+        {(this.props.currentModelName==='product' && this.props.relation.alias==='properties')?<div></div>:<SortableList
+          items={
+            /* eslint-disable indent */
+            isNull(value) || isUndefined(value) || value.size === 0
+              ? null
+              : value.map(item => {
+                if (item) {
+                  return {
+                    value: get(item, 'value') || item,
+                    label:
+                      get(item, 'label') ||
+                      templateObject(
+                        { mainField: this.props.relation.displayedAttribute },
+                        item
+                      ).mainField ||
+                      item.id,
+                  };
+                }
+              })
+          }
+          /* eslint-enable indent */
+          isDraggingSibling={this.props.isDraggingSibling}
+          keys={this.props.relation.alias}
+          moveAttr={this.props.moveAttr}
+          moveAttrEnd={this.props.moveAttrEnd}
+          name={this.props.relation.alias}
+          onRemove={this.handleRemove}
+          distance={1}
+          onClick={this.handleClick}
+        />}
         {
           (this.props.currentModelName==='product' && this.props.relation.alias==='properties')?
           Object.entries(
@@ -260,9 +306,40 @@ class SelectMany extends React.PureComponent {
                  onMenuScrollToBottom={undefined}
                  options={opts[1]}
                  placeholder={
-                   <FormattedMessage id="content-manager.containers.Edit.addAnItem" />
+                   opts[0]
                  }
                />
+                  <div></div>
+                  <SortableList
+                    items={
+                      /* eslint-disable indent */
+                      isNull(value) || isUndefined(value) || value.size === 0
+                        ? null
+                        : value.filter(it => it.value?it.value.property_name===opts[0]:it.property_name===opts[0]).map(item => {
+                          if (item) {
+                            return {
+                              value: get(item, 'value') || item,
+                              label:
+                                get(item, 'label') ||
+                                templateObject(
+                                  { mainField: this.props.relation.displayedAttribute },
+                                  item
+                                ).mainField ||
+                                item.id,
+                            };
+                          }
+                        })
+                    }
+                    /* eslint-enable indent */
+                    isDraggingSibling={this.props.isDraggingSibling}
+                    keys={this.props.relation.alias}
+                    moveAttr={this.props.moveAttr}
+                    moveAttrEnd={this.props.moveAttrEnd}
+                    name={this.props.relation.alias}
+                    onRemove={this.handleRemove}
+                    distance={1}
+                    onClick={this.handleClick}
+                  />
              </Fragment>
           )
             }):<Fragment>
@@ -280,36 +357,7 @@ class SelectMany extends React.PureComponent {
             />
           </Fragment>
         }
-        <SortableList
-          items={
-            /* eslint-disable indent */
-            isNull(value) || isUndefined(value) || value.size === 0
-              ? null
-              : value.map(item => {
-                  if (item) {
-                    return {
-                      value: get(item, 'value') || item,
-                      label:
-                        get(item, 'label') ||
-                        templateObject(
-                          { mainField: this.props.relation.displayedAttribute },
-                          item
-                        ).mainField ||
-                        item.id,
-                    };
-                  }
-                })
-          }
-          /* eslint-enable indent */
-          isDraggingSibling={this.props.isDraggingSibling}
-          keys={this.props.relation.alias}
-          moveAttr={this.props.moveAttr}
-          moveAttrEnd={this.props.moveAttrEnd}
-          name={this.props.relation.alias}
-          onRemove={this.handleRemove}
-          distance={1}
-          onClick={this.handleClick}
-        />
+
       </div>
     );
     /* eslint-disable jsx-a11y/label-has-for */
