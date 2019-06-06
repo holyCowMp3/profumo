@@ -59,6 +59,18 @@
     },
     "name": {
       "type": "string"
+    },
+    "surname": {
+      "type": "string"
+    },
+    "thirdname": {
+      "type": "string"
+    },
+    "birthday": {
+      "type": "date"
+    },
+    "adress": {
+      "type": "json"
     }
   },
   "collectionName": "users-permissions_user"

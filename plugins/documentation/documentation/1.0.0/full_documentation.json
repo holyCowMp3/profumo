@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/05/2019 6:32:19 PM"
+    "x-generation-date": "06/06/2019 2:31:22 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -7026,6 +7026,18 @@
               },
               "name": {
                 "type": "string"
+              },
+              "surname": {
+                "type": "string"
+              },
+              "thirdname": {
+                "type": "string"
+              },
+              "birthday": {
+                "type": "string"
+              },
+              "adress": {
+                "type": "json"
               }
             }
           }
@@ -7359,6 +7371,18 @@
               },
               "name": {
                 "type": "string"
+              },
+              "surname": {
+                "type": "string"
+              },
+              "thirdname": {
+                "type": "string"
+              },
+              "birthday": {
+                "type": "string"
+              },
+              "adress": {
+                "type": "json"
               }
             }
           }
@@ -8177,6 +8201,18 @@
                 },
                 "name": {
                   "type": "string"
+                },
+                "surname": {
+                  "type": "string"
+                },
+                "thirdname": {
+                  "type": "string"
+                },
+                "birthday": {
+                  "type": "string"
+                },
+                "adress": {
+                  "type": "json"
                 }
               }
             }
@@ -8340,6 +8376,18 @@
           },
           "name": {
             "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "thirdname": {
+            "type": "string"
+          },
+          "birthday": {
+            "type": "string"
+          },
+          "adress": {
+            "type": "json"
           }
         }
       },
@@ -8392,6 +8440,18 @@
           },
           "name": {
             "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "thirdname": {
+            "type": "string"
+          },
+          "birthday": {
+            "type": "string"
+          },
+          "adress": {
+            "type": "json"
           }
         }
       },

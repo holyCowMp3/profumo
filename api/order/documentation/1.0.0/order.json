@@ -669,6 +669,18 @@
               },
               "name": {
                 "type": "string"
+              },
+              "surname": {
+                "type": "string"
+              },
+              "thirdname": {
+                "type": "string"
+              },
+              "birthday": {
+                "type": "string"
+              },
+              "adress": {
+                "type": "json"
               }
             }
           }
