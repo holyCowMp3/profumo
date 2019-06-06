@@ -1226,6 +1226,9 @@
                 }
               }
             }
+          },
+          "name": {
+            "type": "string"
           }
         }
       },
@@ -1275,6 +1278,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "name": {
+            "type": "string"
           }
         }
       }

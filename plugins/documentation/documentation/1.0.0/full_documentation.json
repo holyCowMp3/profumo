@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/24/2019 4:55:05 PM"
+    "x-generation-date": "06/05/2019 6:32:19 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -810,6 +810,63 @@
                   "properties": {
                     "count": {
                       "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Category"
+        ],
+        "parameters": []
+      }
+    },
+    "/categories/tree": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
                     }
                   }
                 }
@@ -6513,92 +6570,95 @@
             "type": "string",
             "default": ""
           },
-          "product": {
-            "required": [
-              "id",
-              "price"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name_ua": {
-                "type": "string"
-              },
-              "desc": {
-                "type": "string"
-              },
-              "photos": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "price": {
-                "type": "number"
-              },
-              "rating": {
-                "type": "number"
-              },
-              "category": {
-                "type": "string"
-              },
-              "sex": {
-                "type": "string"
-              },
-              "discounts": {
-                "type": "string"
-              },
-              "order": {
-                "type": "string"
-              },
-              "name_ru": {
-                "type": "string"
-              },
-              "name_en": {
-                "type": "string"
-              },
-              "amount": {
-                "type": "integer"
-              },
-              "rozetka_exp": {
-                "type": "boolean"
-              },
-              "comments": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "avaliable": {
-                "type": "boolean"
-              },
-              "vendor": {
-                "type": "string"
-              },
-              "name_rozetka": {
-                "type": "string"
-              },
+          "products": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "price"
+              ],
               "properties": {
-                "type": "array",
-                "items": {
+                "id": {
+                  "type": "string"
+                },
+                "name_ua": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "photos": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "price": {
+                  "type": "number"
+                },
+                "rating": {
+                  "type": "number"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "sex": {
+                  "type": "string"
+                },
+                "discounts": {
+                  "type": "string"
+                },
+                "order": {
+                  "type": "string"
+                },
+                "name_ru": {
+                  "type": "string"
+                },
+                "name_en": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "integer"
+                },
+                "rozetka_exp": {
+                  "type": "boolean"
+                },
+                "comments": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "avaliable": {
+                  "type": "boolean"
+                },
+                "vendor": {
+                  "type": "string"
+                },
+                "name_rozetka": {
+                  "type": "string"
+                },
+                "properties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "comments_len": {
+                  "type": "integer"
+                },
+                "descJSON": {
+                  "type": "json"
+                },
+                "meta_title": {
+                  "type": "string"
+                },
+                "meta_decription": {
+                  "type": "string"
+                },
+                "meta_keywords": {
                   "type": "string"
                 }
-              },
-              "comments_len": {
-                "type": "integer"
-              },
-              "descJSON": {
-                "type": "json"
-              },
-              "meta_title": {
-                "type": "string"
-              },
-              "meta_decription": {
-                "type": "string"
-              },
-              "meta_keywords": {
-                "type": "string"
               }
             }
           },
@@ -6615,8 +6675,11 @@
                 "name_ru": {
                   "type": "string"
                 },
-                "product": {
-                  "type": "string"
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "child": {
                   "type": "array",
@@ -6659,8 +6722,11 @@
               "name_ru": {
                 "type": "string"
               },
-              "product": {
-                "type": "string"
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "child": {
                 "type": "array",
@@ -6749,8 +6815,11 @@
             "type": "string",
             "default": ""
           },
-          "product": {
-            "type": "string"
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "child": {
             "type": "array",
@@ -6954,6 +7023,9 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "name": {
+                "type": "string"
               }
             }
           }
@@ -7284,6 +7356,9 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "name": {
+                "type": "string"
               }
             }
           }
@@ -7400,8 +7475,11 @@
               "name_ru": {
                 "type": "string"
               },
-              "product": {
-                "type": "string"
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "child": {
                 "type": "array",
@@ -7816,8 +7894,11 @@
                 "name_ru": {
                   "type": "string"
                 },
-                "product": {
-                  "type": "string"
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "child": {
                   "type": "array",
@@ -8093,6 +8174,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "name": {
+                  "type": "string"
                 }
               }
             }
@@ -8253,6 +8337,9 @@
                 }
               }
             }
+          },
+          "name": {
+            "type": "string"
           }
         }
       },
@@ -8302,6 +8389,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "name": {
+            "type": "string"
           }
         }
       },

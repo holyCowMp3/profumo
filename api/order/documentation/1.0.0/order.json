@@ -666,6 +666,9 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "name": {
+                "type": "string"
               }
             }
           }

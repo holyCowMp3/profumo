@@ -650,8 +650,11 @@
               "name_ru": {
                 "type": "string"
               },
-              "product": {
-                "type": "string"
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "child": {
                 "type": "array",

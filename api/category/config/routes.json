@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/categories/tree",
+      "handler": "Category.getTree",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/categories/:_id",
       "handler": "Category.findOne",
       "config": {

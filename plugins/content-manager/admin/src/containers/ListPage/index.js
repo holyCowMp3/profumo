@@ -82,6 +82,7 @@ import {
   generateRedirectURI,
 } from './utils';
 import styles from './styles.scss';
+import {TreeOfCategories} from '../../components/TreeOfCategories';
 
 export class ListPage extends React.Component {
   state = { isOpen: false, showWarning: false, target: '' };
@@ -349,11 +350,11 @@ export class ListPage extends React.Component {
         defaultSettingsAttrIndex !== -1
           ? get(defaultSettingsDisplay, [defaultSettingsAttrIndex], {})
           : Object.assign(attributes[target.name], {
-              name: target.name,
-              label: upperFirst(target.name),
-              searchable,
-              sortable: searchable,
-            });
+            name: target.name,
+            label: upperFirst(target.name),
+            searchable,
+            sortable: searchable,
+          });
 
       this.props.addAttr(attrToAdd, defaultSettingsAttrIndex);
     }
@@ -702,34 +703,41 @@ export class ListPage extends React.Component {
             )}
             <div className={cn('row', styles.row)}>
               <div className="col-md-12">
-                <Table
-                  deleteAllValue={this.areAllEntriesSelected()}
-                  entriesToDelete={entriesToDelete}
-                  enableBulkActions={this.showBulkActions()}
-                  filters={filters}
-                  handleDelete={this.toggleModalWarning}
-                  headers={this.getTableHeaders()}
-                  history={this.props.history}
-                  onChangeSort={this.handleChangeSort}
-                  onClickSelectAll={onClickSelectAll}
-                  onClickSelect={onClickSelect}
-                  onToggleDeleteAll={onToggleDeleteAll}
-                  primaryKey={this.getModelPrimaryKey()}
-                  records={get(records, this.getCurrentModelName(), [])}
-                  redirectUrl={this.generateRedirectURI()}
-                  route={this.props.match}
-                  routeParams={this.props.match.params}
-                  search={params._q}
-                  showLoader={this.showLoaders()}
-                  sort={params._sort}
-                />
+                {this.getCurrentModelName()=='category'?
+                  <TreeOfCategories
+                    redirectUrl={this.generateRedirectURI()}
+                    route={this.props.match}
+                    routeParams={this.props.match.params}
+                  />:
+                  <Table
+                    deleteAllValue={this.areAllEntriesSelected()}
+                    entriesToDelete={entriesToDelete}
+                    enableBulkActions={this.showBulkActions()}
+                    filters={filters}
+                    handleDelete={this.toggleModalWarning}
+                    headers={this.getTableHeaders()}
+                    history={this.props.history}
+                    onChangeSort={this.handleChangeSort}
+                    onClickSelectAll={onClickSelectAll}
+                    onClickSelect={onClickSelect}
+                    onToggleDeleteAll={onToggleDeleteAll}
+                    primaryKey={this.getModelPrimaryKey()}
+                    records={get(records, this.getCurrentModelName(), [])}
+                    redirectUrl={this.generateRedirectURI()}
+                    route={this.props.match}
+                    routeParams={this.props.match.params}
+                    search={params._q}
+                    showLoader={this.showLoaders()}
+                    sort={params._sort}
+                  />
+                }
                 <PopUpWarning
                   isOpen={this.state.showWarning}
                   toggleModal={this.toggleModalWarning}
                   content={{
                     title: 'content-manager.popUpWarning.title',
                     message:
-                      'content-manager.popUpWarning.bodyMessage.contentType.delete',
+                            'content-manager.popUpWarning.bodyMessage.contentType.delete',
                     cancel: 'content-manager.popUpWarning.button.cancel',
                     confirm: 'content-manager.popUpWarning.button.confirm',
                   }}
