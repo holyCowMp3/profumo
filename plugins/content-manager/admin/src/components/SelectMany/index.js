@@ -296,7 +296,9 @@ class SelectMany extends React.PureComponent {
             groupBy(this.state.options, option => option.value.property_name))
             .map( (opts) => {
               return( <Fragment>
+                  {description}
                <label htmlFor={opts[0]}>{opts[0]}</label>
+
                <Select
                  className={`${styles.select}`}
                  id={this.props.relation.alias}
@@ -309,7 +311,6 @@ class SelectMany extends React.PureComponent {
                    opts[0]
                  }
                />
-                  <div></div>
                   <SortableList
                     items={
                       /* eslint-disable indent */
@@ -340,6 +341,7 @@ class SelectMany extends React.PureComponent {
                     distance={1}
                     onClick={this.handleClick}
                   />
+                  <div className={styles.selectMany}></div>
              </Fragment>
           )
             }):<Fragment>
