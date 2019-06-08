@@ -323,6 +323,7 @@ module.exports = {
           //   html: settings.message
           // });
         } catch (err) {
+          console.log(err);
           return ctx.badRequest(null, err);
         }
       }
@@ -335,7 +336,9 @@ module.exports = {
         jwt: !settings.email_confirmation ? jwt : undefined,
         user: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken'])
       });
+
     } catch(err) {
+      console.log(err);
       const adminError = _.includes(err.message, 'username') ? 'Auth.form.error.username.taken' : 'Auth.form.error.email.taken';
 
       ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: adminError }] }] : err.message);
