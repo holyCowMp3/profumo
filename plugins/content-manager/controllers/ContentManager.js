@@ -52,6 +52,13 @@ module.exports = {
     ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].fetchAll(ctx.params, ctx.request.query);
   },
 
+  stats: async ctx => {
+    // Search
+
+
+
+  },
+
   count: async ctx => {
     // Search
     const count = !_.isEmpty(ctx.request.query._q)

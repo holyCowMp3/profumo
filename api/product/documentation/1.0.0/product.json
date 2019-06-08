@@ -682,6 +682,12 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "discount": {
+                "type": "string"
+              },
+              "status": {
+                "type": "boolean"
               }
             }
           },
@@ -712,6 +718,12 @@
               },
               "product": {
                 "type": "string"
+              },
+              "categories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -851,6 +863,9 @@
           },
           "meta_keywords": {
             "type": "string"
+          },
+          "priority": {
+            "type": "integer"
           }
         }
       },
@@ -944,6 +959,9 @@
           },
           "meta_keywords": {
             "type": "string"
+          },
+          "priority": {
+            "type": "integer"
           }
         }
       }

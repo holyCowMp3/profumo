@@ -613,6 +613,9 @@
                 },
                 "meta_keywords": {
                   "type": "string"
+                },
+                "priority": {
+                  "type": "integer"
                 }
               }
             }
@@ -662,6 +665,12 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "discount": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "boolean"
                 }
               }
             }

@@ -614,6 +614,64 @@
               },
               "meta_keywords": {
                 "type": "string"
+              },
+              "priority": {
+                "type": "integer"
+              }
+            }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name_ru": {
+                  "type": "string"
+                },
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "child": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "parent": {
+                  "type": "string"
+                },
+                "name_en": {
+                  "type": "string"
+                },
+                "desc": {
+                  "type": "string"
+                },
+                "name_ua": {
+                  "type": "string"
+                },
+                "rozetkacat": {
+                  "type": "string"
+                },
+                "properties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "discount": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "boolean"
+                }
               }
             }
           }
@@ -635,6 +693,12 @@
           },
           "product": {
             "type": "string"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

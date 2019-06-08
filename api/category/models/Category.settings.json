@@ -47,6 +47,13 @@
       "collection": "property",
       "via": "categories",
       "dominant": true
+    },
+    "discount": {
+      "model": "discount",
+      "via": "categories"
+    },
+    "status": {
+      "type": "boolean"
     }
   }
 }

@@ -629,6 +629,9 @@
               },
               "meta_keywords": {
                 "type": "string"
+              },
+              "priority": {
+                "type": "integer"
               }
             }
           },

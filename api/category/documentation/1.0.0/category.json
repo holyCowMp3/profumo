@@ -665,6 +665,9 @@
                 },
                 "meta_keywords": {
                   "type": "string"
+                },
+                "priority": {
+                  "type": "integer"
                 }
               }
             }
@@ -714,6 +717,12 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "discount": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "boolean"
                 }
               }
             }
@@ -761,6 +770,12 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "discount": {
+                "type": "string"
+              },
+              "status": {
+                "type": "boolean"
               }
             }
           },
@@ -813,6 +828,37 @@
                 }
               }
             }
+          },
+          "discount": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "expiration_date": {
+                "type": "integer"
+              },
+              "percent": {
+                "type": "integer"
+              },
+              "product": {
+                "type": "string"
+              },
+              "categories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "status": {
+            "type": "boolean"
           }
         }
       },
@@ -858,6 +904,12 @@
             "items": {
               "type": "string"
             }
+          },
+          "discount": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
           }
         }
       }

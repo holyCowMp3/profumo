@@ -25,6 +25,10 @@
     "product": {
       "model": "product",
       "via": "discounts"
+    },
+    "categories": {
+      "collection": "category",
+      "via": "discount"
     }
   }
 }

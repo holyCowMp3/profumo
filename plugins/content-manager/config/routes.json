@@ -10,6 +10,14 @@
     },
     {
       "method": "GET",
+      "path": "/stats",
+      "handler": "ContentManager.stats",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/explorer/:model",
       "handler": "ContentManager.find",
       "config": {
