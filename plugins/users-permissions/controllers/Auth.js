@@ -266,7 +266,7 @@ module.exports = {
 
     // Check if the provided email is valid or not.
     const isEmail = emailRegExp.test(params.email);
-
+    console.log(isEmail);
     if (isEmail) {
       params.email = params.email.toLowerCase();
     }
@@ -281,7 +281,7 @@ module.exports = {
     if (user && user.provider === params.provider) {
       return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken' }] }] : 'Email is already taken.');
     }
-
+    
     if (user && user.provider !== params.provider && settings.unique_email) {
       return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken' }] }] : 'Email is already taken.');
     }
@@ -292,10 +292,10 @@ module.exports = {
       }
 
       const user = await strapi.query('user', 'users-permissions').create(params);
-
-      const jwt = strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id']));
       console.trace(user);
       console.trace(jwt);
+      const jwt = strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id']));
+      
       // if (settings.email_confirmation) {
       //   const storeEmail = (await pluginStore.get({
       //     key: 'email'
@@ -342,7 +342,6 @@ module.exports = {
       console.log(err.stack);
       console.trace(err);
       const adminError = _.includes(err.message, 'username') ? 'Auth.form.error.username.taken' : 'Auth.form.error.email.taken';
-
       ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: adminError }] }] : err.message);
     }
   },
