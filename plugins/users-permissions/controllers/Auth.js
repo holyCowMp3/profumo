@@ -291,7 +291,6 @@ module.exports = {
       if (!settings.email_confirmation) {
         params.confirmed = true;
       }
-      console.log(user);
       const user = await strapi.query('user', 'users-permissions').create(params);
       console.log(user);
 
