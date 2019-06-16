@@ -70,7 +70,7 @@ module.exports = {
    */
 
   create: async (ctx) => {
-
+    console.trace(ctx);
     const advanced = await strapi.store({
       environment: '',
       type: 'plugin',
@@ -99,7 +99,7 @@ module.exports = {
       // Send 201 `created`
       ctx.created(data);
     } catch(error) {
-      console.trace(error);
+      console.log(error);
       ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: error.message, field: error.field }] }] : error.message);
     }
 

@@ -266,7 +266,7 @@ module.exports = {
       }
       strapi.emit('didCreateFirstContentTypeEntry', ctx.params, source);
     } catch(error) {
-      strapi.log.error(error);
+      console.log(error);
       ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: error.message, field: error.field }] }] : error.message);
     }
   },
