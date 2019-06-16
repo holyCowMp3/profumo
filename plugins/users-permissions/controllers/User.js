@@ -70,13 +70,14 @@ module.exports = {
    */
 
   create: async (ctx) => {
+
     const advanced = await strapi.store({
       environment: '',
       type: 'plugin',
       name: 'users-permissions',
       key: 'advanced'
     }).get();
-
+    console.trace(advanced);
     if (advanced.unique_email && ctx.request.body.email) {
       const user = await strapi.query('user', 'users-permissions').findOne({ email: ctx.request.body.email });
 
@@ -95,12 +96,13 @@ module.exports = {
 
     try {
       const data = await strapi.plugins['users-permissions'].services.user.add(ctx.request.body);
-
       // Send 201 `created`
       ctx.created(data);
     } catch(error) {
+      console.trace(error);
       ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: error.message, field: error.field }] }] : error.message);
     }
+
   },
 
   /**

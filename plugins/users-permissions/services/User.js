@@ -18,10 +18,11 @@ module.exports = {
    */
 
   add: async (values) => {
+
     if (values.password) {
       values.password = await strapi.plugins['users-permissions'].services.user.hashPassword(values);
     }
-
+    console.trace(advanced);
     // Use Content Manager business logic to handle relation.
     if (strapi.plugins['content-manager']) {
       return await strapi.plugins['content-manager'].services['contentmanager'].add({

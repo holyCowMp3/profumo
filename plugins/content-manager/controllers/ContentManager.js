@@ -260,7 +260,7 @@ module.exports = {
           })
 
         } catch (e) {
-          console.log(e);
+          strapi.log.error(e);
         }
 
       }
