@@ -66,7 +66,7 @@ module.exports = {
       }
 
       if (user.role.type !== 'root' && ctx.request.admin) {
-        return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.noAdminAccess' }] }] : 'You\'re not an administrator.');
+        return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.noAdminAccess' }] }] : `You're not an administrator.`);
       }
 
       // The user never authenticated with the `local` provider.
@@ -290,15 +290,12 @@ module.exports = {
       if (!settings.email_confirmation) {
         params.confirmed = true;
       }
-      try {
-        console.log(params);
-        const user = await strapi.query('user', 'users-permissions').create(params);
-      } catch (e) {
-        console.trace(e);
-      }
+
+      const user = await strapi.query('user', 'users-permissions').create(params);
 
       const jwt = strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id']));
-
+      console.trace(user);
+      console.trace(jwt);
       // if (settings.email_confirmation) {
       //   const storeEmail = (await pluginStore.get({
       //     key: 'email'
