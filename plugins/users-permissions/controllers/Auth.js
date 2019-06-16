@@ -266,7 +266,7 @@ module.exports = {
 
     // Check if the provided email is valid or not.
     const isEmail = emailRegExp.test(params.email);
-    console.log(isEmail);
+
     if (isEmail) {
       params.email = params.email.toLowerCase();
     }
@@ -277,20 +277,21 @@ module.exports = {
     const user = await strapi.query('user', 'users-permissions').findOne({
       email: params.email
     });
+    console.trace(user);
 
     if (user && user.provider === params.provider) {
       return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken' }] }] : 'Email is already taken.');
     }
-    
+    console.trace(user);
     if (user && user.provider !== params.provider && settings.unique_email) {
       return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken' }] }] : 'Email is already taken.');
     }
-
+    console.trace(user);
     try {
       if (!settings.email_confirmation) {
         params.confirmed = true;
       }
-
+      console.trace(user);
       const user = await strapi.query('user', 'users-permissions').create(params);
       console.trace(user);
       console.trace(jwt);
