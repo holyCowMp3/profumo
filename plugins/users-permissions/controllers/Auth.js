@@ -295,38 +295,38 @@ module.exports = {
 
       const jwt = strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id']));
 
-      if (settings.email_confirmation) {
-        const storeEmail = (await pluginStore.get({
-          key: 'email'
-        })) || {};
-
-        const settings = storeEmail['email_confirmation'] ? storeEmail['email_confirmation'].options : {};
-
-        settings.message = await strapi.plugins['users-permissions'].services.userspermissions.template(settings.message, {
-          URL: (new URL('/auth/email-confirmation', strapi.config.url)).toString(),
-          USER: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken', 'role', 'provider']),
-          CODE: jwt
-        });
-
-        settings.object = await strapi.plugins['users-permissions'].services.userspermissions.template(settings.object, {
-          USER: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken', 'role', 'provider'])
-        });
-
-        try {
-          // Send an email to the user.
-          // await strapi.plugins['email'].services.email.send({
-          //   to: (user.toJSON ? user.toJSON() : user).email,
-          //   from: (settings.from.email && settings.from.name) ? `"${settings.from.name}" <${settings.from.email}>` : undefined,
-          //   replyTo: settings.response_email,
-          //   subject: settings.object,
-          //   text: settings.message,
-          //   html: settings.message
-          // });
-        } catch (err) {
-          console.log(err);
-          return ctx.badRequest(null, err);
-        }
-      }
+      // if (settings.email_confirmation) {
+      //   const storeEmail = (await pluginStore.get({
+      //     key: 'email'
+      //   })) || {};
+      //
+      //   const settings = storeEmail['email_confirmation'] ? storeEmail['email_confirmation'].options : {};
+      //
+      //   settings.message = await strapi.plugins['users-permissions'].services.userspermissions.template(settings.message, {
+      //     URL: (new URL('/auth/email-confirmation', strapi.config.url)).toString(),
+      //     USER: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken', 'role', 'provider']),
+      //     CODE: jwt
+      //   });
+      //
+      //   settings.object = await strapi.plugins['users-permissions'].services.userspermissions.template(settings.object, {
+      //     USER: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken', 'role', 'provider'])
+      //   });
+      //
+      //   try {
+      //     // Send an email to the user.
+      //     // await strapi.plugins['email'].services.email.send({
+      //     //   to: (user.toJSON ? user.toJSON() : user).email,
+      //     //   from: (settings.from.email && settings.from.name) ? `"${settings.from.name}" <${settings.from.email}>` : undefined,
+      //     //   replyTo: settings.response_email,
+      //     //   subject: settings.object,
+      //     //   text: settings.message,
+      //     //   html: settings.message
+      //     // });
+      //   } catch (err) {
+      //     console.log(err);
+      //     return ctx.badRequest(null, err);
+      //   }
+      // }
 
       if (!hasAdmin) {
         strapi.emit('didCreateFirstAdmin');

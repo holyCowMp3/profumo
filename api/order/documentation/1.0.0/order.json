@@ -686,6 +686,9 @@
                 "type": "json"
               }
             }
+          },
+          "additionalInfo": {
+            "type": "string"
           }
         }
       },
@@ -711,6 +714,9 @@
             ]
           },
           "owner": {
+            "type": "string"
+          },
+          "additionalInfo": {
             "type": "string"
           }
         }

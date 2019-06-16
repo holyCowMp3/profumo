@@ -38,7 +38,7 @@ import getQueryParameters from 'utils/getQueryParameters';
 import inputValidations from 'utils/inputsValidations';
 
 import pluginId from '../../pluginId';
-
+import Websocket from 'react-websocket';
 // Plugin's components
 import CustomDragLayer from '../../components/CustomDragLayer';
 import Edit from '../../components/Edit';
@@ -186,11 +186,11 @@ export class EditPage extends React.Component {
   getSchema = () =>
     this.getSource() !== pluginId
       ? get(this.props.schema, [
-          'models',
-          'plugins',
-          this.getSource(),
-          this.getModelName(),
-        ])
+        'models',
+        'plugins',
+        this.getSource(),
+        this.getModelName(),
+      ])
       : get(this.props.schema, ['models', this.getModelName()]);
 
   getPluginHeaderTitle = () => {
@@ -647,6 +647,7 @@ export class EditPage extends React.Component {
 
     return (
       <div>
+
         <form onSubmit={this.handleSubmit}>
           <BackHeader onClick={this.handleGoBack} />
           <CustomDragLayer />

@@ -4,29 +4,15 @@
  *
  */
 
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators, compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-import {
-  capitalize,
-  findIndex,
-  get,
-  isEmpty,
-  isUndefined,
-  toInteger,
-  upperFirst,
-} from 'lodash';
-import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from 'reactstrap';
-import { FormattedMessage } from 'react-intl';
+import {connect} from 'react-redux';
+import {bindActionCreators, compose} from 'redux';
+import {createStructuredSelector} from 'reselect';
+import {capitalize, findIndex, get, isEmpty, isUndefined, toInteger, upperFirst,} from 'lodash';
+import {ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle,} from 'reactstrap';
+import {FormattedMessage} from 'react-intl';
 import cn from 'classnames';
-
 // You can find these components in either
 // ./node_modules/strapi-helper-plugin/lib/src
 // or strapi/packages/strapi-helper-plugin/lib/src
@@ -45,9 +31,8 @@ import FiltersPickWrapper from '../../components/FiltersPickWrapper/Loadable';
 import Filter from '../../components/Filter/Loadable';
 import Search from '../../components/Search';
 import Table from '../../components/Table';
-
 // App selectors
-import { makeSelectSchema } from '../App/selectors';
+import {makeSelectSchema} from '../App/selectors';
 
 import Div from './Div';
 import {
@@ -77,19 +62,28 @@ import saga from './saga';
 import makeSelectListPage from './selectors';
 import {
   generateFiltersFromSearch,
+  generateRedirectURI,
   generateSearchFromFilters,
   generateSearchFromParams,
-  generateRedirectURI,
 } from './utils';
 import styles from './styles.scss';
 import {TreeOfCategories} from '../../components/TreeOfCategories';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3000');
 
 export class ListPage extends React.Component {
-  state = { isOpen: false, showWarning: false, target: '' };
+  state = { isOpen: false, showWarning: false, target: '', showNew:false};
 
   componentDidMount() {
     this.getData(this.props);
     this.setTableHeaders();
+    socket.on('connect',this.toggleNew);
+    socket.on('event', (data)=>{
+      
+      console.log(data);
+    });
+    socket.on('disconnect', function(){});
   }
 
   componentDidUpdate(prevProps) {
@@ -603,6 +597,38 @@ export class ListPage extends React.Component {
     );
   };
 
+  handleData(data) {
+    let result = JSON.parse(data);
+    console.log(result);
+    this.toggleNew();
+  }
+
+  renderPopUpNew(count){
+    return (
+      <PopUpWarning
+        isOpen={this.state.showNew}
+        toggleModal={this.handleData}
+        content={{
+          title: 'У вас появились новые заказы!',
+          message: 'У вас появились новые заказы!',
+          cancel: 'Позже',
+          confirm: 'Посмотреть',
+        }}
+        popUpWarningType="danger"
+        onConfirm={() => {
+          console.log("Confirmed");
+          this.toggleNew();
+        }}
+      />
+    );
+  };
+
+
+
+
+  toggleNew = () =>
+    this.setState(prevState => ({ showNew: !prevState.showNew }));
+
   render() {
     const {
       addFilter,
@@ -629,6 +655,8 @@ export class ListPage extends React.Component {
 
     return (
       <div>
+
+        {this.renderPopUpNew()}
         <div className={cn('container-fluid', styles.containerFluid)}>
           {this.showSearch() && (
             <Search
@@ -708,7 +736,55 @@ export class ListPage extends React.Component {
                     redirectUrl={this.generateRedirectURI()}
                     route={this.props.match}
                     routeParams={this.props.match.params}
-                  />:
+                  />:this.getCurrentModelName()=='order'?
+                    <Fragment>
+                      <Table
+                        deleteAllValue={this.areAllEntriesSelected()}
+                        entriesToDelete={entriesToDelete}
+                        enableBulkActions={this.showBulkActions()}
+                        filters={filters}
+                        handleDelete={this.toggleModalWarning}
+                        headers={this.getTableHeaders()}
+                        history={this.props.history}
+                        onChangeSort={this.handleChangeSort}
+                        onClickSelectAll={onClickSelectAll}
+                        onClickSelect={onClickSelect}
+                        onToggleDeleteAll={onToggleDeleteAll}
+                        primaryKey={this.getModelPrimaryKey()}
+                        records={get(records, this.getCurrentModelName(), []).filter(rec => {
+                          return (rec.status == 'processing');
+                        })}
+                        redirectUrl={this.generateRedirectURI()}
+                        route={this.props.match}
+                        routeParams={this.props.match.params}
+                        search={params._q}
+                        showLoader={this.showLoaders()}
+                        sort={params._sort}
+                      />
+                      <Table
+                        deleteAllValue={this.areAllEntriesSelected()}
+                        entriesToDelete={entriesToDelete}
+                        enableBulkActions={this.showBulkActions()}
+                        filters={filters}
+                        handleDelete={this.toggleModalWarning}
+                        headers={this.getTableHeaders()}
+                        history={this.props.history}
+                        onChangeSort={this.handleChangeSort}
+                        onClickSelectAll={onClickSelectAll}
+                        onClickSelect={onClickSelect}
+                        onToggleDeleteAll={onToggleDeleteAll}
+                        primaryKey={this.getModelPrimaryKey()}
+                        records={get(records, this.getCurrentModelName(), []).filter(rec => {
+                          return (rec.status !== 'processing');
+                        })}
+                        redirectUrl={this.generateRedirectURI()}
+                        route={this.props.match}
+                        routeParams={this.props.match.params}
+                        search={params._q}
+                        showLoader={this.showLoaders()}
+                        sort={params._sort}
+                      />
+                    </Fragment>:
                   <Table
                     deleteAllValue={this.areAllEntriesSelected()}
                     entriesToDelete={entriesToDelete}

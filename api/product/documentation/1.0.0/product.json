@@ -749,6 +749,9 @@
               },
               "owner": {
                 "type": "string"
+              },
+              "additionalInfo": {
+                "type": "string"
               }
             }
           },

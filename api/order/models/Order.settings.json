@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "order",
   "info": {
     "name": "order",
     "description": "Заказ | Заказы"
@@ -30,6 +30,9 @@
       "model": "user",
       "via": "orders",
       "plugin": "users-permissions"
+    },
+    "additionalInfo": {
+      "type": "text"
     }
   }
 }

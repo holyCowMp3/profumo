@@ -26,6 +26,7 @@ import AppLoader from '../AppLoader';
 import styles from './styles.scss';
 
 export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
   render() {
     return (
       <div>

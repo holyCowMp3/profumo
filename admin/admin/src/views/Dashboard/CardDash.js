@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
-import CardDash from './CardDash';
+import Card from '@kiwicom/orbit-components/es/Card';
+import Money from '@kiwicom/orbit-components/lib/icons/Money';
+import Stack from '@kiwicom/orbit-components/es/Stack';
+import CardSectionHeader from '@kiwicom/orbit-components/es/Card/CardSection/CardSectionHeader';
+import CardSection from '@kiwicom/orbit-components/es/Card/CardSection';
+import Heading from '@kiwicom/orbit-components/es/Heading';
+import {CardSectionContent} from '@kiwicom/orbit-components/es/Card/CardSection/index';
 import {cloneDeep, findIndex, isArray} from 'lodash';
 
-class Dashboard extends Component {
+class CardDash extends Component {
 
   constructor(props) {
     super(props);
@@ -81,25 +87,30 @@ class Dashboard extends Component {
   }
   render() {
     return (
-      <div className="content">
-        <div className="row">
-          <div className="col col-md-12">
-            <CardDash/>
-
-          </div>
-          <div className="col col-md-12">
-            <CardDash/>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col col-md-8">
-          </div>
-          <div className="col col-md-8">
-          </div>
-        </div>
-      </div>
+      <Card>
+        <CardSection expandable>
+          <CardSectionHeader>
+            <Stack direction="row" align="center" justify="between">
+              <div> {this.props.symbol} </div>
+              <Heading type="title2" element="h2">
+                {this.props.title}
+              </Heading>
+              <div>
+                <Stack direction="row" align="center">
+                  <Heading type="title2" element="h2">
+                    {this.props.value}
+                  </Heading>
+                </Stack>
+              </div>
+            </Stack>
+          </CardSectionHeader>
+          <CardSectionContent>
+            {this.props.graph}
+          </CardSectionContent>
+        </CardSection>
+      </Card>
     );
   }
 }
 
-export default Dashboard;
+export default CardDash;

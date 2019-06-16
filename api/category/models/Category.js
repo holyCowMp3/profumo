@@ -3,7 +3,7 @@
 /**
  * Lifecycle callbacks for the `Category` model.
  */
-
+const query = require('../../mq/Publisher');
 module.exports = {
   // Before saving a value.
   // Fired before an `insert` or `update` query.
@@ -11,7 +11,11 @@ module.exports = {
 
   // After saving a value.
   // Fired after an `insert` or `update` query.
-  // afterSave: async (model, result) => {},
+  afterSave: async (model, result) => {
+
+    query(['Orders','New Order']);
+
+  },
 
   // Before fetching all values.
   // Fired before a `fetchAll` operation.
