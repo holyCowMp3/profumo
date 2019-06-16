@@ -277,26 +277,26 @@ module.exports = {
     const user = await strapi.query('user', 'users-permissions').findOne({
       email: params.email
     });
-    console.trace(user);
+
 
     if (user && user.provider === params.provider) {
       return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken' }] }] : 'Email is already taken.');
     }
-    console.trace(user);
+
     if (user && user.provider !== params.provider && settings.unique_email) {
       return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken' }] }] : 'Email is already taken.');
     }
-    console.trace(user);
+
     try {
       if (!settings.email_confirmation) {
         params.confirmed = true;
       }
-      console.trace(user);
+      console.log(user);
       const user = await strapi.query('user', 'users-permissions').create(params);
-      console.trace(user);
-      console.trace(jwt);
+      console.log(user);
+
       const jwt = strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id']));
-      
+      console.log(jwt);
       // if (settings.email_confirmation) {
       //   const storeEmail = (await pluginStore.get({
       //     key: 'email'
