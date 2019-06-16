@@ -338,7 +338,8 @@ module.exports = {
       });
 
     } catch(err) {
-      console.log(err);
+      console.log(err.stack);
+      console.trace(err);
       const adminError = _.includes(err.message, 'username') ? 'Auth.form.error.username.taken' : 'Auth.form.error.email.taken';
 
       ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: adminError }] }] : err.message);
