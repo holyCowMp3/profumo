@@ -291,6 +291,7 @@ module.exports = {
         params.confirmed = true;
       }
       try {
+        console.log(params);
         const user = await strapi.query('user', 'users-permissions').create(params);
       } catch (e) {
         console.trace(e);
