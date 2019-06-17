@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "cart",
+  "info": {
+    "name": "cart",
+    "description": "Корзина | Корзины"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "owner": {
+      "model": "user",
+      "via": "carts",
+      "plugin": "users-permissions"
+    },
+    "date": {
+      "type": "date"
+    },
+    "body": {
+      "type": "json"
+    }
+  }
+}
