@@ -93,8 +93,7 @@ module.exports = {
             let res = await strapi.services.category.fetch({'_id': child._id});
             let resproc = await processCategory(res);
             node.children.push(resproc);
-          }
-          ;
+          };
           return node;
         } else {
           return node;

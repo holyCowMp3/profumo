@@ -27,7 +27,7 @@
     {
       "method": "GET",
       "path": "/categories/tree/without",
-      "handler": "Category.getTree",
+      "handler": "Category.getTreeWithoutProducts",
       "config": {
         "policies": []
       }
