@@ -307,6 +307,79 @@ input CallbackInput {
   verifycode: String
 }
 
+"""Корзина | Корзины"""
+type Cart {
+  _id: ID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  owner: UsersPermissionsUser
+  date: DateTime
+  body: JSON
+}
+
+type CartAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type CartConnection {
+  values: [Cart]
+  groupBy: CartGroupBy
+  aggregate: CartAggregator
+}
+
+type CartConnection_id {
+  key: ID
+  connection: CartConnection
+}
+
+type CartConnectionBody {
+  key: JSON
+  connection: CartConnection
+}
+
+type CartConnectionCreatedAt {
+  key: DateTime
+  connection: CartConnection
+}
+
+type CartConnectionDate {
+  key: DateTime
+  connection: CartConnection
+}
+
+type CartConnectionId {
+  key: ID
+  connection: CartConnection
+}
+
+type CartConnectionOwner {
+  key: ID
+  connection: CartConnection
+}
+
+type CartConnectionUpdatedAt {
+  key: DateTime
+  connection: CartConnection
+}
+
+type CartGroupBy {
+  _id: [CartConnection_id]
+  id: [CartConnectionId]
+  createdAt: [CartConnectionCreatedAt]
+  updatedAt: [CartConnectionUpdatedAt]
+  owner: [CartConnectionOwner]
+  date: [CartConnectionDate]
+  body: [CartConnectionBody]
+}
+
+input CartInput {
+  owner: ID
+  date: DateTime
+  body: JSON
+}
+
 """Категория | Категории"""
 type Category {
   _id: ID!
@@ -567,6 +640,14 @@ type createCallbackPayload {
   callback: Callback
 }
 
+input createCartInput {
+  data: CartInput
+}
+
+type createCartPayload {
+  cart: Cart
+}
+
 input createCategoryInput {
   data: CategoryInput
 }
@@ -650,6 +731,14 @@ input deleteCallbackInput {
 
 type deleteCallbackPayload {
   callback: Callback
+}
+
+input deleteCartInput {
+  where: InputID
+}
+
+type deleteCartPayload {
+  cart: Cart
 }
 
 input deleteCategoryInput {
@@ -863,6 +952,12 @@ input editCallbackInput {
   verifycode: String
 }
 
+input editCartInput {
+  owner: ID
+  date: DateTime
+  body: JSON
+}
+
 input editCategoryInput {
   name_ru: String
   products: [ID]
@@ -977,11 +1072,13 @@ input editUserInput {
   role: ID
   orders: [ID]
   comments: [ID]
+  carts: [ID]
   name: String
   surname: String
   thirdname: String
   birthday: DateTime
   adress: JSON
+  wishlist: JSON
 }
 
 enum ENUM_CALLBACK_ACTION {
@@ -1057,12 +1154,15 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Callback | createCallbackPayload | updateCallbackPayload | deleteCallbackPayload | CallbackConnection | CallbackAggregator | CallbackAggregatorSum | CallbackAggregatorAvg | CallbackAggregatorMin | CallbackAggregatorMax | CallbackGroupBy | CallbackConnection_id | CallbackConnectionId | CallbackConnectionCreatedAt | CallbackConnectionUpdatedAt | CallbackConnectionAcq_id | CallbackConnectionAction | CallbackConnectionAgent_commission | CallbackConnectionAmount | CallbackConnectionAmount_bonus | CallbackConnectionAmount_credit | CallbackConnectionAmount_debit | CallbackConnectionAuthcode_credit | CallbackConnectionAuthcode_debit | CallbackConnectionCard_token | CallbackConnectionCommission_debit | CallbackConnectionCommission_credit | CallbackConnectionCustomer | CallbackConnectionErr_code | CallbackConnectionErr_description | CallbackConnectionIp | CallbackConnectionLiqpay_order_id | CallbackConnectionOrder_id | CallbackConnectionPayment_id | CallbackConnectionPaytype | CallbackConnectionSender_card_mask2 | CallbackConnectionSender_card_type | CallbackConnectionSender_first_name | CallbackConnectionSender_last_name | CallbackConnectionSender_phone | CallbackConnectionStatus | CallbackConnectionToken | CallbackConnectionType | CallbackConnectionVerifycode | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnection_id | CategoryConnectionId | CategoryConnectionCreatedAt | CategoryConnectionUpdatedAt | CategoryConnectionName_ru | CategoryConnectionParent | CategoryConnectionName_en | CategoryConnectionDesc | CategoryConnectionName_ua | CategoryConnectionRozetkacat | CategoryConnectionDiscount | CategoryConnectionStatus | Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentAggregatorSum | CommentAggregatorAvg | CommentAggregatorMin | CommentAggregatorMax | CommentGroupBy | CommentConnection_id | CommentConnectionId | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionText | CommentConnectionRate | CommentConnectionVerified | CommentConnectionName | CommentConnectionGender | CommentConnectionResponse | CommentConnectionProduct | CommentConnectionOwner | Discount | createDiscountPayload | updateDiscountPayload | deleteDiscountPayload | DiscountConnection | DiscountAggregator | DiscountAggregatorSum | DiscountAggregatorAvg | DiscountAggregatorMin | DiscountAggregatorMax | DiscountGroupBy | DiscountConnection_id | DiscountConnectionId | DiscountConnectionCreatedAt | DiscountConnectionUpdatedAt | DiscountConnectionName | DiscountConnectionExpiration_date | DiscountConnectionPercent | DiscountConnectionProduct | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | OrderConnection | OrderAggregator | OrderGroupBy | OrderConnection_id | OrderConnectionId | OrderConnectionCreatedAt | OrderConnectionUpdatedAt | OrderConnectionDateOrder | OrderConnectionStatus | OrderConnectionOwner | OrderConnectionAdditionalInfo | Product | createProductPayload | updateProductPayload | deleteProductPayload | ProductConnection | ProductAggregator | ProductAggregatorSum | ProductAggregatorAvg | ProductAggregatorMin | ProductAggregatorMax | ProductGroupBy | ProductConnection_id | ProductConnectionId | ProductConnectionCreatedAt | ProductConnectionUpdatedAt | ProductConnectionName_ua | ProductConnectionDesc | ProductConnectionPrice | ProductConnectionRating | ProductConnectionCategory | ProductConnectionSex | ProductConnectionDiscounts | ProductConnectionOrder | ProductConnectionName_ru | ProductConnectionName_en | ProductConnectionAmount | ProductConnectionRozetka_exp | ProductConnectionAvaliable | ProductConnectionVendor | ProductConnectionName_rozetka | ProductConnectionComments_len | ProductConnectionDescJSON | ProductConnectionMeta_title | ProductConnectionMeta_decription | ProductConnectionMeta_keywords | ProductConnectionPriority | Property | createPropertyPayload | updatePropertyPayload | deletePropertyPayload | PropertyConnection | PropertyAggregator | PropertyGroupBy | PropertyConnection_id | PropertyConnectionId | PropertyConnectionCreatedAt | PropertyConnectionUpdatedAt | PropertyConnectionShort_name | PropertyConnectionProperty_name | PropertyConnectionProperty_val | Slidercontent | createSlidercontentPayload | updateSlidercontentPayload | deleteSlidercontentPayload | SlidercontentConnection | SlidercontentAggregator | SlidercontentGroupBy | SlidercontentConnection_id | SlidercontentConnectionId | SlidercontentConnectionCreatedAt | SlidercontentConnectionUpdatedAt | SlidercontentConnectionName | SlidercontentConnectionImage | SlidercontentConnectionLink | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionSurname | UsersPermissionsUserConnectionThirdname | UsersPermissionsUserConnectionBirthday | UsersPermissionsUserConnectionAdress
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Callback | createCallbackPayload | updateCallbackPayload | deleteCallbackPayload | CallbackConnection | CallbackAggregator | CallbackAggregatorSum | CallbackAggregatorAvg | CallbackAggregatorMin | CallbackAggregatorMax | CallbackGroupBy | CallbackConnection_id | CallbackConnectionId | CallbackConnectionCreatedAt | CallbackConnectionUpdatedAt | CallbackConnectionAcq_id | CallbackConnectionAction | CallbackConnectionAgent_commission | CallbackConnectionAmount | CallbackConnectionAmount_bonus | CallbackConnectionAmount_credit | CallbackConnectionAmount_debit | CallbackConnectionAuthcode_credit | CallbackConnectionAuthcode_debit | CallbackConnectionCard_token | CallbackConnectionCommission_debit | CallbackConnectionCommission_credit | CallbackConnectionCustomer | CallbackConnectionErr_code | CallbackConnectionErr_description | CallbackConnectionIp | CallbackConnectionLiqpay_order_id | CallbackConnectionOrder_id | CallbackConnectionPayment_id | CallbackConnectionPaytype | CallbackConnectionSender_card_mask2 | CallbackConnectionSender_card_type | CallbackConnectionSender_first_name | CallbackConnectionSender_last_name | CallbackConnectionSender_phone | CallbackConnectionStatus | CallbackConnectionToken | CallbackConnectionType | CallbackConnectionVerifycode | Cart | createCartPayload | updateCartPayload | deleteCartPayload | CartConnection | CartAggregator | CartGroupBy | CartConnection_id | CartConnectionId | CartConnectionCreatedAt | CartConnectionUpdatedAt | CartConnectionOwner | CartConnectionDate | CartConnectionBody | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnection_id | CategoryConnectionId | CategoryConnectionCreatedAt | CategoryConnectionUpdatedAt | CategoryConnectionName_ru | CategoryConnectionParent | CategoryConnectionName_en | CategoryConnectionDesc | CategoryConnectionName_ua | CategoryConnectionRozetkacat | CategoryConnectionDiscount | CategoryConnectionStatus | Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentAggregatorSum | CommentAggregatorAvg | CommentAggregatorMin | CommentAggregatorMax | CommentGroupBy | CommentConnection_id | CommentConnectionId | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionText | CommentConnectionRate | CommentConnectionVerified | CommentConnectionName | CommentConnectionGender | CommentConnectionResponse | CommentConnectionProduct | CommentConnectionOwner | Discount | createDiscountPayload | updateDiscountPayload | deleteDiscountPayload | DiscountConnection | DiscountAggregator | DiscountAggregatorSum | DiscountAggregatorAvg | DiscountAggregatorMin | DiscountAggregatorMax | DiscountGroupBy | DiscountConnection_id | DiscountConnectionId | DiscountConnectionCreatedAt | DiscountConnectionUpdatedAt | DiscountConnectionName | DiscountConnectionExpiration_date | DiscountConnectionPercent | DiscountConnectionProduct | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | OrderConnection | OrderAggregator | OrderGroupBy | OrderConnection_id | OrderConnectionId | OrderConnectionCreatedAt | OrderConnectionUpdatedAt | OrderConnectionDateOrder | OrderConnectionStatus | OrderConnectionOwner | OrderConnectionAdditionalInfo | Product | createProductPayload | updateProductPayload | deleteProductPayload | ProductConnection | ProductAggregator | ProductAggregatorSum | ProductAggregatorAvg | ProductAggregatorMin | ProductAggregatorMax | ProductGroupBy | ProductConnection_id | ProductConnectionId | ProductConnectionCreatedAt | ProductConnectionUpdatedAt | ProductConnectionName_ua | ProductConnectionDesc | ProductConnectionPrice | ProductConnectionRating | ProductConnectionCategory | ProductConnectionSex | ProductConnectionDiscounts | ProductConnectionOrder | ProductConnectionName_ru | ProductConnectionName_en | ProductConnectionAmount | ProductConnectionRozetka_exp | ProductConnectionAvaliable | ProductConnectionVendor | ProductConnectionName_rozetka | ProductConnectionComments_len | ProductConnectionDescJSON | ProductConnectionMeta_title | ProductConnectionMeta_decription | ProductConnectionMeta_keywords | ProductConnectionPriority | Property | createPropertyPayload | updatePropertyPayload | deletePropertyPayload | PropertyConnection | PropertyAggregator | PropertyGroupBy | PropertyConnection_id | PropertyConnectionId | PropertyConnectionCreatedAt | PropertyConnectionUpdatedAt | PropertyConnectionShort_name | PropertyConnectionProperty_name | PropertyConnectionProperty_val | Slidercontent | createSlidercontentPayload | updateSlidercontentPayload | deleteSlidercontentPayload | SlidercontentConnection | SlidercontentAggregator | SlidercontentGroupBy | SlidercontentConnection_id | SlidercontentConnectionId | SlidercontentConnectionCreatedAt | SlidercontentConnectionUpdatedAt | SlidercontentConnectionName | SlidercontentConnectionImage | SlidercontentConnectionLink | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionSurname | UsersPermissionsUserConnectionThirdname | UsersPermissionsUserConnectionBirthday | UsersPermissionsUserConnectionAdress | UsersPermissionsUserConnectionWishlist
 
 type Mutation {
   createCallback(input: createCallbackInput): createCallbackPayload
   updateCallback(input: updateCallbackInput): updateCallbackPayload
   deleteCallback(input: deleteCallbackInput): deleteCallbackPayload
+  createCart(input: createCartInput): createCartPayload
+  updateCart(input: updateCartInput): updateCartPayload
+  deleteCart(input: deleteCartInput): deleteCartPayload
   createCategory(input: createCategoryInput): createCategoryPayload
   updateCategory(input: updateCategoryInput): updateCategoryPayload
   deleteCategory(input: deleteCategoryInput): deleteCategoryPayload
@@ -1520,6 +1620,9 @@ type Query {
   callback(id: ID!): Callback
   callbacks(sort: String, limit: Int, start: Int, where: JSON): [Callback]
   callbacksConnection(sort: String, limit: Int, start: Int, where: JSON): CallbackConnection
+  cart(id: ID!): Cart
+  carts(sort: String, limit: Int, start: Int, where: JSON): [Cart]
+  cartsConnection(sort: String, limit: Int, start: Int, where: JSON): CartConnection
   category(id: ID!): Category
   categories(sort: String, limit: Int, start: Int, where: JSON): [Category]
   categoriesConnection(sort: String, limit: Int, start: Int, where: JSON): CategoryConnection
@@ -1644,6 +1747,15 @@ input updateCallbackInput {
 
 type updateCallbackPayload {
   callback: Callback
+}
+
+input updateCartInput {
+  where: InputID
+  data: editCartInput
+}
+
+type updateCartPayload {
+  cart: Cart
 }
 
 input updateCategoryInput {
@@ -1850,11 +1962,13 @@ input UserInput {
   role: ID
   orders: [ID]
   comments: [ID]
+  carts: [ID]
   name: String
   surname: String
   thirdname: String
   birthday: DateTime
   adress: JSON
+  wishlist: JSON
 }
 
 type UsersPermissionsMe {
@@ -1952,8 +2066,10 @@ type UsersPermissionsUser {
   thirdname: String
   birthday: DateTime
   adress: JSON
+  wishlist: JSON
   orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
   comments(sort: String, limit: Int, start: Int, where: JSON): [Comment]
+  carts(sort: String, limit: Int, start: Int, where: JSON): [Cart]
 }
 
 type UsersPermissionsUserAggregator {
@@ -2032,6 +2148,11 @@ type UsersPermissionsUserConnectionUsername {
   connection: UsersPermissionsUserConnection
 }
 
+type UsersPermissionsUserConnectionWishlist {
+  key: JSON
+  connection: UsersPermissionsUserConnection
+}
+
 type UsersPermissionsUserGroupBy {
   _id: [UsersPermissionsUserConnection_id]
   id: [UsersPermissionsUserConnectionId]
@@ -2046,4 +2167,5 @@ type UsersPermissionsUserGroupBy {
   thirdname: [UsersPermissionsUserConnectionThirdname]
   birthday: [UsersPermissionsUserConnectionBirthday]
   adress: [UsersPermissionsUserConnectionAdress]
+  wishlist: [UsersPermissionsUserConnectionWishlist]
 }

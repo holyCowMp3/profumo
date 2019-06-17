@@ -670,6 +670,12 @@
                   "type": "string"
                 }
               },
+              "carts": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "name": {
                 "type": "string"
               },
@@ -683,6 +689,9 @@
                 "type": "string"
               },
               "adress": {
+                "type": "json"
+              },
+              "wishlist": {
                 "type": "json"
               }
             }

@@ -1230,6 +1230,28 @@
               }
             }
           },
+          "carts": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "json"
+                }
+              }
+            }
+          },
           "name": {
             "type": "string"
           },
@@ -1243,6 +1265,9 @@
             "type": "string"
           },
           "adress": {
+            "type": "json"
+          },
+          "wishlist": {
             "type": "json"
           }
         }
@@ -1294,6 +1319,12 @@
               "type": "string"
             }
           },
+          "carts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "name": {
             "type": "string"
           },
@@ -1307,6 +1338,9 @@
             "type": "string"
           },
           "adress": {
+            "type": "json"
+          },
+          "wishlist": {
             "type": "json"
           }
         }
