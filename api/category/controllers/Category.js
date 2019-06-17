@@ -76,6 +76,51 @@ module.exports = {
       return await tree;
     }
   },
+  getTreeWithoutProducts: async (ctx, next, { populate } = {}) => {
+    let array =[];
+    let tree = [];
+
+    async function processCategory(cat) {
+      let node = {};
+      node.key = cat._id;
+      node.label = cat.name_ru;
+      node.icon = 'pi pi-fw pi-folder';
+      node.data = cat.desc;
+      try {
+        if (cat.child.length != 0) {
+          node.children = [];
+          for (let child  of cat.child) {
+            let res = await strapi.services.category.fetch({'_id': child._id});
+            let resproc = await processCategory(res);
+            node.children.push(resproc);
+          }
+          ;
+          return node;
+        } else {
+          return node;
+        }
+      } catch (e) {
+      }
+
+      return node;
+    }
+
+    if (ctx.query._q) {
+      array = await strapi.services.category.search(ctx.query);
+      array.filter(cat => !cat.parent).map(cat => {
+        tree.push(processCategory(cat));
+      });
+      return tree;
+    } else {
+      array = await strapi.services.category.fetchAll(ctx.query, populate);
+      var parentsCat = array.filter(cat => !cat.parent);
+      for (let cat of parentsCat){
+        let result = await processCategory(cat);
+        tree.push(result);
+      }
+      return await tree;
+    }
+  },
   /**
    * Retrieve a category record.
    *

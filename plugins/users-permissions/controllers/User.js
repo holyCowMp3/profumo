@@ -70,7 +70,7 @@ module.exports = {
    */
 
   create: async (ctx) => {
-    console.trace(ctx);
+    console.log(ctx);
     const advanced = await strapi.store({
       environment: '',
       type: 'plugin',

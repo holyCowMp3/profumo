@@ -293,8 +293,8 @@ module.exports = {
       }
       console.log("BEFORE USER");
       const user = await strapi.query('user', 'users-permissions').create(params);
-      console.log(user);
 
+      console.log(user);
       const jwt = strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id']));
       console.log(jwt);
       // if (settings.email_confirmation) {
