@@ -76,6 +76,7 @@ module.exports = {
       return await tree;
     }
   },
+
   getTreeWithoutProducts: async (ctx, next, { populate } = {}) => {
     let array =[];
     let tree = [];
@@ -99,6 +100,7 @@ module.exports = {
           return node;
         }
       } catch (e) {
+
       }
 
       return node;
