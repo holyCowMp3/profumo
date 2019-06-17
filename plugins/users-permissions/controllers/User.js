@@ -45,6 +45,47 @@ module.exports = {
     // Send 200 `ok`
     ctx.send(data);
   },
+  mePost: async (ctx) => {
+    try {
+      const advanced = await strapi.store({
+        environment: '',
+        type: 'plugin',
+        name: 'users-permissions',
+        key: 'advanced'
+      }).get();
+      const user = ctx.state.user;
+
+      if (!user) {
+        return ctx.badRequest(null, [{ messages: [{ id: 'No authorization header was found' }] }]);
+      }
+
+      if (_.get(ctx.request, 'body.password') === user.password) {
+        delete ctx.request.body.password;
+      }
+
+      if (_.get(ctx.request, 'body.role', '').toString() === '0' && (!_.get(ctx.state, 'user.role') || _.get(ctx.state, 'user.role', '').toString() !== '0')) {
+        delete ctx.request.body.role;
+      }
+
+      if (ctx.request.body.email && advanced.unique_email) {
+        const user = await strapi.query('user', 'users-permissions').findOne({
+          email: ctx.request.body.email
+        });
+
+        if (user !== null && (user.id || user._id).toString() !== (ctx.params.id || ctx.params._id)) {
+          return ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: 'Auth.form.error.email.taken', field: ['email'] }] }] : 'Email is already taken.');
+        }
+      }
+
+      const data = await strapi.plugins['users-permissions'].services.user.edit(ctx.params, ctx.request.body) ;
+
+      // Send 200 `ok`
+      ctx.send(data);
+    } catch(error) {
+      ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: error.message, field: error.field }] }] : error.message);
+    }
+  },
+
 
   /**
    * Retrieve a user record.

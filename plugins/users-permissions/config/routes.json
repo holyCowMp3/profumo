@@ -332,6 +332,21 @@
     },
     {
       "method": "POST",
+      "path": "/users/me",
+      "handler": "User.mePost",
+      "config": {
+        "policies": [],
+        "prefix": "",
+        "description": "Update current user information",
+        "tag": {
+          "plugin": "users-permissions",
+          "name": "User",
+          "actionType": "findOne"
+        }
+      }
+    },
+    {
+      "method": "POST",
       "path": "/users",
       "handler": "User.create",
       "config": {
