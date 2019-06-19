@@ -4,5 +4,5 @@
   "shadowCRUD": true,
   "playgroundAlways": false,
   "depthLimit": 7,
-  "amountLimit": 100
+  "amountLimit": 2000
 }
