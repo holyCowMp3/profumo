@@ -21,18 +21,18 @@ module.exports = {
     const filters = convertRestQueryParams(params);
 
     const populateOpt = populate || Product.associations
-  .filter(ast => ast.autoPopulate !== false)
-  .map(ast => ast.alias);
+      .filter(ast => ast.autoPopulate !== false)
+      .map(ast => ast.alias);
 
-  return buildQuery({
-    model: Product,
-    filters,
-    populate: populateOpt,
+    return buildQuery({
+      model: Product,
+      filters,
+      populate: populateOpt,
     });
-    },
+  },
 
 
-    /**
+  /**
      * Promise to fetch a/an product.
      *
      * @return {Promise}
@@ -61,9 +61,9 @@ module.exports = {
 
     return buildQuery({
       model: Product,
-  filters: { where: filters.where },
-  })
-  .count();
+      filters: { where: filters.where },
+    })
+      .count();
 
   },
 

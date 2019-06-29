@@ -36,14 +36,6 @@
       "model": "category",
       "via": "products"
     },
-    "sex": {
-      "default": "",
-      "type": "enumeration",
-      "enum": [
-        "male",
-        "female"
-      ]
-    },
     "discounts": {
       "model": "discount",
       "via": "product"
