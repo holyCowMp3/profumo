@@ -31,6 +31,10 @@ module.exports = {
     {
       label: '',
       destination: 'user'
+    },
+    {
+      label: '',
+      destination: 'cart'
     }
   ],
 };

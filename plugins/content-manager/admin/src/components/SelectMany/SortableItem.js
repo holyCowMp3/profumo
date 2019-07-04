@@ -105,6 +105,7 @@ class SortableItem extends React.Component {
       isDraggingSibling,
       onClick,
       onRemove,
+      onCustomRemove,
     } = this.props;
     const opacity = isDragging ? 0.2 : 1;
 
@@ -122,6 +123,7 @@ class SortableItem extends React.Component {
             item={item}
             onClick={onClick}
             onRemove={onRemove}
+            onCustomRemove={onCustomRemove}
           />
         </li>
       )

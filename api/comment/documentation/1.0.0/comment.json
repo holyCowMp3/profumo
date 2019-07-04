@@ -573,9 +573,6 @@
               "category": {
                 "type": "string"
               },
-              "sex": {
-                "type": "string"
-              },
               "discounts": {
                 "type": "string"
               },

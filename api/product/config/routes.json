@@ -10,6 +10,22 @@
     },
     {
       "method": "GET",
+      "path": "/recommendations",
+      "handler": "Product.recommendations",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/recommendations.personal",
+      "handler": "Product.recommendationsPersonal",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/products/build.xml",
       "handler": "Product.build",
       "config": {

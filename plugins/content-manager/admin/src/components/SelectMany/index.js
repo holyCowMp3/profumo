@@ -215,12 +215,37 @@ class SelectMany extends React.PureComponent {
     this.setState(prevState => ({
       options: prevState.options.concat([toAdd]),
     }));
+
     this.props.onRemoveRelationItem({
       key: this.props.relation.alias,
       index,
     });
-  };
 
+  };
+  handleRemoveCustom = item => {
+    const values = get(this.props.record, this.props.relation.alias);
+    console.log(item);
+    console.log(values);
+    // Add removed value from available option;
+    const toAdd = {
+      value: item.value,
+      label: templateObject(
+        { mainField: this.props.relation.displayedAttribute },
+        item.value
+      ).mainField,
+    };
+    this.setState(prevState => ({
+      options: prevState.options.concat([toAdd]),
+    }));
+    let index = values.findIndex( items => items.short_name? items.short_name===item.value.short_name :items.value.short_name===item.value.short_name );
+    
+    console.log(index);
+    this.props.onRemoveRelationItem({
+      key: this.props.relation.alias,
+      index,
+    });
+
+  };
   // Redirect to the edit page
   handleClick = (item = {}) => {
     this.props.onRedirect({
@@ -286,7 +311,7 @@ class SelectMany extends React.PureComponent {
           moveAttr={this.props.moveAttr}
           moveAttrEnd={this.props.moveAttrEnd}
           name={this.props.relation.alias}
-          onRemove={this.handleRemove}
+          onRemove={this.handleRemove }
           distance={1}
           onClick={this.handleClick}
         />}
@@ -337,7 +362,8 @@ class SelectMany extends React.PureComponent {
                     moveAttr={this.props.moveAttr}
                     moveAttrEnd={this.props.moveAttrEnd}
                     name={this.props.relation.alias}
-                    onRemove={this.handleRemove}
+                    onRemove={this.handleRemoveCustom}
+                    onCustomRemove={this.handleRemoveCustom}
                     distance={1}
                     onClick={this.handleClick}
                   />

@@ -7,7 +7,7 @@
  */
 const builder = require('xmlbuilder');
 const md = require('markdown-it')();
-
+const  request = require('request');
 module.exports = {
 
   /**
@@ -15,6 +15,57 @@ module.exports = {
    *
    * @return {Object|Array}
    */
+  recommendations: async (ctx, callback) => {
+    var dataString = {
+      'namespace': 'products',
+      'thing': ctx.params._id,
+      'configuration': {
+        'actions' : {'view': 5, 'buy': 10}
+      }
+    };
+    var options = {
+      url: 'http://localhost:3456/recommendations',
+      method: 'POST',
+      body: dataString
+    };
+
+    function call(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        let array = [];
+        let recommendResult = JSON.parse(body);
+        for (let row of recommendResult.recommendations){
+          array.push(row.thing);
+        }
+        callback(array);
+      }
+    }
+    request(options, call);
+    return ctx.ok();
+  },
+  recommendationsPersonal: async (ctx) => {
+    var dataString = {
+      'namespace': 'products',
+      'person': ctx.state.user? ctx.state.user._id:'',
+      'configuration': {
+        'actions' : {'view': 5, 'buy': 10}
+      }
+    };
+    var options = {
+      url: 'http://localhost:3456/recommendations',
+      method: 'POST',
+      body: dataString
+    };
+    let array = [];
+    request(options, (error, response, body) =>{
+      if (!error && response.statusCode == 200) {
+        let recommendResult = JSON.parse(body);
+        for (let row of recommendResult.recommendations){
+          array.push(row.thing);
+        }
+      }
+    });
+    return array;
+  },
 
   find: async (ctx, next, { populate } = {}) => {
     if (ctx.query._q) {
@@ -36,11 +87,11 @@ module.exports = {
       let parentId =cat.parent._id.toString();
       if(categories[parentId] === undefined || childCategories[cat._id] === undefined ) {
         categories[parentId] = cat.parent.name_ru;
-        childCategories[cat._id] = parentId + "||" + cat.name_ru;
+        childCategories[cat._id] = parentId + '||' + cat.name_ru;
       }
     }
 
-   // products.forEach(prod => {Category.findOne(prod.category).then(i => console.log(i.parent))});
+    // products.forEach(prod => {Category.findOne(prod.category).then(i => console.log(i.parent))});
     let xml = builder.create('yml_catalog', { encoding: 'utf-8'})
       .att('date', new Date().toISOString()
         .replace(/T/, ' ')
@@ -50,15 +101,15 @@ module.exports = {
       .ele('name','O-la-la').up()
       .ele('company','O-la-la inc.').up()
       .ele('url','profumo.com.ua').up()
-        .ele('currencies')
-        .ele('currency', {id:'UAH',rate:1}).up().up()
+      .ele('currencies')
+      .ele('currency', {id:'UAH',rate:1}).up().up()
       .ele('categories');
     for (let key in categories) {
       var elememt =
-        xml.ele('category',{id:key}, categories[key]).up()
+        xml.ele('category',{id:key}, categories[key]).up();
     }
     for (let key in childCategories) {
-       var middleElem = elememt.ele('category',{id:key, parentId:childCategories[key].split("||")[0]}, childCategories[key].split("||")[1] ).up();
+      var middleElem = elememt.ele('category',{id:key, parentId:childCategories[key].split('||')[0]}, childCategories[key].split('||')[1] ).up();
     }
     middleElem = middleElem.up();
     var smth =  middleElem.ele('offers');
@@ -85,9 +136,9 @@ module.exports = {
         .ele('name', products[i].name_rozetka)
         .up()
         .ele('desc')
-        .cdata(md.render(products[i].desc)).up().up()
+        .cdata(md.render(products[i].desc)).up().up();
       for (let k in products[i].properties) {
-        elem.ele('param', {name: products[i].properties[k].property_name}, products[i].properties[k].property_val).up()
+        elem.ele('param', {name: products[i].properties[k].property_name}, products[i].properties[k].property_val).up();
       }
     }
     ctx.response.status =200;
@@ -102,24 +153,56 @@ module.exports = {
    */
 
   findOne: async (ctx) => {
+    function callback(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(body);
+      }
+    }
     if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
       return ctx.notFound();
     }
+    if(ctx.state.user) {
+
+      let dataString = {
+        'events': [
+          {
+            'namespace': 'products',
+            'person': ctx.state.user._id,
+            'action': 'view',
+            'thing': ctx.params._id
+          }
+        ]
+      };
+
+      let options = {
+        url: 'http://localhost:3456/events',
+        method: 'POST',
+        body: JSON.stringify(dataString)
+      };
+      request(options, callback);
+    }
+
+
     var result  = await strapi.services.product.fetch(ctx.params);
+
     var length = result.comments.length;
+
     var newRes = result.toObject();
     newRes['comments_len'] = length;
     var desc = result.desc;
-    var formattedDesc = desc.split("####");
+    let formattedDesc = desc.split('####');
     var filtered = formattedDesc.filter( i => i.length>0);
     var mapped = filtered.map(i => {
       var obj = {};
-      var splitArr = i.split("\r\n");
+      var splitArr = i.split('\r\n');
       obj.header = splitArr[0];
       obj.body = splitArr.slice(1,splitArr.length).join('\n');
       return obj;
     });
     newRes.descJSON = mapped;
+    await recommendations(ctx, (res)=>{
+      newRes.recommendations = res;
+    });
     return Promise.resolve(newRes);
   },
 

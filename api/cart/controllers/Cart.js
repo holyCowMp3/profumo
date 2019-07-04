@@ -21,7 +21,25 @@ module.exports = {
       return strapi.services.cart.fetchAll(ctx.query, populate);
     }
   },
+  meGet: async (ctx) => {
+    if(ctx.state.user){
+      return strapi.services.cart.fetch({owner:ctx.state.user._id});
+    }
+  },
+  meUpdate: async (ctx, next) => {
+    if(ctx.state.user){
+      let cart = await  strapi.services.cart.fetch({owner:ctx.state.user._id});
+      console.log(ctx.request.body);
+      return strapi.services.cart.edit({_id:cart._id}, ctx.request.body) ;
+    }
 
+  },
+  meClear: async (ctx, next) => {
+    if(ctx.state.user){
+      let cart = await  strapi.services.cart.fetch({owner:ctx.state.user._id});
+      return strapi.services.cart.edit({_id:cart._id}, {body:[]});
+    }
+  },
   /**
    * Retrieve a cart record.
    *
@@ -63,6 +81,7 @@ module.exports = {
    */
 
   update: async (ctx, next) => {
+    console.log(ctx.params);
     return strapi.services.cart.edit(ctx.params, ctx.request.body) ;
   },
 

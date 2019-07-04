@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/17/2019 5:07:12 PM"
+    "x-generation-date": "07/02/2019 12:16:51 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -795,6 +795,184 @@
             }
           }
         }
+      }
+    },
+    "/cart/me": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Retrieve cart document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Cart"
+        ],
+        "parameters": []
+      },
+      "post": {
+        "deprecated": false,
+        "description": "Create a new cart record",
+        "responses": {
+          "200": {
+            "description": "Retrieve cart document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Cart"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "deprecated": false,
+        "description": "Delete a single cart record",
+        "responses": {
+          "200": {
+            "description": "deletes a single cart based on the ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Cart"
+        ],
+        "parameters": []
       }
     },
     "/carts/count": {
@@ -6608,6 +6786,71 @@
           "Users-Permissions - User"
         ],
         "parameters": []
+      },
+      "post": {
+        "deprecated": false,
+        "description": "Update current user information",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users-PermissionsUser"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/users/{_id}": {
@@ -7265,9 +7508,6 @@
                 "category": {
                   "type": "string"
                 },
-                "sex": {
-                  "type": "string"
-                },
                 "discounts": {
                   "type": "string"
                 },
@@ -7634,9 +7874,6 @@
               "category": {
                 "type": "string"
               },
-              "sex": {
-                "type": "string"
-              },
               "discounts": {
                 "type": "string"
               },
@@ -7857,9 +8094,6 @@
               "category": {
                 "type": "string"
               },
-              "sex": {
-                "type": "string"
-              },
               "discounts": {
                 "type": "string"
               },
@@ -8043,9 +8277,6 @@
                   "type": "number"
                 },
                 "category": {
-                  "type": "string"
-                },
-                "sex": {
                   "type": "string"
                 },
                 "discounts": {
@@ -8349,14 +8580,6 @@
               }
             }
           },
-          "sex": {
-            "type": "string",
-            "default": "",
-            "enum": [
-              "male",
-              "female"
-            ]
-          },
           "discounts": {
             "required": [
               "id"
@@ -8554,14 +8777,6 @@
           "category": {
             "type": "string"
           },
-          "sex": {
-            "type": "string",
-            "default": "",
-            "enum": [
-              "male",
-              "female"
-            ]
-          },
           "discounts": {
             "type": "string"
           },
@@ -8673,9 +8888,6 @@
                   "type": "number"
                 },
                 "category": {
-                  "type": "string"
-                },
-                "sex": {
                   "type": "string"
                 },
                 "discounts": {

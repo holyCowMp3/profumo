@@ -295,6 +295,8 @@ module.exports = {
       const user = await strapi.query('user', 'users-permissions').create(params);
 
       console.log(user);
+      await strapi.services.cart.add({owner:user._id, body:[]});
+
       const jwt = strapi.plugins['users-permissions'].services.jwt.issue(_.pick(user.toJSON ? user.toJSON() : user, ['_id', 'id']));
       console.log(jwt);
       // if (settings.email_confirmation) {

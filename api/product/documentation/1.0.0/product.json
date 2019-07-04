@@ -691,14 +691,6 @@
               }
             }
           },
-          "sex": {
-            "type": "string",
-            "default": "",
-            "enum": [
-              "male",
-              "female"
-            ]
-          },
           "discounts": {
             "required": [
               "id"
@@ -895,14 +887,6 @@
           },
           "category": {
             "type": "string"
-          },
-          "sex": {
-            "type": "string",
-            "default": "",
-            "enum": [
-              "male",
-              "female"
-            ]
           },
           "discounts": {
             "type": "string"

@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import IconRemove from '../../assets/images/icon_remove.svg';
 import styles from '../SelectMany/styles.scss';
 
-function Content({ index, item, onClick, onRemove }) {
+function Content({ index, item, onClick, onRemove , onCustomRemove }) {
   return (
     <React.Fragment>
       <div>
@@ -29,7 +29,7 @@ function Content({ index, item, onClick, onRemove }) {
         <img
           src={IconRemove}
           alt="Remove Icon"
-          onClick={() => onRemove(index)}
+          onClick={() => onCustomRemove?onCustomRemove(item):onRemove(index)}
         />
       </div>
     </React.Fragment>

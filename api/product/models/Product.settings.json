@@ -95,6 +95,9 @@
     },
     "priority": {
       "type": "integer"
+    },
+    "recommendations": {
+      "type": "json"
     }
   }
 }

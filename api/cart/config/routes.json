@@ -10,6 +10,14 @@
     },
     {
       "method": "GET",
+      "path": "/cart/me",
+      "handler": "Cart.meGet",
+      "config": {
+        "policies": ["isOwner"]
+      }
+    },
+    {
+      "method": "GET",
       "path": "/carts/count",
       "handler": "Cart.count",
       "config": {
@@ -26,16 +34,33 @@
     },
     {
       "method": "POST",
+      "path": "/cart/me",
+      "handler": "Cart.meUpdate",
+      "config": {
+        "policies": ["isOwner"]
+      }
+    },
+    {
+      "method": "POST",
       "path": "/carts",
       "handler": "Cart.create",
       "config": {
         "policies": ["setOwner"]
       }
     },
+
     {
       "method": "PUT",
       "path": "/carts/:_id",
       "handler": "Cart.update",
+      "config": {
+        "policies": ["isOwner"]
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cart/me",
+      "handler": "Cart.meClear",
       "config": {
         "policies": ["isOwner"]
       }
@@ -48,5 +73,6 @@
         "policies": ["isOwner"]
       }
     }
+
   ]
 }

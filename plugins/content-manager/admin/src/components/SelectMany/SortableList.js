@@ -21,6 +21,7 @@ const SortableList = ({
   name,
   onClick,
   onRemove,
+  onCustomRemove,
 }) => {
   return (
     <div className={cn(styles.sortableList)}>
@@ -36,6 +37,7 @@ const SortableList = ({
             moveAttrEnd={moveAttrEnd}
             onRemove={onRemove}
             onClick={onClick}
+            onCustomRemove={onCustomRemove}
           />
         ))}
       </ul>
