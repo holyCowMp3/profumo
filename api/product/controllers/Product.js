@@ -15,7 +15,7 @@ module.exports = {
    *
    * @return {Object|Array}
    */
-  recommendations: async (ctx, callback) => {
+  recommendationPoint: async (ctx, callback) => {
     var dataString = {
       'namespace': 'products',
       'thing': ctx.params._id,
@@ -26,7 +26,7 @@ module.exports = {
     var options = {
       url: 'http://localhost:3456/recommendations',
       method: 'POST',
-      body: dataString
+      body: JSON.stringify(dataString)
     };
 
     function call(error, response, body) {
@@ -40,7 +40,7 @@ module.exports = {
       }
     }
     request(options, call);
-    return ctx.ok();
+
   },
   recommendationsPersonal: async (ctx) => {
     var dataString = {
@@ -53,7 +53,7 @@ module.exports = {
     var options = {
       url: 'http://localhost:3456/recommendations',
       method: 'POST',
-      body: dataString
+      body: JSON.stringify(dataString)
     };
     let array = [];
     request(options, (error, response, body) =>{
@@ -100,7 +100,7 @@ module.exports = {
       .ele('shop')
       .ele('name','O-la-la').up()
       .ele('company','O-la-la inc.').up()
-      .ele('url','profumo.com.ua').up()
+      .ele('url','olalala.com.ua').up()
       .ele('currencies')
       .ele('currency', {id:'UAH',rate:1}).up().up()
       .ele('categories');
@@ -181,12 +181,8 @@ module.exports = {
       };
       request(options, callback);
     }
-
-
     var result  = await strapi.services.product.fetch(ctx.params);
-
     var length = result.comments.length;
-
     var newRes = result.toObject();
     newRes['comments_len'] = length;
     var desc = result.desc;
@@ -200,9 +196,14 @@ module.exports = {
       return obj;
     });
     newRes.descJSON = mapped;
-    await recommendations(ctx, (res)=>{
-      newRes.recommendations = res;
-    });
+    try {
+      await strapi.controllers.product.recommendationPoint(ctx, (res)=>{
+        newRes.recommendations = res;
+      });
+    } catch (e) {
+      console.log(e);
+      newRes.recommendations = [];
+    }
     return Promise.resolve(newRes);
   },
 

@@ -19,17 +19,23 @@ module.exports = {
 
   // After fetching all values.
   // Fired after a `fetchAll` operation.
-  // afterFetchAll: async (model, results) => {},
+  afterFetchAll: async (model, results) => {
+    for (let result of results){
+      result.order = undefined;
+      result.promocode =undefined;
+    }
+  },
 
-  //
+
   // beforeFetch: async (model) => {
   //
   //
   // },
 
-  // After fetching a value.
-  // Fired after a `fetch` operation.
-  // afterFetch: async (model, result) => {},
+  afterFetch: async (model, result) => {
+    result.order = undefined;
+    result.promocode =undefined;
+  },
 
   // Before creating a value.
   // Fired before an `insert` query.

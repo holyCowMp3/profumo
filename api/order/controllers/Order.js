@@ -6,7 +6,7 @@
  * @description: A set of functions called "actions" for managing `Order`.
  */
 const LiqPay = require('liqpay-sdk');
-const liqPay = LiqPay('public','private');
+
 const request = require('request');
 
 module.exports = {
@@ -58,6 +58,7 @@ module.exports = {
    */
 
   create: async (ctx) => {
+    const liqPay = LiqPay('public','private');
     function callback(error, response, body) {
       if (!error && response.statusCode == 200) {
         console.log(body);

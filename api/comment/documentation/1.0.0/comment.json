@@ -629,6 +629,12 @@
               },
               "priority": {
                 "type": "integer"
+              },
+              "recommendations": {
+                "type": "json"
+              },
+              "promocodes": {
+                "type": "string"
               }
             }
           },

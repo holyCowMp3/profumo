@@ -41,8 +41,7 @@
       "via": "product"
     },
     "order": {
-      "model": "order",
-      "via": "products"
+      "model": "order"
     },
     "name_ru": {
       "default": "",
@@ -98,6 +97,9 @@
     },
     "recommendations": {
       "type": "json"
+    },
+    "promocodes": {
+      "model": "promocode"
     }
   }
 }

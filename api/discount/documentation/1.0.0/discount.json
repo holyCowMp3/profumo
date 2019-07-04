@@ -614,6 +614,12 @@
               },
               "priority": {
                 "type": "integer"
+              },
+              "recommendations": {
+                "type": "json"
+              },
+              "promocodes": {
+                "type": "string"
               }
             }
           },
@@ -668,6 +674,12 @@
                 },
                 "status": {
                   "type": "boolean"
+                },
+                "promocodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }

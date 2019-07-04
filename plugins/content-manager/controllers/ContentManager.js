@@ -87,6 +87,7 @@ module.exports = {
   create: async ctx => {
 
     const { source } = ctx.request.query;
+
     function processText(string) {
       return string.replace('\n','').replace('\n','');
     }
@@ -128,12 +129,11 @@ module.exports = {
           }
           callback(subCategories);
         } else {
-          console.log('Произошла ошибка: ' + error);
+          console.trace('Произошла ошибка: ' + error);
         }
       }).end();
 
     }
-
     function trasformCategories(subCategories, callback){
       const jsdom = require('jsdom');
       const { JSDOM } = jsdom;
@@ -173,7 +173,6 @@ module.exports = {
 
       }
     }
-
     function saveCategory(url, obj, callback){
       const jsdom = require('jsdom');
       const { JSDOM } = jsdom;
@@ -210,9 +209,6 @@ module.exports = {
 
         });
     }
-
-
-
     async function persistProperties(transformed,parentId, callback) {
     //  transformed.parent = parentId;
       let categoryPropsID = [];
@@ -239,10 +235,13 @@ module.exports = {
 
     try {
       // Create an entry using `queries` system
-      ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].add(ctx.params, ctx.request.body, source);
+
+
+      let result = await strapi.plugins['content-manager'].services['contentmanager'].add(ctx.params, ctx.request.body, source);
+      ctx.body =  result;
+      if('rozetkacat' in ctx.request.body.fields){
       let body = ctx.body;
       let parentId = ctx.body.id;
-      if('rozetkacat' in ctx.request.body.fields){
 
         try {
           // getCategories(ctx.request.body.fields.rozetkacat, (res)=>{
@@ -263,10 +262,14 @@ module.exports = {
           strapi.log.error(e);
         }
 
+      } else {
+
       }
+
       strapi.emit('didCreateFirstContentTypeEntry', ctx.params, source);
+
     } catch(error) {
-      console.log(error);
+      console.trace(error);
       ctx.badRequest(null, ctx.request.admin ? [{ messages: [{ id: error.message, field: error.field }] }] : error.message);
     }
   },

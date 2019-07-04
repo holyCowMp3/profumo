@@ -11,8 +11,7 @@
   "attributes": {
     "name_ru": {
       "default": "",
-      "type": "string",
-      "unique": true
+      "type": "string"
     },
     "products": {
       "collection": "product",
@@ -40,8 +39,7 @@
     },
     "rozetkacat": {
       "default": "",
-      "type": "string",
-      "unique": true
+      "type": "string"
     },
     "properties": {
       "collection": "property",
@@ -54,6 +52,10 @@
     },
     "status": {
       "type": "boolean"
+    },
+    "promocodes": {
+      "collection": "promocode",
+      "via": "category"
     }
   }
 }

@@ -35,6 +35,18 @@ module.exports = {
     {
       label: '',
       destination: 'cart'
-    }
+    },
+    {
+      label: '',
+      destination: 'blog'
+    },
+    {
+      label: '',
+      destination: 'promocode'
+    },
+    {
+      label: '',
+      destination: 'contacts'
+    },
   ],
 };

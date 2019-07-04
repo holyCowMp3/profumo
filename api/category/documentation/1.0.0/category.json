@@ -722,6 +722,12 @@
                 },
                 "priority": {
                   "type": "integer"
+                },
+                "recommendations": {
+                  "type": "json"
+                },
+                "promocodes": {
+                  "type": "string"
                 }
               }
             }
@@ -777,6 +783,12 @@
                 },
                 "status": {
                   "type": "boolean"
+                },
+                "promocodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -830,6 +842,12 @@
               },
               "status": {
                 "type": "boolean"
+              },
+              "promocodes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -913,6 +931,31 @@
           },
           "status": {
             "type": "boolean"
+          },
+          "promocodes": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "promocode": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -964,6 +1007,12 @@
           },
           "status": {
             "type": "boolean"
+          },
+          "promocodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }
