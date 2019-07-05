@@ -1,0 +1,26 @@
+{
+  "connection": "default",
+  "collectionName": "blog",
+  "info": {
+    "name": "blog",
+    "description": "Блог | Блоги"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "publishing": {
+      "type": "date"
+    },
+    "newsBody": {
+      "type": "text"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}

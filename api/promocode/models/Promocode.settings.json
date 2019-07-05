@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "promocode",
+    "description": "Промокод | Промокоды"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "promocode": {
+      "type": "string"
+    },
+    "category": {
+      "model": "category",
+      "via": "promocodes"
+    },
+    "products": {
+      "collection": "product",
+      "via": "promocodes"
+    }
+  }
+}

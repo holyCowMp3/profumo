@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/promocodes",
+      "handler": "Promocode.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/promocodes/count",
+      "handler": "Promocode.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/promocodes/:_id",
+      "handler": "Promocode.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/promocodes",
+      "handler": "Promocode.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/promocodes/:_id",
+      "handler": "Promocode.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/promocodes/:_id",
+      "handler": "Promocode.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
