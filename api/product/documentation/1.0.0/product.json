@@ -983,7 +983,8 @@
             "type": "integer"
           },
           "recommendations": {
-            "type": "json"
+            "type": "json",
+            "default": []
           },
           "promocodes": {
             "required": [
@@ -1096,7 +1097,8 @@
             "type": "integer"
           },
           "recommendations": {
-            "type": "json"
+            "type": "json",
+            "default": []
           },
           "promocodes": {
             "type": "string"

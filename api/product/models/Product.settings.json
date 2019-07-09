@@ -96,6 +96,7 @@
       "type": "integer"
     },
     "recommendations": {
+      "default": [],
       "type": "json"
     },
     "promocodes": {

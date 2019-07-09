@@ -379,13 +379,17 @@ export class EditPage extends React.Component {
   };
 
   handleSubmit = e => {
+
     e.preventDefault();
+
     const formErrors = checkFormValidity(
+
       this.generateFormFromRecord(),
       this.props.editPage.formValidations
     );
 
     if (isEmpty(formErrors)) {
+      console.log("EDITED ACTION");
       this.props.submit(this.context);
     }
 

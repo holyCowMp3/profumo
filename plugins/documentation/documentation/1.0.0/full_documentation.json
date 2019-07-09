@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "07/04/2019 5:51:09 PM"
+    "x-generation-date": "07/09/2019 11:33:59 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -10528,7 +10528,8 @@
             "type": "integer"
           },
           "recommendations": {
-            "type": "json"
+            "type": "json",
+            "default": []
           },
           "promocodes": {
             "required": [
@@ -10641,7 +10642,8 @@
             "type": "integer"
           },
           "recommendations": {
-            "type": "json"
+            "type": "json",
+            "default": []
           },
           "promocodes": {
             "type": "string"
