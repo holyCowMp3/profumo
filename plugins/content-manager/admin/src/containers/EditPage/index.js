@@ -389,7 +389,6 @@ export class EditPage extends React.Component {
     );
 
     if (isEmpty(formErrors)) {
-      console.log("EDITED ACTION");
       this.props.submit(this.context);
     }
 

@@ -33,6 +33,7 @@ module.exports = {
       if (!error && response.statusCode == 200) {
         let array = [];
         let recommendResult = JSON.parse(body);
+        console.log(recommendResult);
         for (let row of recommendResult.recommendations){
           array.push(row.thing);
         }
@@ -64,7 +65,7 @@ module.exports = {
         }
       }
     });
-    return array;
+    return await array;
   },
 
   find: async (ctx, next, { populate } = {}) => {
@@ -197,9 +198,7 @@ module.exports = {
     });
     newRes.descJSON = mapped;
     try {
-      await strapi.controllers.product.recommendationPoint(ctx, (res)=>{
-        newRes.recommendations = res;
-      });
+      newRes.recommendations = await strapi.controllers.product.recommendationsPersonal(ctx);
     } catch (e) {
       console.log(e);
       newRes.recommendations = [];
