@@ -59,7 +59,7 @@ module.exports = {
 
       return node;
     }
-    ctx.query.limit = -1;
+    ctx.query._limit = 500;
     if (ctx.query._q) {
       array = await strapi.services.category.search(ctx.query);
       array.filter(cat => !cat.parent).map(cat => {
@@ -105,7 +105,7 @@ module.exports = {
 
       return node;
     }
-    ctx.query.limit = -1;
+    ctx.query._limit = 500;
     if (ctx.query._q) {
       array = await strapi.services.category.search(ctx.query);
       array.filter(cat => !cat.parent).map(cat => {
