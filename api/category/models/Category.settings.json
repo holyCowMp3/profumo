@@ -15,7 +15,8 @@
     },
     "products": {
       "collection": "product",
-      "via": "category"
+      "via": "category",
+      "dominant": true
     },
     "child": {
       "collection": "category",

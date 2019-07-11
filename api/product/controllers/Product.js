@@ -8,6 +8,7 @@
 const builder = require('xmlbuilder');
 const md = require('markdown-it')();
 const  request = require('request');
+const _  = require('lodash');
 module.exports = {
 
   /**
@@ -76,21 +77,42 @@ module.exports = {
     }
   },
   build: async (ctx) =>{
+    class Category{
+      constructor(cat, parent, name) {
+        this.cat = cat;
+        this.parent = parent;
+        this.name_ru = name;
+      }
+    }
+
     let products =  await strapi.services.product.fetchAll({'rozetka_exp':'true'});
     if (products.length<=0){
       return ctx.response.notFound('The file is empty, because rozetka export is empty.');
     }
-    let categories = {};
-    let childCategories = {};
-    for (let i = 0; i < products.length; i++) {
-      let cat = await strapi.services.category.fetch({'_id':products[i].category._id});
-      console.log(cat);
-      let parentId =cat.parent._id.toString();
-      if(categories[parentId] === undefined || childCategories[cat._id] === undefined ) {
-        categories[parentId] = cat.parent.name_ru;
-        childCategories[cat._id] = parentId + '||' + cat.name_ru;
+    let categoryList=[];
+    async function getCat(cat, set) {
+      if (!cat.parent){
+        return set;
+      }  else {
+        let res = await strapi.services.category.fetch({'_id':cat.parent});
+
+        let parentId = res.parent?res.parent._id.toString():undefined;
+        set.push(new Category(res._id.toString(),parentId, res.name_ru));
+        return getCat(res,set);
       }
     }
+
+    for (let i = 0; i < products.length; i++) {
+      let cat = await strapi.services.category.fetch({'_id':products[i].category._id});
+      let parentId =cat.parent._id.toString();
+      categoryList.push(new Category(cat._id.toString(),parentId, cat.name_ru));
+      await getCat(cat,categoryList);
+      // if(categories[parentId] === undefined || childCategories[cat._id] === undefined ) {
+      //   categories[parentId] = cat.parent.name_ru;
+      //   childCategories[cat._id] = parentId + '||' + cat.name_ru;
+      // }
+    }
+    categoryList = _.uniqBy(categoryList, cat => cat.cat+cat.parent);
 
     // products.forEach(prod => {Category.findOne(prod.category).then(i => console.log(i.parent))});
     let xml = builder.create('yml_catalog', { encoding: 'utf-8'})
@@ -105,12 +127,13 @@ module.exports = {
       .ele('currencies')
       .ele('currency', {id:'UAH',rate:1}).up().up()
       .ele('categories');
-    for (let key in categories) {
-      var elememt =
-        xml.ele('category',{id:key}, categories[key]).up();
-    }
-    for (let key in childCategories) {
-      var middleElem = elememt.ele('category',{id:key, parentId:childCategories[key].split('||')[0]}, childCategories[key].split('||')[1] ).up();
+    var middleElem = {};
+    for (let key of categoryList) {
+      if(key.parent) {
+        middleElem = xml.ele('category',{id:key.cat, parentId:key.parent},key.name_ru).up();
+      } else {
+        middleElem = xml.ele('category', {id:key.cat},key.name_ru).up();
+      }
     }
     middleElem = middleElem.up();
     var smth =  middleElem.ele('offers');
@@ -145,7 +168,7 @@ module.exports = {
     ctx.response.status =200;
     ctx.response.type = 'xml';
 
-    ctx.send(xml.end());
+    ctx.send(xml.end({ pretty: true}));
   },
   /**
    * Retrieve a product record.
