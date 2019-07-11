@@ -85,7 +85,7 @@ module.exports = {
       }
     }
 
-    let products =  await strapi.services.product.fetchAll({'rozetka_exp':'true'});
+    let products =  await strapi.services.product.fetchAll({'rozetka_exp':'true','_limit':-1});
     if (products.length<=0){
       return ctx.response.notFound('The file is empty, because rozetka export is empty.');
     }
