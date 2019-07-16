@@ -576,9 +576,6 @@
               "discounts": {
                 "type": "string"
               },
-              "order": {
-                "type": "string"
-              },
               "name_ru": {
                 "type": "string"
               },

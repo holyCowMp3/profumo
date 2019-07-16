@@ -839,34 +839,6 @@
               }
             }
           },
-          "order": {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "dateOrder": {
-                "type": "string"
-              },
-              "products": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "status": {
-                "type": "string"
-              },
-              "owner": {
-                "type": "string"
-              },
-              "additionalInfo": {
-                "type": "string"
-              }
-            }
-          },
           "name_ru": {
             "type": "string",
             "default": ""
@@ -1035,9 +1007,6 @@
             "type": "string"
           },
           "discounts": {
-            "type": "string"
-          },
-          "order": {
             "type": "string"
           },
           "name_ru": {

@@ -40,9 +40,6 @@
       "model": "discount",
       "via": "product"
     },
-    "order": {
-      "model": "order"
-    },
     "name_ru": {
       "default": "",
       "type": "string"

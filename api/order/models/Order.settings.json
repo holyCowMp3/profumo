@@ -13,10 +13,6 @@
       "default": "",
       "type": "date"
     },
-    "products": {
-      "collection": "product",
-      "via": "order"
-    },
     "status": {
       "default": "",
       "type": "enumeration",
@@ -33,6 +29,12 @@
     },
     "additionalInfo": {
       "type": "text"
+    },
+    "orders": {
+      "type": "json"
+    },
+    "deliveryInfo": {
+      "type": "json"
     }
   }
 }

@@ -21,7 +21,6 @@ module.exports = {
   // Fired after a `fetchAll` operation.
   afterFetchAll: async (model, results) => {
     for (let result of results){
-      result.order = undefined;
       result.promocode =undefined;
     }
   },
