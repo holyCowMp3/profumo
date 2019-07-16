@@ -215,6 +215,9 @@ module.exports = {
     var mapped = filtered.map(i => {
       var obj = {};
       var splitArr = i.split('\r\n');
+      if(splitArr.length<=1){
+        splitArr = i.split('\n');
+      }
       obj.header = splitArr[0];
       obj.body = splitArr.slice(1,splitArr.length).join('\n');
       return obj;
