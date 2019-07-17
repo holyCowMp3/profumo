@@ -115,7 +115,9 @@ module.exports = {
    */
   mePost: async (ctx) => {
     try {
+
       const user = ctx.state.user;
+      console.log(user);
       if (!user) {
         return ctx.badRequest(null, [{ messages: [{ id: 'No authorization header was found' }] }]);
       }
@@ -130,9 +132,8 @@ module.exports = {
       try {
         console.log(ctx.request.body);
         const data = await strapi.plugins['users-permissions'].services.user.edit({_id:user._id}, ctx.request.body);
-        // Send 200 `ok`
-
-        ctx.send(data);
+        console.log(data);
+        return data;
       } catch (e) {
         console.trace(e);
       }
