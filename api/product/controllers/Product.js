@@ -159,10 +159,11 @@ module.exports = {
         .up()
         .ele('name', products[i].name_rozetka)
         .up()
-        .ele('desc')
-        .cdata(md.render(products[i].desc)).up().up();
-      for (let k in products[i].properties) {
-        elem.ele('param', {name: products[i].properties[k].property_name}, products[i].properties[k].property_val).up();
+        .ele('description')
+        .cdata(md.render(products[i].desc).replace('#','')).up().up();
+      let propertiesMap = _.groupBy(products[i].properties, property => property.property_name);
+      for (let props of Object.keys(propertiesMap)) {
+        elem.ele('param', {name: props},_.map(propertiesMap[props],'property_val').join(',')).up();
       }
     }
     ctx.response.status =200;
