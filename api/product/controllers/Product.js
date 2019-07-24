@@ -163,7 +163,7 @@ module.exports = {
         .cdata(md.render(products[i].desc).replace('#','')).up().up();
       let propertiesMap = _.groupBy(products[i].properties, property => property.property_name);
       for (let props of Object.keys(propertiesMap)) {
-        elem.ele('param', {name: props},_.map(propertiesMap[props],'property_val').join(',')).up();
+        elem.ele('param', {name: props},_.map(propertiesMap[props],'property_val').join(', ')).up();
       }
     }
     ctx.response.status =200;
