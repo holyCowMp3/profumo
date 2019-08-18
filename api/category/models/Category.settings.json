@@ -57,6 +57,11 @@
     "promocodes": {
       "collection": "promocode",
       "via": "category"
+    },
+    "category_photo": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
     }
   }
 }

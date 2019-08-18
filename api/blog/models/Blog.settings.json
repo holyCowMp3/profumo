@@ -21,6 +21,11 @@
     },
     "link": {
       "type": "string"
+    },
+    "header_photo": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
     }
   }
 }
