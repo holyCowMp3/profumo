@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "07/16/2019 4:02:11 PM"
+    "x-generation-date": "08/18/2019 9:11:32 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -8712,6 +8712,52 @@
           },
           "link": {
             "type": "string"
+          },
+          "header_photo": {
+            "required": [
+              "id",
+              "name",
+              "hash",
+              "mime",
+              "size",
+              "url",
+              "provider"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "ext": {
+                "type": "string"
+              },
+              "mime": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "public_id": {
+                "type": "string"
+              },
+              "related": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -9303,6 +9349,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "category_photo": {
+                  "type": "string"
                 }
               }
             }
@@ -9362,6 +9411,9 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "category_photo": {
+                "type": "string"
               }
             }
           },
@@ -9468,6 +9520,52 @@
                     "type": "string"
                   }
                 }
+              }
+            }
+          },
+          "category_photo": {
+            "required": [
+              "id",
+              "name",
+              "hash",
+              "mime",
+              "size",
+              "url",
+              "provider"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "ext": {
+                "type": "string"
+              },
+              "mime": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "public_id": {
+                "type": "string"
+              },
+              "related": {
+                "type": "string"
               }
             }
           }
@@ -9963,6 +10061,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "category_photo": {
+                  "type": "string"
                 }
               }
             }
@@ -10256,6 +10357,9 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "category_photo": {
+                "type": "string"
               }
             }
           },
@@ -10588,6 +10692,9 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "category_photo": {
+                "type": "string"
               }
             }
           },
@@ -10873,6 +10980,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "category_photo": {
+                  "type": "string"
                 }
               }
             }

@@ -58,7 +58,8 @@ module.exports = {
    */
 
   create: async (ctx) => {
-    const liqPay = LiqPay('public','private');
+    let liqPayConf = import('./liqpayConf.json');
+    const liqPay = LiqPay(liqPayConf.public,liqPayConf.private);
     function callback(error, response, body) {
       if (!error && response.statusCode == 200) {
         console.log(body);

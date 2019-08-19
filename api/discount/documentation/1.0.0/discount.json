@@ -677,6 +677,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "category_photo": {
+                  "type": "string"
                 }
               }
             }
