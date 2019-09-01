@@ -5,9 +5,9 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
+import {connect} from 'react-redux';
+import {bindActionCreators, compose} from 'redux';
+import {createStructuredSelector} from 'reselect';
 import PropTypes from 'prop-types';
 import {
   cloneDeep,
@@ -21,7 +21,7 @@ import {
   replace,
 } from 'lodash';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContext } from 'react-dnd';
+import {DragDropContext} from 'react-dnd';
 import cn from 'classnames';
 
 // You can find these components in either
@@ -44,13 +44,13 @@ import CustomDragLayer from '../../components/CustomDragLayer';
 import Edit from '../../components/Edit';
 import EditRelations from '../../components/EditRelations';
 
-import { bindLayout } from '../../utils/bindLayout';
-import { checkFormValidity } from '../../utils/formValidations';
+import {bindLayout} from '../../utils/bindLayout';
+import {checkFormValidity} from '../../utils/formValidations';
 
 // App selectors
-import { makeSelectSchema } from '../App/selectors';
+import {makeSelectSchema} from '../App/selectors';
 
-import { generateRedirectURI } from '../ListPage/utils';
+import {generateRedirectURI} from '../ListPage/utils';
 import {
   addRelationItem,
   changeData,
@@ -71,8 +71,63 @@ import saga from './saga';
 import makeSelectEditPage from './selectors';
 import styles from './styles.scss';
 
+function getJwt(call) {
+  var headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Connection': 'keep-alive',
+  };
+  var dataString = '{"identifier":"test","password":"testtest"}';
+  fetch('http://profumo.com.ua/auth/local',
+    {
+      method: 'POST',
+      headers: headers,
+      body: dataString,
+    }
+  ).then(body => body.json()).then(body => call(body.jwt));
+}
+
+function putData(jwt, body, call) {
+
+  var headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + jwt,
+    'Connection': 'keep-alive',
+  };
+  let mutation = `mutation {
+                  createProduct(
+                    input: 
+                    { data: 
+                      { name_ru: "${body.name_ru}" 
+                        name_ua: "${body.name_ua}"
+                        name_en: "${body.name_en}"
+                        name_rozetka: "${body.name_rozetka}"
+                        price:${body.price?body.price:0} 
+                        priority:${body.priority?body.priority:5} 
+                        meta_title:"${body.meta_title}"
+                        meta_keywords:"${body.meta_keywords}"
+                        meta_decription:"${body.meta_decription}"
+                        desc:"${body.desc}"
+                        amount:${body.amount?body.amount:0} 
+                        vendor:"${body.vendor}" 
+                        avaliable:${body.avaliable?body.avaliable:true}
+                      } }) {
+                    product {
+                      name_ru
+                    }
+                  }
+                }
+    `;
+  fetch('http://profumo.com.ua/graphql', {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({query:mutation})
+  }).then(body => call(body.json()));
+}
+
 export class EditPage extends React.Component {
-  state = { showWarning: false, showWarningDelete: false };
+  state = {showWarning: false, showWarningDelete: false};
 
   componentDidMount() {
     this.initComponent(this.props);
@@ -207,7 +262,7 @@ export class EditPage extends React.Component {
 
     return isEmpty(toString(valueToDisplay))
       ? null
-      : truncate(valueToDisplay, { length: '24', separator: '.' });
+      : truncate(valueToDisplay, {length: '24', separator: '.'});
   };
 
   /**
@@ -278,14 +333,14 @@ export class EditPage extends React.Component {
     this.props.setFileRelations(fileRelations);
   };
 
-  handleAddRelationItem = ({ key, value }) => {
+  handleAddRelationItem = ({key, value}) => {
     this.props.addRelationItem({
       key,
       value,
     });
   };
 
-  handleBlur = ({ target }) => {
+  handleBlur = ({target}) => {
     const defaultValue = get(this.getModelAttribute(target.name), 'default');
 
     if (isEmpty(target.value) && defaultValue && target.value !== false) {
@@ -309,11 +364,11 @@ export class EditPage extends React.Component {
     const formErrors = cloneDeep(this.props.editPage.formErrors);
 
     if (errorIndex === -1 && !isEmpty(errors)) {
-      formErrors.push({ name: target.name, errors });
+      formErrors.push({name: target.name, errors});
     } else if (errorIndex !== -1 && isEmpty(errors)) {
       formErrors.splice(errorIndex, 1);
     } else if (!isEmpty(errors)) {
-      formErrors.splice(errorIndex, 1, { name: target.name, errors });
+      formErrors.splice(errorIndex, 1, {name: target.name, errors});
     }
 
     return this.props.setFormErrors(formErrors);
@@ -335,11 +390,11 @@ export class EditPage extends React.Component {
       value,
     };
 
-    this.props.changeData({ target });
+    this.props.changeData({target});
   };
 
   handleConfirm = () => {
-    const { showWarningDelete } = this.state;
+    const {showWarningDelete} = this.state;
 
     if (showWarningDelete) {
       this.props.deleteData();
@@ -352,7 +407,7 @@ export class EditPage extends React.Component {
 
   handleGoBack = () => this.props.history.goBack();
 
-  handleRedirect = ({ model, id, source = pluginId }) => {
+  handleRedirect = ({model, id, source = pluginId}) => {
     /* eslint-disable */
     switch (model) {
       case 'permission':
@@ -383,7 +438,6 @@ export class EditPage extends React.Component {
     e.preventDefault();
 
     const formErrors = checkFormValidity(
-
       this.generateFormFromRecord(),
       this.props.editPage.formValidations
     );
@@ -394,6 +448,28 @@ export class EditPage extends React.Component {
 
     this.props.setFormErrors(formErrors);
   };
+
+  sendToProfumo = e => {
+    e.preventDefault();
+
+    const formErrors = checkFormValidity(
+      this.generateFormFromRecord(),
+      this.props.editPage.formValidations
+    );
+
+    if (isEmpty(formErrors)) {
+
+      getJwt(jwt => {
+        console.log(jwt);
+        putData(jwt, this.generateFormFromRecord(), res => {
+          if (res) {
+            console.log('Exported');
+          }
+        });
+      });
+
+    }
+  }
 
   hasDisplayedFields = () => {
     return get(this.getModel(), ['editDisplay', 'fields'], []).length > 0;
@@ -406,7 +482,7 @@ export class EditPage extends React.Component {
    * @type {boolean} current env is dev
    */
   isDevEnvironment = () => {
-    const { currentEnvironment } = this.context;
+    const {currentEnvironment} = this.context;
 
     return currentEnvironment === 'development';
   };
@@ -416,8 +492,8 @@ export class EditPage extends React.Component {
       relation =>
         get(this.getSchema(), ['relations', relation, 'plugin']) !== 'upload' &&
         (!get(this.getSchema(), ['relations', relation, 'nature'], '')
-          .toLowerCase()
-          .includes('morph') ||
+            .toLowerCase()
+            .includes('morph') ||
           !get(this.getSchema(), ['relations', relation, relation]))
     ).length === 0;
 
@@ -451,7 +527,7 @@ export class EditPage extends React.Component {
           this.context.emitEvent('willEditContentTypeLayoutFromEditView')
         }
       >
-        <NavLink {...message} url={url} />
+        <NavLink {...message} url={url}/>
       </li>
     );
   };
@@ -465,14 +541,21 @@ export class EditPage extends React.Component {
       disabled: this.showLoaders(),
     },
     {
+      label: 'Экспорт на profumo',
+      kind: 'secondary',
+      onClick: this.sendToProfumo,
+      type: 'button',
+      disabled: this.showLoaders(),
+    },
+    {
       kind: 'primary',
       label: `${pluginId}.containers.Edit.submit`,
       onClick: this.handleSubmit,
       type: 'submit',
       loader: this.props.editPage.showLoader,
       style: this.props.editPage.showLoader
-        ? { marginRight: '18px', flexGrow: 2 }
-        : { flexGrow: 2 },
+        ? {marginRight: '18px', flexGrow: 2}
+        : {flexGrow: 2},
       disabled: this.showLoaders(),
     },
   ];
@@ -482,14 +565,14 @@ export class EditPage extends React.Component {
     const subActions = this.isCreating()
       ? []
       : [
-          {
-            label: 'app.utils.delete',
-            kind: 'delete',
-            onClick: this.toggleDelete,
-            type: 'button',
-            disabled: this.showLoaders(),
-          },
-        ];
+        {
+          label: 'app.utils.delete',
+          kind: 'delete',
+          onClick: this.toggleDelete,
+          type: 'button',
+          disabled: this.showLoaders(),
+        },
+      ];
 
     return subActions;
     /* eslint-enable indent */
@@ -501,7 +584,7 @@ export class EditPage extends React.Component {
    */
   retrieveLinksContainerComponent = () => {
     // Should be retrieved from the global props (@soupette)
-    const { plugins } = this.context;
+    const {plugins} = this.context;
     const appPlugins = plugins.toJS();
     const componentToInject = Object.keys(appPlugins).reduce((acc, current) => {
       // Retrieve injected compos from plugin
@@ -551,8 +634,8 @@ export class EditPage extends React.Component {
 
   showLoaders = () => {
     const {
-      editPage: { isLoading },
-      schema: { layout },
+      editPage: {isLoading},
+      schema: {layout},
     } = this.props;
 
     return (
@@ -562,7 +645,7 @@ export class EditPage extends React.Component {
   };
 
   toggle = () =>
-    this.setState(prevState => ({ showWarning: !prevState.showWarning }));
+    this.setState(prevState => ({showWarning: !prevState.showWarning}));
 
   toggleDelete = () =>
     this.setState(prevState => ({
@@ -580,7 +663,7 @@ export class EditPage extends React.Component {
   renderEdit = () => {
     const {
       editPage,
-      location: { search },
+      location: {search},
     } = this.props;
     const source = getQueryParameters(search, 'source');
     const basePath = `/plugins/${pluginId}/ctm-configurations/edit-settings`;
@@ -597,7 +680,7 @@ export class EditPage extends React.Component {
           }
         >
           <div className={styles.main_wrapper}>
-            <LoadingIndicator />
+            <LoadingIndicator/>
           </div>
         </div>
       );
@@ -645,20 +728,20 @@ export class EditPage extends React.Component {
   };
 
   render() {
-    const { editPage, moveAttr, moveAttrEnd } = this.props;
-    const { showWarning, showWarningDelete } = this.state;
+    const {editPage, moveAttr, moveAttrEnd} = this.props;
+    const {showWarning, showWarningDelete} = this.state;
 
     return (
       <div>
 
         <form onSubmit={this.handleSubmit}>
-          <BackHeader onClick={this.handleGoBack} />
-          <CustomDragLayer />
+          <BackHeader onClick={this.handleGoBack}/>
+          <CustomDragLayer/>
           <div className={cn('container-fluid', styles.containerFluid)}>
             <PluginHeader
               actions={this.pluginHeaderActions()}
               subActions={this.pluginHeaderSubActions()}
-              title={{ id: this.getPluginHeaderTitle() }}
+              title={{id: this.getPluginHeaderTitle()}}
               titleId="addNewEntry"
             />
             <PopUpWarning
@@ -790,7 +873,7 @@ const withReducer = strapi.injectReducer({
   reducer,
   pluginId,
 });
-const withSaga = strapi.injectSaga({ key: 'editPage', saga, pluginId });
+const withSaga = strapi.injectSaga({key: 'editPage', saga, pluginId});
 
 export default compose(
   withReducer,

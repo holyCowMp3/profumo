@@ -35,6 +35,7 @@ class SelectOne extends React.Component {
       isLoading: true,
       options: [],
       toSkip: 0,
+      parentValue: { _id: ''}
     };
   }
 
@@ -50,7 +51,7 @@ class SelectOne extends React.Component {
         this.props.mergeState({categoryId:nextProps.record.category._id});
       }
     }
-    
+
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -62,9 +63,7 @@ class SelectOne extends React.Component {
 
   getOptions = query => {
     const params = {
-      _limit: 20,
-      _start: this.state.toSkip,
-      source: this.props.relation.plugin || 'content-manager',
+      _limit: -1,
     };
 
     // Set `query` parameter if necessary
@@ -79,7 +78,8 @@ class SelectOne extends React.Component {
       query && get(this.props.record, [this.props.relation.alias])
         ? get(this.props.record, [this.props.relation.alias])
         : '';
-    const requestUrl = `/content-manager/explorer/${this.props.relation.model ||
+
+    const requestUrl = (this.props.relation.model === 'category') ? '/categories' :`/content-manager/explorer/${this.props.relation.model ||
       this.props.relation.collection}/${requestUrlSuffix}`;
 
     // Call our request helper (see 'utils/request')
@@ -128,6 +128,15 @@ class SelectOne extends React.Component {
       });
   };
 
+  convertArrayToData = response => {
+    console.log(response);
+    const options = map(response, item => ({
+        value: item,
+        label: item.name_ru,
+      }));
+    return options;
+  }
+
   handleChange = value => {
     if (this.props.relation.model === 'category') {
       if (value) {
@@ -141,6 +150,10 @@ class SelectOne extends React.Component {
     };
     this.props.setRecordAttribute({ target });
   };
+
+  handleChangeInParent = value => {
+   return this.setState({parentValue: value});
+  }
 
   handleBottomScroll = () => {
     this.setState(prevState => {
@@ -178,6 +191,7 @@ class SelectOne extends React.Component {
     );
 
     const value = get(this.props.record, this.props.relation.alias);
+
     const excludeModel = ['role', 'permission', 'file'].includes(
       this.props.relation.model || this.props.relation.collection
     ); // Temporary.
@@ -193,9 +207,90 @@ class SelectOne extends React.Component {
           )}
         </FormattedMessage>
       );
+    const par = this.state.parentValue;
+    const entryLinkParent =
+      isNull(value) || isUndefined(value) || excludeModel ? (
+        ''
+      ) : (
+        <FormattedMessage id="content-manager.containers.Edit.clickToJump">
+          {title => (
+            <a onClick={() => this.handleClick({ par })} title={title}>
+              <FormattedMessage id="content-manager.containers.Edit.seeDetails" />
+            </a>
+          )}
+        </FormattedMessage>
+      );
 
     /* eslint-disable jsx-a11y/label-has-for */
     return (
+    (this.props.relation.model === 'category' && this.props.currentModelName === 'product')?
+      <div className={`form-group ${styles.selectOne}`}>
+        <nav className={styles.headline}>
+          <label htmlFor={this.props.relation.alias}>
+           Родительская категория
+          </label>
+          {entryLink}
+        </nav>
+        {description}
+
+        <Select
+          onChange={this.handleChangeInParent}
+          options={this.state.options.filter(cat => !cat.value.parent)}
+          id={this.props.relation.alias}
+          isLoading={this.state.isLoading}
+          onMenuScrollToBottom={this.handleBottomScroll}
+          onInputChange={this.handleInputChange}
+          onSelectResetsInput={false}
+          simpleValue
+          value={
+            isNull(this.state.parentValue) || isUndefined(this.state.parentValue)
+              ? null
+              : {
+                  value: isFunction(this.state.parentValue.toJS) ? this.state.parentValue.toJS() : this.state.parentValue,
+                  label:this.state.parentValue.name_ru
+
+                }
+          }
+        />
+        <nav className={styles.headline}>
+          <label htmlFor={this.props.relation.alias}>
+            Подкатегория
+          </label>
+          {entryLink}
+        </nav>
+
+        <Select
+          onChange={this.handleChange}
+          options={this.state.options.filter(opt =>{
+            console.log(opt);
+            console.log(this.state.parentValue);
+
+            return opt.value.parent && opt.value.parent._id.toString() === this.state.parentValue._id.toString() }) }
+          id={this.props.relation.alias}
+          isLoading={this.state.isLoading}
+          onMenuScrollToBottom={this.handleBottomScroll}
+          onInputChange={this.handleInputChange}
+          onSelectResetsInput={false}
+          simpleValue
+          value={
+            isNull(value) || isUndefined(value)
+              ? null
+              : {
+                value: isFunction(value.toJS) ? value.toJS() : value,
+                label:
+                  templateObject(
+                    { mainField: this.props.relation.displayedAttribute },
+                    isFunction(value.toJS) ? value.toJS() : value
+                  ).mainField ||
+                  (isFunction(value.toJS)
+                    ? get(value.toJS(), 'id')
+                    : get(value, 'id')),
+              }
+          }
+        />
+      </div>
+      :
+
       <div className={`form-group ${styles.selectOne}`}>
         <nav className={styles.headline}>
           <label htmlFor={this.props.relation.alias}>
@@ -219,16 +314,16 @@ class SelectOne extends React.Component {
             isNull(value) || isUndefined(value)
               ? null
               : {
-                  value: isFunction(value.toJS) ? value.toJS() : value,
-                  label:
-                    templateObject(
-                      { mainField: this.props.relation.displayedAttribute },
-                      isFunction(value.toJS) ? value.toJS() : value
-                    ).mainField ||
-                    (isFunction(value.toJS)
-                      ? get(value.toJS(), 'id')
-                      : get(value, 'id')),
-                }
+                value: isFunction(value.toJS) ? value.toJS() : value,
+                label:
+                  templateObject(
+                    { mainField: this.props.relation.displayedAttribute },
+                    isFunction(value.toJS) ? value.toJS() : value
+                  ).mainField ||
+                  (isFunction(value.toJS)
+                    ? get(value.toJS(), 'id')
+                    : get(value, 'id')),
+              }
           }
         />
       </div>
