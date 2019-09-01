@@ -223,73 +223,73 @@ class SelectOne extends React.Component {
 
     /* eslint-disable jsx-a11y/label-has-for */
     return (
-    // (this.props.relation.model === 'category' && this.props.currentModelName === 'product')?
-    //   <div className={`form-group ${styles.selectOne}`}>
-    //     <nav className={styles.headline}>
-    //       <label htmlFor={this.props.relation.alias}>
-    //        Родительская категория
-    //       </label>
-    //       {entryLink}
-    //     </nav>
-    //     {description}
-    //
-    //     <Select
-    //       onChange={this.handleChangeInParent}
-    //       options={this.state.options.filter(cat => !cat.value.parent)}
-    //       id={this.props.relation.alias}
-    //       isLoading={this.state.isLoading}
-    //       onMenuScrollToBottom={this.handleBottomScroll}
-    //       onInputChange={this.handleInputChange}
-    //       onSelectResetsInput={false}
-    //       simpleValue
-    //       value={
-    //         isNull(this.state.parentValue) || isUndefined(this.state.parentValue)
-    //           ? null
-    //           : {
-    //               value: isFunction(this.state.parentValue.toJS) ? this.state.parentValue.toJS() : this.state.parentValue,
-    //               label:this.state.parentValue.name_ru
-    //
-    //             }
-    //       }
-    //     />
-    //     <nav className={styles.headline}>
-    //       <label htmlFor={this.props.relation.alias}>
-    //         Подкатегория
-    //       </label>
-    //       {entryLink}
-    //     </nav>
-    //
-    //     <Select
-    //       onChange={this.handleChange}
-    //       options={this.state.options.filter(opt =>{
-    //         console.log(opt);
-    //         console.log(this.state.parentValue);
-    //
-    //         return opt.value.parent && opt.value.parent._id.toString() === this.state.parentValue._id.toString() }) }
-    //       id={this.props.relation.alias}
-    //       isLoading={this.state.isLoading}
-    //       onMenuScrollToBottom={this.handleBottomScroll}
-    //       onInputChange={this.handleInputChange}
-    //       onSelectResetsInput={false}
-    //       simpleValue
-    //       value={
-    //         isNull(value) || isUndefined(value)
-    //           ? null
-    //           : {
-    //             value: isFunction(value.toJS) ? value.toJS() : value,
-    //             label:
-    //               templateObject(
-    //                 { mainField: this.props.relation.displayedAttribute },
-    //                 isFunction(value.toJS) ? value.toJS() : value
-    //               ).mainField ||
-    //               (isFunction(value.toJS)
-    //                 ? get(value.toJS(), 'id')
-    //                 : get(value, 'id')),
-    //           }
-    //       }
-    //     />
-    //   </div>
-    //   :
+    (this.props.relation.model === 'category' && this.props.currentModelName === 'product')?
+      <div className={`form-group ${styles.selectOne}`}>
+        <nav className={styles.headline}>
+          <label htmlFor={this.props.relation.alias}>
+           Родительская категория
+          </label>
+          {entryLink}
+        </nav>
+        {description}
+
+        <Select
+          onChange={this.handleChangeInParent}
+          options={this.state.options.filter(cat => !cat.value.parent)}
+          id={this.props.relation.alias}
+          isLoading={this.state.isLoading}
+          onMenuScrollToBottom={this.handleBottomScroll}
+          onInputChange={this.handleInputChange}
+          onSelectResetsInput={false}
+          simpleValue
+          value={
+            isNull(this.state.parentValue) || isUndefined(this.state.parentValue)
+              ? null
+              : {
+                  value: isFunction(this.state.parentValue.toJS) ? this.state.parentValue.toJS() : this.state.parentValue,
+                  label:this.state.parentValue.name_ru
+
+                }
+          }
+        />
+        <nav className={styles.headline}>
+          <label htmlFor={this.props.relation.alias}>
+            Подкатегория
+          </label>
+          {entryLink}
+        </nav>
+
+        <Select
+          onChange={this.handleChange}
+          options={this.state.options.filter(opt =>{
+            console.log(opt);
+            console.log(this.state.parentValue);
+
+            return opt.value.parent && opt.value.parent._id.toString() === this.state.parentValue._id.toString() }) }
+          id={this.props.relation.alias}
+          isLoading={this.state.isLoading}
+          onMenuScrollToBottom={this.handleBottomScroll}
+          onInputChange={this.handleInputChange}
+          onSelectResetsInput={false}
+          simpleValue
+          value={
+            isNull(value) || isUndefined(value)
+              ? null
+              : {
+                value: isFunction(value.toJS) ? value.toJS() : value,
+                label:
+                  templateObject(
+                    { mainField: this.props.relation.displayedAttribute },
+                    isFunction(value.toJS) ? value.toJS() : value
+                  ).mainField ||
+                  (isFunction(value.toJS)
+                    ? get(value.toJS(), 'id')
+                    : get(value, 'id')),
+              }
+          }
+        />
+      </div>
+      :
 
       <div className={`form-group ${styles.selectOne}`}>
         <nav className={styles.headline}>

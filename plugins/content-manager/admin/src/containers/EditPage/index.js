@@ -540,13 +540,13 @@ export class EditPage extends React.Component {
       type: 'button',
       disabled: this.showLoaders(),
     },
-    {
-      label: 'Экспорт на profumo',
-      kind: 'secondary',
-      onClick: this.sendToProfumo,
-      type: 'button',
-      disabled: this.showLoaders(),
-    },
+    // {
+    //   label: 'Экспорт на profumo',
+    //   kind: 'secondary',
+    //   onClick: this.sendToProfumo,
+    //   type: 'button',
+    //   disabled: this.showLoaders(),
+    // },
     {
       kind: 'primary',
       label: `${pluginId}.containers.Edit.submit`,
