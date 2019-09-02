@@ -78,6 +78,13 @@
     },
     "wishlist": {
       "type": "json"
+    },
+    "gender": {
+      "enum": [
+        "man",
+        "woman"
+      ],
+      "type": "enumeration"
     }
   },
   "collectionName": "users-permissions_user"
