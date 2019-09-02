@@ -5,10 +5,12 @@ module.exports = async (ctx, next) => {
   console.log(ctx.state.user);
   console.log(ctx.state.user.gender);
   console.log(gender);
-  body.gender = gender?ctx.state.user.gender+'':'female';
-  body.owner = _id.toString();
-  body.name = name.toString();
+  body.gender = await gender?ctx.state.user.gender+'':'female';
+  body.owner = await _id.toString();
+  body.name = await name.toString();
   console.log(body);
-  ctx.request.body = body;
+  ctx.request.body =  await body;
+
+
   await next();
 };
