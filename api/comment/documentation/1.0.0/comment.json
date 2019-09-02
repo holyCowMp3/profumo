@@ -704,6 +704,9 @@
               },
               "wishlist": {
                 "type": "json"
+              },
+              "gender": {
+                "type": "string"
               }
             }
           }

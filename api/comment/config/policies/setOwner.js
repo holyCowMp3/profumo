@@ -4,6 +4,6 @@ module.exports = async (ctx, next) => {
   console.log(ctx.state.user);
   body.owner = _id.toString();
   body.name = name.toString();
-  body.gender = gender?gender.toString():'male';
+  body.gender = gender?gender:'male';
   await next();
 };

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "08/31/2019 11:58:44 AM"
+    "x-generation-date": "09/02/2019 12:25:07 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -9167,6 +9167,9 @@
               },
               "wishlist": {
                 "type": "json"
+              },
+              "gender": {
+                "type": "string"
               }
             }
           },
@@ -9830,6 +9833,9 @@
               },
               "wishlist": {
                 "type": "json"
+              },
+              "gender": {
+                "type": "string"
               }
             }
           }
@@ -10191,6 +10197,9 @@
               },
               "wishlist": {
                 "type": "json"
+              },
+              "gender": {
+                "type": "string"
               }
             }
           },
@@ -11261,6 +11270,9 @@
                 },
                 "wishlist": {
                   "type": "json"
+                },
+                "gender": {
+                  "type": "string"
                 }
               }
             }
@@ -11464,6 +11476,13 @@
           },
           "wishlist": {
             "type": "json"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "man",
+              "woman"
+            ]
           }
         }
       },
@@ -11537,6 +11556,13 @@
           },
           "wishlist": {
             "type": "json"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "man",
+              "woman"
+            ]
           }
         }
       },
