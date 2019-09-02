@@ -8,6 +8,7 @@ module.exports = async (ctx, next) => {
   body.gender = gender?ctx.state.user.gender+'':'female';
   body.owner = _id.toString();
   body.name = name.toString();
+  console.log(body);
   ctx.request.body = body;
   await next();
 };
