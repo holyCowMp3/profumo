@@ -81,8 +81,8 @@
     },
     "gender": {
       "enum": [
-        "man",
-        "woman"
+        "male",
+        "female"
       ],
       "type": "enumeration"
     }
