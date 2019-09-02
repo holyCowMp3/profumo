@@ -62,9 +62,11 @@ class SelectOne extends React.Component {
   }
 
   getOptions = query => {
-    const params = {
-      _limit: -1,
-    };
+    const params = !(this.props.relation.model === 'category' && this.props.currentModelName === 'product')?{
+      _limit:20,
+      _start: this.state.start,
+      source: this.props.relation.plugin || 'content-manager',
+    }:{_limit:-1} ;
 
     // Set `query` parameter if necessary
     if (query) {
