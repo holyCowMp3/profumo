@@ -71,6 +71,18 @@ module.exports = {
    */
 
   create: async (ctx) => {
+
+    const { _id,name,gender } =ctx.state.user;
+    const { body } = ctx.request;
+    console.log(ctx.state.user);
+    console.log(ctx.state.user.gender);
+    console.log(gender);
+    body.gender = await gender?ctx.state.user.gender+'':'female';
+    body.owner = await _id.toString();
+    body.name = await name.toString();
+    console.log(body);
+    ctx.request.body =  await body;
+
     return strapi.services.comment.add(ctx.request.body);
   },
 
@@ -91,7 +103,7 @@ module.exports = {
    */
 
   destroy: async (ctx, next) => {
-    if (ctx.params.id) 
+    if (ctx.params.id)
     return strapi.services.comment.remove(ctx.params);
   }
 };
