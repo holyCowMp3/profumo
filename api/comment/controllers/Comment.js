@@ -73,7 +73,7 @@ module.exports = {
   create: async (ctx) => {
 
     const { _id,name,gender } =ctx.state.user;
-    const { body } = ctx.request;
+    const body = ctx.request.body;
     console.log(ctx.state.user);
     console.log(ctx.state.user.gender);
     console.log(gender);
@@ -81,9 +81,7 @@ module.exports = {
     body.owner = await _id.toString();
     body.name = await name.toString();
     console.log(body);
-    ctx.request.body =  await body;
-
-    return strapi.services.comment.add(ctx.request.body);
+    return strapi.services.comment.add(body);
   },
 
   /**
