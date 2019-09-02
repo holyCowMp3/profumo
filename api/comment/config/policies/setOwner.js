@@ -5,9 +5,9 @@ module.exports = async (ctx, next) => {
   console.log(ctx.state.user);
   console.log(ctx.state.user.gender);
   console.log(gender);
-  ctx.body.gender = gender?ctx.state.user.gender+'':'female';
-  ctx.body.owner = _id.toString();
-  ctx.body.name = name.toString();
-
+  body.gender = gender?ctx.state.user.gender+'':'female';
+  body.owner = _id.toString();
+  body.name = name.toString();
+  ctx.request.body = body;
   await next();
 };
