@@ -26,12 +26,8 @@
       "type": "string"
     },
     "gender": {
-      "default": "",
-      "type": "enumeration",
-      "enum": [
-        "male",
-        "female"
-      ]
+      "default": "male",
+      "type": "string"
     },
     "response": {
       "default": "",
