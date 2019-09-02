@@ -74,7 +74,7 @@ module.exports = {
 
     const { _id,name,gender } =ctx.state.user;
     const body = ctx.request.body;
-    body.gender = await gender?ctx.gender+'':'female';
+    body.gender = await gender?gender+'':'female';
     body.owner = await _id.toString();
     body.name = await name.toString();
     return strapi.services.comment.add(body);
