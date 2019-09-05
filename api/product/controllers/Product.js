@@ -143,6 +143,8 @@ module.exports = {
         .up()
         .ele('price', products[i].price)
         .up()
+        .ele('price_old', products[i].price_old)
+        .up()
         .ele('currencyId', 'UAH')
         .up()
         .ele('categoryId', products[i].category._id)

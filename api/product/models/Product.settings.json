@@ -27,6 +27,11 @@
       "type": "decimal",
       "required": true
     },
+    "price_old": {
+      "default": "0",
+      "type": "decimal",
+      "required": true
+    },
     "rating": {
       "default": "0.0",
       "max": 5,
@@ -99,5 +104,6 @@
     "promocodes": {
       "model": "promocode"
     }
+
   }
 }
