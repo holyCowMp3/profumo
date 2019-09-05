@@ -145,7 +145,7 @@ module.exports = {
         .up()
         .ele('price', products[i].price)
         .up()
-      if (products[i].price_old === 0) {
+      if (products[i].price_old !== 0) {
         var elem = elem.ele('price_old', products[i].price_old)
           .up();
       }
