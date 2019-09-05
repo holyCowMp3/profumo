@@ -639,7 +639,8 @@
             "items": {
               "required": [
                 "id",
-                "price"
+                "price",
+                "price_old"
               ],
               "properties": {
                 "id": {
@@ -658,6 +659,9 @@
                   }
                 },
                 "price": {
+                  "type": "number"
+                },
+                "price_old": {
                   "type": "number"
                 },
                 "rating": {
@@ -951,11 +955,8 @@
                 "category": {
                   "type": "string"
                 },
-                "products": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
+                "undefined": {
+                  "type": "string"
                 }
               }
             }

@@ -530,7 +530,8 @@
             "items": {
               "required": [
                 "id",
-                "price"
+                "price",
+                "price_old"
               ],
               "properties": {
                 "id": {
@@ -549,6 +550,9 @@
                   }
                 },
                 "price": {
+                  "type": "number"
+                },
+                "price_old": {
                   "type": "number"
                 },
                 "rating": {

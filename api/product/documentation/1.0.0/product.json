@@ -682,7 +682,8 @@
       "Product": {
         "required": [
           "id",
-          "price"
+          "price",
+          "price_old"
         ],
         "properties": {
           "id": {
@@ -746,6 +747,10 @@
             }
           },
           "price": {
+            "type": "number",
+            "default": "0"
+          },
+          "price_old": {
             "type": "number",
             "default": "0"
           },
@@ -975,11 +980,8 @@
               "category": {
                 "type": "string"
               },
-              "products": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
+              "undefined": {
+                "type": "string"
               }
             }
           }
@@ -987,7 +989,8 @@
       },
       "NewProduct": {
         "required": [
-          "price"
+          "price",
+          "price_old"
         ],
         "properties": {
           "name_ua": {
@@ -999,6 +1002,10 @@
             "default": ""
           },
           "price": {
+            "type": "number",
+            "default": "0"
+          },
+          "price_old": {
             "type": "number",
             "default": "0"
           },
