@@ -533,11 +533,7 @@
           },
           "gender": {
             "type": "string",
-            "default": "",
-            "enum": [
-              "male",
-              "female"
-            ]
+            "default": "male"
           },
           "response": {
             "type": "string",
@@ -731,11 +727,7 @@
           },
           "gender": {
             "type": "string",
-            "default": "",
-            "enum": [
-              "male",
-              "female"
-            ]
+            "default": "male"
           },
           "response": {
             "type": "string",

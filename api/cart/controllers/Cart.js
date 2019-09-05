@@ -15,6 +15,7 @@ module.exports = {
    */
 
   find: async (ctx, next, { populate } = {}) => {
+
     if (ctx.query._q) {
       return strapi.services.cart.search(ctx.query);
     } else {
@@ -26,6 +27,7 @@ module.exports = {
       return strapi.services.cart.fetch({owner:ctx.state.user._id});
     }
   },
+
   meUpdate: async (ctx, next) => {
     if(ctx.state.user){
       let cart = await  strapi.services.cart.fetch({owner:ctx.state.user._id});

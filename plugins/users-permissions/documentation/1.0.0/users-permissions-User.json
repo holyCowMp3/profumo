@@ -1241,9 +1241,6 @@
                 "id": {
                   "type": "string"
                 },
-                "dateOrder": {
-                  "type": "string"
-                },
                 "status": {
                   "type": "string"
                 },
@@ -1258,6 +1255,9 @@
                 },
                 "deliveryInfo": {
                   "type": "json"
+                },
+                "type": {
+                  "type": "string"
                 }
               }
             }
@@ -1342,8 +1342,8 @@
           "gender": {
             "type": "string",
             "enum": [
-              "man",
-              "woman"
+              "male",
+              "female"
             ]
           }
         }
@@ -1422,8 +1422,8 @@
           "gender": {
             "type": "string",
             "enum": [
-              "man",
-              "woman"
+              "male",
+              "female"
             ]
           }
         }

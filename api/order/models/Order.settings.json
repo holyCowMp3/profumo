@@ -9,10 +9,6 @@
     "timestamps": true
   },
   "attributes": {
-    "dateOrder": {
-      "default": "",
-      "type": "date"
-    },
     "status": {
       "default": "",
       "type": "enumeration",
@@ -35,6 +31,16 @@
     },
     "deliveryInfo": {
       "type": "json"
+    },
+    "type": {
+      "enum": [
+        "nova_poshta",
+        "liqpay"
+      ],
+      "type": "enumeration"
+    },
+    "comment": {
+      "type": "text"
     }
   }
 }

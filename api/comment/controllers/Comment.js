@@ -97,6 +97,7 @@ module.exports = {
    */
 
   destroy: async (ctx, next) => {
+
     return strapi.services.comment.remove(ctx.params);
   }
 };

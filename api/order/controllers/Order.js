@@ -58,6 +58,7 @@ module.exports = {
    */
 
   create: async (ctx) => {
+
     let liqPayConf = import('./liqpayConf.json');
     const liqPay = LiqPay(liqPayConf.public,liqPayConf.private);
     function callback(error, response, body) {
@@ -65,59 +66,102 @@ module.exports = {
         console.log(body);
       }
     }
+
     let order =  await strapi.services.order.add(ctx.request.body);
     let price = 0;
     let productCategories ='';
     let productNames='';
-
-    for(let prod of ctx.request.body.products) {
-      let productFromDb = await strapi.services.product.fetch({'_id': prod.id});
-      if(ctx.state.user) {
-        let dataString = {
-          'events': [
-            {
-              'namespace': 'products',
-              'person': ctx.state.user._id,
-              'action': 'buy',
-              'thing': productFromDb._id,
+    switch (order.type) {
+      case 'nova_poshta':{
+        for(let prod of ctx.request.body.products) {
+          let productFromDb = await strapi.services.product.fetch({'_id': prod.id});
+          if(ctx.state.user) {
+            let dataString = {
+              'events': [
+                {
+                  'namespace': 'products',
+                  'person': ctx.state.user._id,
+                  'action': 'buy',
+                  'thing': productFromDb._id,
+                }
+              ]
+            };
+            let options = {
+              url: 'http://localhost:3456/events',
+              method: 'POST',
+              body: JSON.stringify(dataString)
+            };
+            request(options, callback);
+          }
+          let category = await strapi.services.category.fetch({'_id': productFromDb.category});
+          let minusPrice = 0;
+          if (category.discount) {
+            minusPrice = (productFromDb.price * (category.discount.percent / 100));
+          } else {
+            for (let disc of productFromDb.discounts) {
+              minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
             }
-          ]
-        };
-        let options = {
-          url: 'http://localhost:3456/events',
-          method: 'POST',
-          body: JSON.stringify(dataString)
-        };
-        request(options, callback);
-      }
-      let category = await strapi.services.category.fetch({'_id': productFromDb.category});
-      let minusPrice = 0;
-      if (category.discount) {
-        minusPrice = (productFromDb.price * (category.discount.percent / 100));
-      } else {
-        for (let disc of productFromDb.discounts) {
-          minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
+            price += productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price;
+            productCategories += productFromDb.category.name + '\n';
+            productNames += productFromDb.name + '\n';
+          }
         }
-        price += productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price;
-        productCategories += productFromDb.category.name + '\n';
-        productNames += productFromDb.name + '\n';
+
+        break;
+      }
+      case 'liqpay':{
+        for(let prod of ctx.request.body.products) {
+          let productFromDb = await strapi.services.product.fetch({'_id': prod.id});
+          if(ctx.state.user) {
+            let dataString = {
+              'events': [
+                {
+                  'namespace': 'products',
+                  'person': ctx.state.user._id,
+                  'action': 'buy',
+                  'thing': productFromDb._id,
+                }
+              ]
+            };
+            let options = {
+              url: 'http://localhost:3456/events',
+              method: 'POST',
+              body: JSON.stringify(dataString)
+            };
+            request(options, callback);
+          }
+          let category = await strapi.services.category.fetch({'_id': productFromDb.category});
+          let minusPrice = 0;
+          if (category.discount) {
+            minusPrice = (productFromDb.price * (category.discount.percent / 100));
+          } else {
+            for (let disc of productFromDb.discounts) {
+              minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
+            }
+            price += productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price;
+            productCategories += productFromDb.category.name + '\n';
+            productNames += productFromDb.name + '\n';
+          }
+        }
+
+        let html = liqPay.cnb_form({
+          'action'         : 'pay',
+          'amount'         :  price,
+          'currency'       : 'UAH',
+          'description'    : 'description text',
+          'order_id'       :  order._id,
+          'version'        : '3',
+          'sandbox':'1',
+          'result_url':'',
+          'customer': ctx.state.user._id,
+          'product_category':productCategories,
+          'product_name':productNames
+        });
+
+        return html;
       }
     }
-    let html = liqPay.cnb_form({
-      'action'         : 'pay',
-      'amount'         :  price,
-      'currency'       : 'UAH',
-      'description'    : 'description text',
-      'order_id'       :  order._id,
-      'version'        : '3',
-      'sandbox':'1',
-      'result_url':'',
-      'customer': ctx.state.user._id,
-      'product_category':productCategories,
-      'product_name':productNames
-    });
 
-    return html;
   },
 
   /**

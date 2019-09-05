@@ -516,10 +516,6 @@
           "id": {
             "type": "string"
           },
-          "dateOrder": {
-            "type": "string",
-            "default": ""
-          },
           "status": {
             "type": "string",
             "default": "",
@@ -612,15 +608,18 @@
           },
           "deliveryInfo": {
             "type": "json"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "nova_poshta",
+              "liqpay"
+            ]
           }
         }
       },
       "NewOrder": {
         "properties": {
-          "dateOrder": {
-            "type": "string",
-            "default": ""
-          },
           "status": {
             "type": "string",
             "default": "",
@@ -641,6 +640,13 @@
           },
           "deliveryInfo": {
             "type": "json"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "nova_poshta",
+              "liqpay"
+            ]
           }
         }
       }
