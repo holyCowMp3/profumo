@@ -63,8 +63,8 @@ module.exports = {
     );
     let buff = new Buffer(ctx.request.body.data, 'base64');
     let text = buff.toString('ascii');
-    console.log(ctx.request.body);
-    console.log(text);
+    console.log(sign);
+    console.log(ctx.request.body.signature);
 
     if (sign === ctx.request.body.signature)
       return strapi.services.callback.add(JSON.parse(text));
