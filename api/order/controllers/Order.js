@@ -103,10 +103,11 @@ module.exports = {
           for (let disc of productFromDb.discounts) {
             minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
           }
-          price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) * product.count);
-          productCategories += productFromDb.category.name + '\n';
-          productNames += productFromDb.name + '\n';
         }
+        price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) * product.count);
+        productCategories += productFromDb.category.name + '\n';
+        productNames += productFromDb.name + '\n';
+
       }
     }
 
@@ -183,7 +184,7 @@ module.exports = {
       }
     );
 
-    let html = liqPay.cnb_form({
+    let html = await liqPay.cnb_form({
       'action': 'pay',
       'amount': price,
       'currency': 'UAH',
