@@ -68,7 +68,7 @@ module.exports = {
         console.log(body);
       }
     }
-
+    ctx.request.body.status= 'processing';
     let order = await strapi.services.order.add(ctx.request.body);
     let price = 0;
     let productCategories = '';
