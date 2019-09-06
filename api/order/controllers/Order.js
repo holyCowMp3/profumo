@@ -105,8 +105,8 @@ module.exports = {
           }
         }
         price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) * product.count);
-        productCategories += productFromDb.category.name + '\n';
-        productNames += productFromDb.name + '\n';
+        productCategories += category.name_ru + '\n';
+        productNames += productFromDb.name_ru + '\n';
 
       }
     }
