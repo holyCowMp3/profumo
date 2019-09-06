@@ -616,7 +616,7 @@
               "liqpay"
             ]
           },
-          "comment": {
+          "feedback": {
             "type": "string"
           }
         }
@@ -651,7 +651,7 @@
               "liqpay"
             ]
           },
-          "comment": {
+          "feedback": {
             "type": "string"
           }
         }

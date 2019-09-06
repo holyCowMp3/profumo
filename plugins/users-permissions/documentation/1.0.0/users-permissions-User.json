@@ -1259,7 +1259,7 @@
                 "type": {
                   "type": "string"
                 },
-                "comment": {
+                "feedback": {
                   "type": "string"
                 }
               }

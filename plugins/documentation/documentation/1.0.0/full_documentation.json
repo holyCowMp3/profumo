@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "09/05/2019 11:27:14 AM"
+    "x-generation-date": "09/06/2019 4:22:22 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -10207,7 +10207,7 @@
               "liqpay"
             ]
           },
-          "comment": {
+          "feedback": {
             "type": "string"
           }
         }
@@ -10242,7 +10242,7 @@
               "liqpay"
             ]
           },
-          "comment": {
+          "feedback": {
             "type": "string"
           }
         }
@@ -11401,7 +11401,7 @@
                 "type": {
                   "type": "string"
                 },
-                "comment": {
+                "feedback": {
                   "type": "string"
                 }
               }
