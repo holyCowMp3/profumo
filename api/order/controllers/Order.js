@@ -68,7 +68,8 @@ module.exports = {
         console.log(body);
       }
     }
-    ctx.request.body.status= 'processing';
+
+    ctx.request.body.status = 'processing';
     let order = await strapi.services.order.add(ctx.request.body);
     let price = 0;
     let productCategories = '';
@@ -98,12 +99,14 @@ module.exports = {
       if (category.discount) {
         minusPrice = (productFromDb.price * (category.discount.percent / 100));
       } else {
-        for (let disc of productFromDb.discounts) {
-          minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
+        if (productFromDb.discounts) {
+          for (let disc of productFromDb.discounts) {
+            minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
+          }
+          price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) * product.count);
+          productCategories += productFromDb.category.name + '\n';
+          productNames += productFromDb.name + '\n';
         }
-        price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) * product.count);
-        productCategories += productFromDb.category.name + '\n';
-        productNames += productFromDb.name + '\n';
       }
     }
 
