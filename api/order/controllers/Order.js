@@ -167,6 +167,21 @@ module.exports = {
     //     );
     //   }
     // });
+    console.log(
+      {
+        'action': 'pay',
+        'amount': price,
+        'currency': 'UAH',
+        'description': 'description text',
+        'order_id': order._id,
+        'version': '3',
+        'sandbox': '1',
+        'result_url': '',
+        'customer': ctx.state.user._id,
+        'product_category': productCategories,
+        'product_name': productNames
+      }
+    );
 
     let html = liqPay.cnb_form({
       'action': 'pay',
