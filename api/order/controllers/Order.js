@@ -8,6 +8,7 @@
 const LiqPay = require('liqpay-sdk');
 
 const request = require('request');
+const NovaPoshta = require('novaposhta');
 
 module.exports = {
 
@@ -17,7 +18,7 @@ module.exports = {
    * @return {Object|Array}
    */
 
-  find: async (ctx, next, { populate } = {}) => {
+  find: async (ctx, next, {populate} = {}) => {
     if (ctx.query._q) {
       return strapi.services.order.search(ctx.query);
     } else {
@@ -50,7 +51,6 @@ module.exports = {
   },
 
 
-
   /**
    * Create a/an order record.
    *
@@ -59,110 +59,98 @@ module.exports = {
 
   create: async (ctx) => {
 
-    let liqPayConf = import('./liqpayConf.json');
-    const liqPay = LiqPay(liqPayConf.public,liqPayConf.private);
+    let liqPayConf = require('../liqpayConf.json');
+    let novaPoshta = new NovaPoshta({apiKey: liqPayConf.nova_poshta});
+    const liqPay = LiqPay(liqPayConf.public, liqPayConf.private);
+
     function callback(error, response, body) {
       if (!error && response.statusCode == 200) {
         console.log(body);
       }
     }
 
-    let order =  await strapi.services.order.add(ctx.request.body);
+    let order = await strapi.services.order.add(ctx.request.body);
     let price = 0;
-    let productCategories ='';
-    let productNames='';
-    switch (order.type) {
-      case 'nova_poshta':{
-        for(let prod of ctx.request.body.products) {
-          let productFromDb = await strapi.services.product.fetch({'_id': prod.id});
-          if(ctx.state.user) {
-            let dataString = {
-              'events': [
-                {
-                  'namespace': 'products',
-                  'person': ctx.state.user._id,
-                  'action': 'buy',
-                  'thing': productFromDb._id,
-                }
-              ]
-            };
-            let options = {
-              url: 'http://localhost:3456/events',
-              method: 'POST',
-              body: JSON.stringify(dataString)
-            };
-            request(options, callback);
-          }
-          let category = await strapi.services.category.fetch({'_id': productFromDb.category});
-          let minusPrice = 0;
-          if (category.discount) {
-            minusPrice = (productFromDb.price * (category.discount.percent / 100));
-          } else {
-            for (let disc of productFromDb.discounts) {
-              minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
+    let productCategories = '';
+    let productNames = '';
+    for (let product of order.orders) {
+      let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
+      if (ctx.state.user) {
+        let dataString = {
+          'events': [
+            {
+              'namespace': 'products',
+              'person': ctx.state.user._id,
+              'action': 'buy',
+              'thing': productFromDb._id,
             }
-            price += productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price;
-            productCategories += productFromDb.category.name + '\n';
-            productNames += productFromDb.name + '\n';
-          }
-        }
-
-        break;
+          ]
+        };
+        let options = {
+          url: 'http://localhost:3456/events',
+          method: 'POST',
+          body: JSON.stringify(dataString)
+        };
+        request(options, callback);
       }
-      case 'liqpay':{
-        for(let prod of ctx.request.body.products) {
-          let productFromDb = await strapi.services.product.fetch({'_id': prod.id});
-          if(ctx.state.user) {
-            let dataString = {
-              'events': [
-                {
-                  'namespace': 'products',
-                  'person': ctx.state.user._id,
-                  'action': 'buy',
-                  'thing': productFromDb._id,
-                }
-              ]
-            };
-            let options = {
-              url: 'http://localhost:3456/events',
-              method: 'POST',
-              body: JSON.stringify(dataString)
-            };
-            request(options, callback);
-          }
-          let category = await strapi.services.category.fetch({'_id': productFromDb.category});
-          let minusPrice = 0;
-          if (category.discount) {
-            minusPrice = (productFromDb.price * (category.discount.percent / 100));
-          } else {
-            for (let disc of productFromDb.discounts) {
-              minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
-            }
-            price += productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price;
-            productCategories += productFromDb.category.name + '\n';
-            productNames += productFromDb.name + '\n';
-          }
+      let category = await strapi.services.category.fetch({'_id': productFromDb.category});
+      let minusPrice = 0;
+      if (category.discount) {
+        minusPrice = (productFromDb.price * (category.discount.percent / 100));
+      } else {
+        for (let disc of productFromDb.discounts) {
+          minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
         }
-
-        let html = liqPay.cnb_form({
-          'action'         : 'pay',
-          'amount'         :  price,
-          'currency'       : 'UAH',
-          'description'    : 'description text',
-          'order_id'       :  order._id,
-          'version'        : '3',
-          'sandbox':'1',
-          'result_url':'',
-          'customer': ctx.state.user._id,
-          'product_category':productCategories,
-          'product_name':productNames
-        });
-
-        return html;
+        price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) * product.count);
+        productCategories += productFromDb.category.name + '\n';
+        productNames += productFromDb.name + '\n';
       }
     }
 
+    switch (order.type) {
+      case 'nova_poshta': {
+        break;
+      }
+
+      case 'liqpay': {
+        break;
+      }
+    }
+
+    let profumoCounterparty = '4187cb04-cd83-11e9-9937-005056881c6b';
+    novaPoshta.counterparty.saveCounterparty({
+      FirstName: order.deliveryInfo.name,
+      MiddleName: order.deliveryInfo.surname,
+      LastName: order.deliveryInfo.thirdname,
+      Phone: order.deliveryInfo.phone,
+      Email: "",
+      CounterpartyType: "PrivatePerson",
+      CounterpartyProperty: "Recipient"
+    }).then(counterparty => {
+      if (counterparty.success) {
+        let counterpartyId = counterparty.data.Ref;
+
+      }
+    })
+    let html = liqPay.cnb_form({
+      'action': 'pay',
+      'amount': price,
+      'currency': 'UAH',
+      'description': 'description text',
+      'order_id': order._id,
+      'version': '3',
+      'sandbox': '1',
+      'result_url': '',
+      'customer': ctx.state.user._id,
+      'product_category': productCategories,
+      'product_name': productNames
+    });
+
+    console.log(html);
+
+    return html;
   },
+
 
   /**
    * Update a/an order record.
@@ -171,7 +159,7 @@ module.exports = {
    */
 
   update: async (ctx, next) => {
-    return strapi.services.order.edit(ctx.params, ctx.request.body) ;
+    return strapi.services.order.edit(ctx.params, ctx.request.body);
   },
 
   /**
@@ -180,7 +168,9 @@ module.exports = {
    * @return {Object}
    */
 
-  destroy: async (ctx, next) => {
-    return strapi.services.order.remove(ctx.params);
-  }
-};
+  destroy:
+    async (ctx, next) => {
+      return strapi.services.order.remove(ctx.params);
+    }
+}
+;

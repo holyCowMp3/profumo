@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "09/05/2019 9:49:17 AM"
+    "x-generation-date": "09/05/2019 11:27:14 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -10206,6 +10206,9 @@
               "nova_poshta",
               "liqpay"
             ]
+          },
+          "comment": {
+            "type": "string"
           }
         }
       },
@@ -10238,6 +10241,9 @@
               "nova_poshta",
               "liqpay"
             ]
+          },
+          "comment": {
+            "type": "string"
           }
         }
       },
@@ -11393,6 +11399,9 @@
                   "type": "json"
                 },
                 "type": {
+                  "type": "string"
+                },
+                "comment": {
                   "type": "string"
                 }
               }

@@ -615,6 +615,9 @@
               "nova_poshta",
               "liqpay"
             ]
+          },
+          "comment": {
+            "type": "string"
           }
         }
       },
@@ -647,6 +650,9 @@
               "nova_poshta",
               "liqpay"
             ]
+          },
+          "comment": {
+            "type": "string"
           }
         }
       }

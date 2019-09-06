@@ -54,6 +54,7 @@ module.exports = {
 
   create: async (ctx) => {
 
+    console.log(ctx.request.body);
 
     return strapi.services.callback.add(ctx.request.body);
   },

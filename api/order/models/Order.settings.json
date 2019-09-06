@@ -39,7 +39,7 @@
       ],
       "type": "enumeration"
     },
-    "comment": {
+    "feedback": {
       "type": "text"
     }
   }
