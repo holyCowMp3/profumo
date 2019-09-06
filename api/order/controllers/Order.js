@@ -173,7 +173,7 @@ module.exports = {
         'action': 'pay',
         'amount': price,
         'currency': 'UAH',
-        'description': 'description text',
+
         'order_id': order._id,
         'version': '3',
         'result_url': '',
@@ -186,6 +186,7 @@ module.exports = {
     let html = await liqPay.cnb_form({
       'action': 'pay',
       'amount': price,
+      'description': 'Profumo - лучший выбор!',
       'currency': 'UAH',
       'order_id': order._id,
       'version': '3',
