@@ -5,7 +5,7 @@
  *
  * @description: A set of functions called "actions" for managing `Order`.
  */
-const LiqPay = require('liqpay-sdk');
+
 
 const request = require('request');
 const NovaPoshta = require('novaposhta_3');
@@ -58,7 +58,7 @@ module.exports = {
    */
 
   create: async (ctx) => {
-
+    const LiqPay = require('liqpay-sdk');
     let liqPayConf = require('../liqpayConf.json');
     let novaPoshta = new NovaPoshta({apiKey: liqPayConf.nova_poshta});
     const liqPay = LiqPay(liqPayConf.public, liqPayConf.private);
