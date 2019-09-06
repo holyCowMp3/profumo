@@ -14,7 +14,7 @@ module.exports = {
    * @return {Object|Array}
    */
 
-  find: async (ctx, next, { populate } = {}) => {
+  find: async (ctx, next, {populate} = {}) => {
     if (ctx.query._q) {
       return strapi.services.callback.search(ctx.query);
     } else {
@@ -53,10 +53,24 @@ module.exports = {
    */
 
   create: async (ctx) => {
-
+    const LiqPay = require('liqpay-sdk');
+    let liqPayConf = require('../../liqpayConf.json');
+    const liqPay = LiqPay(liqPayConf.public, liqPayConf.private);
+    var sign = liqPay.str_to_sign(
+      liqPayConf.private +
+      ctx.request.body.data +
+      liqPayConf.private
+    );
+    let buff = new Buffer(ctx.request.body.data, 'base64');
+    let text = buff.toString('ascii');
     console.log(ctx.request.body);
+    console.log(text);
 
-    return strapi.services.callback.add(ctx.request.body);
+    if (sign === ctx.request.body.signature)
+      return strapi.services.callback.add(JSON.parse(text));
+    else{
+      return ctx.response.unauthorized('Bad ass');
+    }
   },
 
   /**
@@ -66,7 +80,7 @@ module.exports = {
    */
 
   update: async (ctx, next) => {
-    return strapi.services.callback.edit(ctx.params, ctx.request.body) ;
+    return strapi.services.callback.edit(ctx.params, ctx.request.body);
   },
 
   /**

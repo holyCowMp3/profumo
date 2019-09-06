@@ -59,7 +59,7 @@ module.exports = {
 
   create: async (ctx) => {
     const LiqPay = require('liqpay-sdk');
-    let liqPayConf = require('../liqpayConf.json');
+    let liqPayConf = require('../../liqpayConf.json');
     let novaPoshta = new NovaPoshta({apiKey: liqPayConf.nova_poshta});
     const liqPay = LiqPay(liqPayConf.public, liqPayConf.private);
 
@@ -176,7 +176,6 @@ module.exports = {
         'description': 'description text',
         'order_id': order._id,
         'version': '3',
-        'sandbox': '1',
         'result_url': '',
         'customer': ctx.state.user._id,
         'product_category': productCategories,
@@ -188,10 +187,8 @@ module.exports = {
       'action': 'pay',
       'amount': price,
       'currency': 'UAH',
-      'description': 'description text',
       'order_id': order._id,
       'version': '3',
-      'sandbox': '1',
       'customer': ctx.state.user._id,
       'product_category': productCategories,
       'product_name': productNames
