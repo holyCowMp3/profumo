@@ -58,6 +58,7 @@ module.exports = {
    */
 
   create: async (ctx) => {
+
     const LiqPay = require('liqpay-sdk');
     let liqPayConf = require('../../liqpayConf.json');
     let novaPoshta = new NovaPoshta({apiKey: liqPayConf.nova_poshta});
@@ -68,13 +69,13 @@ module.exports = {
         console.log(body);
       }
     }
+
     function formatDate(date) {
       var day = date.getDate();
       var monthIndex = date.getMonth() + 1;
       var year = date.getFullYear();
       return day + '.' + monthIndex + '.' + year;
     }
-
     ctx.request.body.status = 'processing';
     let order = await strapi.services.order.add(ctx.request.body);
     let price = 0;
@@ -133,10 +134,10 @@ module.exports = {
             SeatsAmount: '1',
             Description: 'Косметичні засоби. Доставка з післяоплатою',
             Cost: price,
-            CitySender: '8d5a980d-391c-11dd-90d9-001a92567626',
+            CitySender: 'e221d642-391c-11dd-90d9-001a92567626',
             Sender: profumoCounterparty,
-            SenderAddress: 'd492290b-55f2-11e5-ad08-005056801333',
-            ContactSender: profumoCounterparty,
+            SenderAddress: '5a39e5a0-e1c2-11e3-8c4a-0050568002cf',
+            ContactSender: 'fb7ee3ed-cfc3-11e9-9937-005056881c6b',
             SendersPhone: '380950831150',
             RecipientCityName: order.deliveryInfo.cityName,
             RecipientArea: '',
@@ -168,7 +169,7 @@ module.exports = {
           'product_name': productNames
         });
         console.log(dataAndSignature);
-        return dataAndSignature;
+        return await dataAndSignature;
       }
     }
 
