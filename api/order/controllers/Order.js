@@ -122,12 +122,12 @@ module.exports = {
     switch (order.type) {
       case 'nova_poshta': {
         console.log(formatDate(new Date()));
-        return novaPoshta.document.saveInternetDocument(
+        return await novaPoshta.document.saveInternetDocument(
           {
             NewAddress: '1',
             PayerType: 'Sender',
             PaymentMethod: 'Cash',
-            CargoType: 'Cargo',
+            CargoType: 'Parcel',
             VolumeGeneral: '0.1',
             Weight: '10',
             ServiceType: 'WarehouseWarehouse',
@@ -136,10 +136,10 @@ module.exports = {
             Cost: price,
             CitySender: 'e221d642-391c-11dd-90d9-001a92567626',
             Sender: profumoCounterparty,
-            SenderAddress: '5a39e5a0-e1c2-11e3-8c4a-0050568002cf',
+            SenderAddress: 'e221d642-391c-11dd-90d9-001a92567626',
             ContactSender: 'fb7ee3ed-cfc3-11e9-9937-005056881c6b',
             SendersPhone: '380950831150',
-            RecipientCityName: order.deliveryInfo.cityDescription,
+            RecipientCityName: 'Киев',
             RecipientArea: '',
             RecipientAreaRegions: '',
             RecipientAddressName: order.deliveryInfo.postOfficeName,
