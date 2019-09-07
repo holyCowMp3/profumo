@@ -183,10 +183,10 @@ module.exports = {
       }
     );
 
-    let html = await liqPay.cnb_form({
+    let dataAndSignature = await liqPay.cnb_object({
       'action': 'pay',
       'amount': price,
-      'description': 'Profumo - лучший выбор!',
+      'description': 'Покупка товаров в кол-ве: ' + order.orders.length,
       'currency': 'UAH',
       'order_id': order._id,
       'version': '3',
@@ -195,9 +195,9 @@ module.exports = {
       'product_name': productNames
     });
 
-    console.log(html);
+    console.log(dataAndSignature);
 
-    return html;
+    return dataAndSignature;
   },
 
 
