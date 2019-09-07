@@ -62,10 +62,9 @@ module.exports = {
       liqPayConf.private
     );
     let buff = new Buffer(ctx.request.body.data, 'base64');
-    let text = buff.toString('ascii');
-    console.log(sign);
-    console.log(ctx.request.body.signature);
+    let text = buff.toString('utf8');
 
+    console.log(text);
     if (sign === ctx.request.body.signature)
       return strapi.services.callback.add(JSON.parse(text));
     else{
