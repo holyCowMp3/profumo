@@ -60,7 +60,7 @@ module.exports = {
             SenderAddress: '5a39e5a0-e1c2-11e3-8c4a-0050568002cf',
             ContactSender: 'fb7ee3ed-cfc3-11e9-9937-005056881c6b',
             SendersPhone: '380950831150',
-            RecipientCityName: order.deliveryInfo.cityName,
+            RecipientCityName: order.deliveryInfo.cityDescription,
             RecipientArea: '',
             RecipientAreaRegions: '',
             RecipientAddressName: order.deliveryInfo.postOfficeName,
