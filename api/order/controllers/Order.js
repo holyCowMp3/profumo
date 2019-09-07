@@ -123,10 +123,10 @@ module.exports = {
       case 'nova_poshta': {
         console.log(formatDate(new Date()));
         return await novaPoshta.counterparty.saveCounterparty({
-          FirstName: order.name,
+          FirstName: order.deliveryInfo.name,
           MiddleName: '',
-          LastName: order.surname,
-          Phone: order.phone,
+          LastName: order.deliveryInfo.surname,
+          Phone: order.deliveryInfo.phone,
           Email: '',
           CounterpartyType: 'PrivatePerson',
           CounterpartyProperty: 'Recipient'
