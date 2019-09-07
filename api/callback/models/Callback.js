@@ -41,7 +41,7 @@ module.exports = {
           ServiceType: 'WarehouseWarehouse',
           SeatsAmount: '1',
           Description: 'Косметичні засоби',
-          Cost: order.orders.,
+          Cost: '2000',
           CitySender: '8d5a980d-391c-11dd-90d9-001a92567626',
           Sender: profumoCounterparty,
           SenderAddress: 'd492290b-55f2-11e5-ad08-005056801333',
