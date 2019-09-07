@@ -177,7 +177,7 @@ module.exports = {
         'order_id': order._id,
         'version': '3',
         'result_url': '',
-        'customer': ctx.state.user._id,
+        'customer': ctx.state.user? ctx.state.user._id:'public_user',
         'product_category': productCategories,
         'product_name': productNames
       }
@@ -190,7 +190,7 @@ module.exports = {
       'currency': 'UAH',
       'order_id': order._id,
       'version': '3',
-      'customer': ctx.state.user._id,
+      'customer': ctx.state.user? ctx.state.user._id:'public_user',
       'product_category': productCategories,
       'product_name': productNames
     });
