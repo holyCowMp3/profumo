@@ -5,7 +5,7 @@
  *
  * @description: A set of functions called "actions" for managing `Callback`.
  */
-
+const {base64decode } = require('nodejs-base64');
 module.exports = {
 
   /**
@@ -61,8 +61,7 @@ module.exports = {
       ctx.request.body.data +
       liqPayConf.private
     );
-    let buff = new Buffer(ctx.request.body.data, 'base64');
-    let text = buff.toString('utf8');
+    let text = base64decode(ctx.request.body.data);
 
     console.log(text);
     if (sign === ctx.request.body.signature)
