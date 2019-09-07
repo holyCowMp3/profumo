@@ -122,38 +122,46 @@ module.exports = {
     switch (order.type) {
       case 'nova_poshta': {
         console.log(formatDate(new Date()));
-        return await novaPoshta.document.saveInternetDocument(
-          {
-            NewAddress: '1',
-            PayerType: 'Sender',
-            PaymentMethod: 'Cash',
-            CargoType: 'Parcel',
-            VolumeGeneral: '0.1',
-            Weight: '10',
-            ServiceType: 'WarehouseWarehouse',
-            SeatsAmount: '1',
-            Description: 'Косметичні засоби. Доставка з післяоплатою',
-            Cost: price,
-            CitySender: 'e221d642-391c-11dd-90d9-001a92567626',
-            Sender: profumoCounterparty,
-            SenderAddress: '5a39e5a0-e1c2-11e3-8c4a-0050568002cf',
-            ContactSender: 'fb7ee3ed-cfc3-11e9-9937-005056881c6b',
-            SendersPhone: '380950831150',
-            RecipientCityName: order.deliveryInfo.cityDescription,
-            RecipientArea: '',
-            RecipientAreaRegions: '',
-            RecipientAddressName: order.deliveryInfo.postOfficeName,
-            RecipientHouse: '',
-            RecipientFlat: '',
-            RecipientName: order.deliveryInfo.name + ' ' + order.deliveryInfo.surname,
-            RecipientType: 'PrivatePerson',
-            RecipientsPhone: order.deliveryInfo.phone,
-            DateTime:formatDate(new Date())
-          }
-        ).then(json => {
-          console.log(json);
-          return json.data;
-        }).catch(err => console.log(err));
+        return await novaPoshta.counterparty.saveCounterparty({
+          FirstName: order.name,
+          MiddleName: '',
+          LastName: order.surname,
+          Phone: order.phone,
+          Email: '',
+          CounterpartyType: 'PrivatePerson',
+          CounterpartyProperty: 'Recipient'
+        }).then((res) =>{
+          console. log(res);
+          return novaPoshta.document.saveInternetDocument(
+            {
+              NewAddress: '1',
+              PayerType: 'Sender',
+              PaymentMethod: 'Cash',
+              CargoType: 'Parcel',
+              VolumeGeneral: '0.1',
+              Weight: '1',
+              ServiceType: 'WarehouseWarehouse',
+              SeatsAmount: '1',
+              Description: 'Косметичні засоби. Доставка з післяоплатою',
+              Cost: price,
+              CitySender: 'e221d642-391c-11dd-90d9-001a92567626',
+              Sender: profumoCounterparty,
+              SenderAddress: '5a39e5a0-e1c2-11e3-8c4a-0050568002cf',
+              ContactSender: 'fb7ee3ed-cfc3-11e9-9937-005056881c6b',
+              SendersPhone: '380950831150',
+              CityRecipient: order.deliveryInfo.cityCode,
+              Recipient: res.Ref,
+              RecipientAddress: order.deliveryInfo.postOfficeCode,
+              ContactRecipient: res.Ref,
+              RecipientsPhone: order.deliveryInfo.phone,
+              DateTime:formatDate(new Date())
+            }
+          ).then(json => {
+            console.log(json);
+            return json.data;
+          }).catch(err => console.log(err));
+
+        });
       }
 
       case 'liqpay': {
