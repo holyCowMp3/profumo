@@ -68,6 +68,12 @@ module.exports = {
         console.log(body);
       }
     }
+    function formatDate(date) {
+      var day = date.getDate();
+      var monthIndex = date.getMonth();
+      var year = date.getFullYear();
+      return day + '.' + monthIndex + '.' + year;
+    }
 
     ctx.request.body.status = 'processing';
     let order = await strapi.services.order.add(ctx.request.body);
@@ -110,14 +116,11 @@ module.exports = {
 
       }
     }
+
     let profumoCounterparty = '4187cb04-cd83-11e9-9937-005056881c6b';
     switch (order.type) {
       case 'nova_poshta': {
-        console.log(new Date().toLocaleDateString('en-GB', {
-          day: 'numeric',
-          month: 'numeric',
-          year: 'numeric'
-        }).split('/').join('.'));
+        console.log(formatDate(new Date()));
         return novaPoshta.document.saveInternetDocument(
           {
             NewAddress: '1',
@@ -144,11 +147,7 @@ module.exports = {
             RecipientName: order.deliveryInfo.name + ' ' + order.deliveryInfo.surname,
             RecipientType: 'PrivatePerson',
             RecipientsPhone: order.deliveryInfo.phone,
-            DateTime: new Date().toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'numeric',
-              year: 'numeric'
-            }).split('/').join('.')
+            DateTime:formatDate(new Date())
           }
         ).then(json => {
           console.log(json);
