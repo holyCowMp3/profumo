@@ -150,9 +150,9 @@ module.exports = {
               ContactSender: 'fb7ee3ed-cfc3-11e9-9937-005056881c6b',
               SendersPhone: '380950831150',
               CityRecipient: order.deliveryInfo.cityCode,
-              Recipient: res.Ref,
+              Recipient: res.data[0].Ref,
               RecipientAddress: order.deliveryInfo.postOfficeCode,
-              ContactRecipient: res.Ref,
+              ContactRecipient: res.data[0].Ref,
               RecipientsPhone: order.deliveryInfo.phone,
               DateTime:formatDate(new Date())
             }
