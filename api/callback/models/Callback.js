@@ -30,7 +30,7 @@ module.exports = {
       //
       //   }
       // });
-      console.log(order);
+      console.log(order)
       // novaPoshta.document.saveInternetDocument(
       //   {
       //     NewAddress: '1',

@@ -113,11 +113,58 @@ module.exports = {
 
     switch (order.type) {
       case 'nova_poshta': {
-        break;
+        return novaPoshta.document.saveInternetDocument(
+          {
+            NewAddress: '1',
+            PayerType: 'Sender',
+            PaymentMethod: 'Cash',
+            CargoType: 'Cargo',
+            VolumeGeneral: '0.1',
+            Weight: '10',
+            ServiceType: 'WarehouseWarehouse',
+            SeatsAmount: '1',
+            Description: 'Косметичні засоби. Доставка з післяоплатою',
+            Cost: price,
+            CitySender: '8d5a980d-391c-11dd-90d9-001a92567626',
+            Sender: profumoCounterparty,
+            SenderAddress: 'd492290b-55f2-11e5-ad08-005056801333',
+            ContactSender: profumoCounterparty,
+            SendersPhone: '380950831150',
+            RecipientCityName: order.deliveryInfo.cityName,
+            RecipientArea: '',
+            RecipientAreaRegions: '',
+            RecipientAddressName: order.deliveryInfo.postOfficeName,
+            RecipientHouse: '',
+            RecipientFlat: '',
+            RecipientName: order.deliveryInfo.name + ' ' + order.deliveryInfo.surname,
+            RecipientType: 'PrivatePerson',
+            RecipientsPhone: order.deliveryInfo.phone,
+            DateTime: new Date().toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'numeric',
+              year: 'numeric'
+            }).split('/').join('.')
+          }
+        ).then(json => {
+          console.log(json);
+          return json.data;
+        });
       }
 
       case 'liqpay': {
-        break;
+        let dataAndSignature = await liqPay.cnb_object({
+          'action': 'pay',
+          'amount': price,
+          'description': 'Покупка товаров в кол-ве: ' + order.orders.length,
+          'currency': 'UAH',
+          'order_id': order._id,
+          'version': '3',
+          'customer': ctx.state.user ? ctx.state.user._id : 'public_user',
+          'product_category': productCategories,
+          'product_name': productNames
+        });
+        console.log(dataAndSignature);
+        return dataAndSignature;
       }
     }
 
@@ -168,36 +215,6 @@ module.exports = {
     //     );
     //   }
     // });
-    console.log(
-      {
-        'action': 'pay',
-        'amount': price,
-        'currency': 'UAH',
-
-        'order_id': order._id,
-        'version': '3',
-        'result_url': '',
-        'customer': ctx.state.user? ctx.state.user._id:'public_user',
-        'product_category': productCategories,
-        'product_name': productNames
-      }
-    );
-
-    let dataAndSignature = await liqPay.cnb_object({
-      'action': 'pay',
-      'amount': price,
-      'description': 'Покупка товаров в кол-ве: ' + order.orders.length,
-      'currency': 'UAH',
-      'order_id': order._id,
-      'version': '3',
-      'customer': ctx.state.user? ctx.state.user._id:'public_user',
-      'product_category': productCategories,
-      'product_name': productNames
-    });
-
-    console.log(dataAndSignature);
-
-    return dataAndSignature;
   },
 
 
