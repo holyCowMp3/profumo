@@ -153,7 +153,7 @@ module.exports = {
         ).then(json => {
           console.log(json);
           return json.data;
-        });
+        }).catch(err => console.log(err));
       }
 
       case 'liqpay': {
