@@ -30,39 +30,40 @@ module.exports = {
       //
       //   }
       // });
-      novaPoshta.document.saveInternetDocument(
-        {
-          NewAddress: '1',
-          PayerType: 'Sender',
-          PaymentMethod: 'Cash',
-          CargoType: 'Cargo',
-          VolumeGeneral: '0.1',
-          Weight: '10',
-          ServiceType: 'WarehouseWarehouse',
-          SeatsAmount: '1',
-          Description: 'Косметичні засоби',
-          Cost: '2000',
-          CitySender: '8d5a980d-391c-11dd-90d9-001a92567626',
-          Sender: profumoCounterparty,
-          SenderAddress: 'd492290b-55f2-11e5-ad08-005056801333',
-          ContactSender: profumoCounterparty,
-          SendersPhone: '380950831150',
-          RecipientCityName: order.deliveryInfo.cityName,
-          RecipientArea: '',
-          RecipientAreaRegions: '',
-          RecipientAddressName: order.deliveryInfo.postOfficeName,
-          RecipientHouse: '',
-          RecipientFlat: '',
-          RecipientName: order.deliveryInfo.name +' '+ order.deliveryInfo.surname,
-          RecipientType: 'PrivatePerson',
-          RecipientsPhone: order.deliveryInfo.phone,
-          DateTime: new Date().toLocaleDateString('en-GB', {
-            day : 'numeric',
-            month : 'numeric',
-            year : 'numeric'
-          }).split('/').join('.')
-        }
-      );
+      console.log(order);
+      // novaPoshta.document.saveInternetDocument(
+      //   {
+      //     NewAddress: '1',
+      //     PayerType: 'Sender',
+      //     PaymentMethod: 'Cash',
+      //     CargoType: 'Cargo',
+      //     VolumeGeneral: '0.1',
+      //     Weight: '10',
+      //     ServiceType: 'WarehouseWarehouse',
+      //     SeatsAmount: '1',
+      //     Description: 'Косметичні засоби',
+      //     Cost: '2000',
+      //     CitySender: '8d5a980d-391c-11dd-90d9-001a92567626',
+      //     Sender: profumoCounterparty,
+      //     SenderAddress: 'd492290b-55f2-11e5-ad08-005056801333',
+      //     ContactSender: profumoCounterparty,
+      //     SendersPhone: '380950831150',
+      //     RecipientCityName: order.deliveryInfo.cityName,
+      //     RecipientArea: '',
+      //     RecipientAreaRegions: '',
+      //     RecipientAddressName: order.deliveryInfo.postOfficeName,
+      //     RecipientHouse: '',
+      //     RecipientFlat: '',
+      //     RecipientName: order.deliveryInfo.name +' '+ order.deliveryInfo.surname,
+      //     RecipientType: 'PrivatePerson',
+      //     RecipientsPhone: order.deliveryInfo.phone,
+      //     DateTime: new Date().toLocaleDateString('en-GB', {
+      //       day : 'numeric',
+      //       month : 'numeric',
+      //       year : 'numeric'
+      //     }).split('/').join('.')
+      //   }
+      // );
 
     });
 
