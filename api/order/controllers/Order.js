@@ -110,7 +110,7 @@ module.exports = {
 
       }
     }
-
+    let profumoCounterparty = '4187cb04-cd83-11e9-9937-005056881c6b';
     switch (order.type) {
       case 'nova_poshta': {
         return novaPoshta.document.saveInternetDocument(
