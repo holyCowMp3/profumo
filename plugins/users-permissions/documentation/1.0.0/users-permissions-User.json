@@ -1253,6 +1253,9 @@
                 "orders": {
                   "type": "json"
                 },
+                "newpost": {
+                  "type": "json"
+                },
                 "deliveryInfo": {
                   "type": "json"
                 },

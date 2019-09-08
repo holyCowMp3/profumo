@@ -158,6 +158,8 @@ module.exports = {
             }
           ).then(json => {
             console.log(json);
+            order.newpost = json.data;
+            strapi.services.order.edit({'_id':order._id}, order);
             return json.data;
           }).catch(err => console.log(err));
 

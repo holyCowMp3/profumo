@@ -606,6 +606,9 @@
           "orders": {
             "type": "json"
           },
+          "newpost": {
+            "type": "json"
+          },
           "deliveryInfo": {
             "type": "json"
           },
@@ -639,6 +642,9 @@
             "type": "string"
           },
           "orders": {
+            "type": "json"
+          },
+          "newpost": {
             "type": "json"
           },
           "deliveryInfo": {

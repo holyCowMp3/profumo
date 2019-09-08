@@ -516,20 +516,14 @@
           "id": {
             "type": "string"
           },
-          "contactname": {
-            "type": "string"
-          },
-          "contact_number": {
+          "contacts_block": {
             "type": "string"
           }
         }
       },
       "NewContacts": {
         "properties": {
-          "contactname": {
-            "type": "string"
-          },
-          "contact_number": {
+          "contacts_block": {
             "type": "string"
           }
         }

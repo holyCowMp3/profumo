@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "contacts",
   "info": {
     "name": "contacts",
     "description": "Контакт | Контакты"
@@ -9,11 +9,8 @@
     "timestamps": true
   },
   "attributes": {
-    "contactname": {
-      "type": "string"
-    },
-    "contact_number": {
-      "type": "string"
+    "contacts_block": {
+      "type": "text"
     }
   }
 }

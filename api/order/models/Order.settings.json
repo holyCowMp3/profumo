@@ -13,7 +13,7 @@
       "default": "",
       "type": "enumeration",
       "enum": [
-        "payed",
+        "success",
         "error",
         "processing"
       ]
@@ -27,6 +27,9 @@
       "type": "text"
     },
     "orders": {
+      "type": "json"
+    },
+    "newpost": {
       "type": "json"
     },
     "deliveryInfo": {
