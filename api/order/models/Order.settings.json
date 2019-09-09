@@ -41,9 +41,6 @@
         "liqpay"
       ],
       "type": "enumeration"
-    },
-    "feedback": {
-      "type": "text"
     }
   }
 }

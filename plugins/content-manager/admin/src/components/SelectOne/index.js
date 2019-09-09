@@ -81,7 +81,7 @@ class SelectOne extends React.Component {
         ? get(this.props.record, [this.props.relation.alias])
         : '';
 
-    const requestUrl = (this.props.relation.model === 'category') ? '/categories' :`/content-manager/explorer/${this.props.relation.model ||
+    const requestUrl = (this.props.relation.model === 'category' && this.props.currentModelName === 'product') ? '/categories' :`/content-manager/explorer/${this.props.relation.model ||
       this.props.relation.collection}/${requestUrlSuffix}`;
 
     // Call our request helper (see 'utils/request')

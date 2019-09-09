@@ -520,7 +520,7 @@
             "type": "string",
             "default": "",
             "enum": [
-              "payed",
+              "success",
               "error",
               "processing"
             ]
@@ -618,9 +618,6 @@
               "nova_poshta",
               "liqpay"
             ]
-          },
-          "feedback": {
-            "type": "string"
           }
         }
       },
@@ -630,7 +627,7 @@
             "type": "string",
             "default": "",
             "enum": [
-              "payed",
+              "success",
               "error",
               "processing"
             ]
@@ -656,9 +653,6 @@
               "nova_poshta",
               "liqpay"
             ]
-          },
-          "feedback": {
-            "type": "string"
           }
         }
       }

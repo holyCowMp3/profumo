@@ -6,7 +6,7 @@ type Aboutus {
   updatedAt: DateTime!
   first_block: String
   second_block: String
-  third_column: String
+  third_block: String
   brands(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
 }
 
@@ -46,7 +46,7 @@ type AboutusConnectionSecond_block {
   connection: AboutusConnection
 }
 
-type AboutusConnectionThird_column {
+type AboutusConnectionThird_block {
   key: String
   connection: AboutusConnection
 }
@@ -63,27 +63,27 @@ type AboutusGroupBy {
   updatedAt: [AboutusConnectionUpdatedAt]
   first_block: [AboutusConnectionFirst_block]
   second_block: [AboutusConnectionSecond_block]
-  third_column: [AboutusConnectionThird_column]
+  third_block: [AboutusConnectionThird_block]
 }
 
 input AboutusInput {
   first_block: String
   second_block: String
-  third_column: String
+  third_block: String
   brands: [ID]
 }
 
-"""Доп. информация | Доп. информация"""
+"""Доп. Информация | Доп. Информация"""
 type Additionaldata {
   _id: ID!
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  license: String
+  user_agreement: String
   delivery: String
   warranty: String
-  security: String
-  license_agreement: String
-  user_license: String
+  payment: String
   banner: UploadFile
 }
 
@@ -123,12 +123,12 @@ type AdditionaldataConnectionId {
   connection: AdditionaldataConnection
 }
 
-type AdditionaldataConnectionLicense_agreement {
+type AdditionaldataConnectionLicense {
   key: String
   connection: AdditionaldataConnection
 }
 
-type AdditionaldataConnectionSecurity {
+type AdditionaldataConnectionPayment {
   key: String
   connection: AdditionaldataConnection
 }
@@ -138,7 +138,7 @@ type AdditionaldataConnectionUpdatedAt {
   connection: AdditionaldataConnection
 }
 
-type AdditionaldataConnectionUser_license {
+type AdditionaldataConnectionUser_agreement {
   key: String
   connection: AdditionaldataConnection
 }
@@ -153,20 +153,20 @@ type AdditionaldataGroupBy {
   id: [AdditionaldataConnectionId]
   createdAt: [AdditionaldataConnectionCreatedAt]
   updatedAt: [AdditionaldataConnectionUpdatedAt]
+  license: [AdditionaldataConnectionLicense]
+  user_agreement: [AdditionaldataConnectionUser_agreement]
   delivery: [AdditionaldataConnectionDelivery]
   warranty: [AdditionaldataConnectionWarranty]
-  security: [AdditionaldataConnectionSecurity]
-  license_agreement: [AdditionaldataConnectionLicense_agreement]
-  user_license: [AdditionaldataConnectionUser_license]
+  payment: [AdditionaldataConnectionPayment]
   banner: [AdditionaldataConnectionBanner]
 }
 
 input AdditionaldataInput {
+  license: String
+  user_agreement: String
   delivery: String
   warranty: String
-  security: String
-  license_agreement: String
-  user_license: String
+  payment: String
   banner: ID
 }
 
@@ -1032,20 +1032,20 @@ type createContactsPayload {
   contact: Contacts
 }
 
-input createCustomersreviewInput {
-  data: CustomersreviewInput
-}
-
-type createCustomersreviewPayload {
-  customersreview: Customersreview
-}
-
 input createDiscountInput {
   data: DiscountInput
 }
 
 type createDiscountPayload {
   discount: Discount
+}
+
+input createFeedbackInput {
+  data: FeedbackInput
+}
+
+type createFeedbackPayload {
+  feedback: Feedback
 }
 
 input createOrderInput {
@@ -1102,115 +1102,6 @@ input createUserInput {
 
 type createUserPayload {
   user: UsersPermissionsUser
-}
-
-"""Отзывы о сервисе | Отзывы о сервисе"""
-type Customersreview {
-  _id: ID!
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  mail: String
-  phone: String
-  name: String
-  rank: Int
-  rewiew: String
-}
-
-type CustomersreviewAggregator {
-  count: Int
-  totalCount: Int
-  sum: CustomersreviewAggregatorSum
-  avg: CustomersreviewAggregatorAvg
-  min: CustomersreviewAggregatorMin
-  max: CustomersreviewAggregatorMax
-}
-
-type CustomersreviewAggregatorAvg {
-  rank: Float
-}
-
-type CustomersreviewAggregatorMax {
-  rank: Float
-}
-
-type CustomersreviewAggregatorMin {
-  rank: Float
-}
-
-type CustomersreviewAggregatorSum {
-  rank: Float
-}
-
-type CustomersreviewConnection {
-  values: [Customersreview]
-  groupBy: CustomersreviewGroupBy
-  aggregate: CustomersreviewAggregator
-}
-
-type CustomersreviewConnection_id {
-  key: ID
-  connection: CustomersreviewConnection
-}
-
-type CustomersreviewConnectionCreatedAt {
-  key: DateTime
-  connection: CustomersreviewConnection
-}
-
-type CustomersreviewConnectionId {
-  key: ID
-  connection: CustomersreviewConnection
-}
-
-type CustomersreviewConnectionMail {
-  key: String
-  connection: CustomersreviewConnection
-}
-
-type CustomersreviewConnectionName {
-  key: String
-  connection: CustomersreviewConnection
-}
-
-type CustomersreviewConnectionPhone {
-  key: String
-  connection: CustomersreviewConnection
-}
-
-type CustomersreviewConnectionRank {
-  key: Int
-  connection: CustomersreviewConnection
-}
-
-type CustomersreviewConnectionRewiew {
-  key: String
-  connection: CustomersreviewConnection
-}
-
-type CustomersreviewConnectionUpdatedAt {
-  key: DateTime
-  connection: CustomersreviewConnection
-}
-
-type CustomersreviewGroupBy {
-  _id: [CustomersreviewConnection_id]
-  id: [CustomersreviewConnectionId]
-  createdAt: [CustomersreviewConnectionCreatedAt]
-  updatedAt: [CustomersreviewConnectionUpdatedAt]
-  mail: [CustomersreviewConnectionMail]
-  phone: [CustomersreviewConnectionPhone]
-  name: [CustomersreviewConnectionName]
-  rank: [CustomersreviewConnectionRank]
-  rewiew: [CustomersreviewConnectionRewiew]
-}
-
-input CustomersreviewInput {
-  mail: String
-  phone: String
-  name: String
-  rank: Int
-  rewiew: String
 }
 
 """
@@ -1282,20 +1173,20 @@ type deleteContactsPayload {
   contact: Contacts
 }
 
-input deleteCustomersreviewInput {
-  where: InputID
-}
-
-type deleteCustomersreviewPayload {
-  customersreview: Customersreview
-}
-
 input deleteDiscountInput {
   where: InputID
 }
 
 type deleteDiscountPayload {
   discount: Discount
+}
+
+input deleteFeedbackInput {
+  where: InputID
+}
+
+type deleteFeedbackPayload {
+  feedback: Feedback
 }
 
 input deleteOrderInput {
@@ -1464,16 +1355,16 @@ input DiscountInput {
 input editAboutusInput {
   first_block: String
   second_block: String
-  third_column: String
+  third_block: String
   brands: [ID]
 }
 
 input editAdditionaldataInput {
+  license: String
+  user_agreement: String
   delivery: String
   warranty: String
-  security: String
-  license_agreement: String
-  user_license: String
+  payment: String
   banner: ID
 }
 
@@ -1555,20 +1446,18 @@ input editContactsInput {
   contacts_block: String
 }
 
-input editCustomersreviewInput {
-  mail: String
-  phone: String
-  name: String
-  rank: Int
-  rewiew: String
-}
-
 input editDiscountInput {
   name: String
   expiration_date: Int
   percent: Int
   product: ID
   categories: [ID]
+}
+
+input editFeedbackInput {
+  text: String
+  rank: Int
+  order: ID
 }
 
 input editFileInput {
@@ -1592,7 +1481,6 @@ input editOrderInput {
   newpost: JSON
   deliveryInfo: JSON
   type: ENUM_ORDER_TYPE
-  feedback: String
 }
 
 input editProductInput {
@@ -1704,7 +1592,7 @@ enum ENUM_CALLBACK_STATUS {
 }
 
 enum ENUM_ORDER_STATUS {
-  payed
+  success
   error
   processing
 }
@@ -1717,6 +1605,99 @@ enum ENUM_ORDER_TYPE {
 enum ENUM_USERSPERMISSIONSUSER_GENDER {
   male
   female
+}
+
+"""Отзыв о сайте"""
+type Feedback {
+  _id: ID!
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  text: String
+  rank: Int
+  order: Order
+}
+
+type FeedbackAggregator {
+  count: Int
+  totalCount: Int
+  sum: FeedbackAggregatorSum
+  avg: FeedbackAggregatorAvg
+  min: FeedbackAggregatorMin
+  max: FeedbackAggregatorMax
+}
+
+type FeedbackAggregatorAvg {
+  rank: Float
+}
+
+type FeedbackAggregatorMax {
+  rank: Float
+}
+
+type FeedbackAggregatorMin {
+  rank: Float
+}
+
+type FeedbackAggregatorSum {
+  rank: Float
+}
+
+type FeedbackConnection {
+  values: [Feedback]
+  groupBy: FeedbackGroupBy
+  aggregate: FeedbackAggregator
+}
+
+type FeedbackConnection_id {
+  key: ID
+  connection: FeedbackConnection
+}
+
+type FeedbackConnectionCreatedAt {
+  key: DateTime
+  connection: FeedbackConnection
+}
+
+type FeedbackConnectionId {
+  key: ID
+  connection: FeedbackConnection
+}
+
+type FeedbackConnectionOrder {
+  key: ID
+  connection: FeedbackConnection
+}
+
+type FeedbackConnectionRank {
+  key: Int
+  connection: FeedbackConnection
+}
+
+type FeedbackConnectionText {
+  key: String
+  connection: FeedbackConnection
+}
+
+type FeedbackConnectionUpdatedAt {
+  key: DateTime
+  connection: FeedbackConnection
+}
+
+type FeedbackGroupBy {
+  _id: [FeedbackConnection_id]
+  id: [FeedbackConnectionId]
+  createdAt: [FeedbackConnectionCreatedAt]
+  updatedAt: [FeedbackConnectionUpdatedAt]
+  text: [FeedbackConnectionText]
+  rank: [FeedbackConnectionRank]
+  order: [FeedbackConnectionOrder]
+}
+
+input FeedbackInput {
+  text: String
+  rank: Int
+  order: ID
 }
 
 input FileInput {
@@ -1744,7 +1725,7 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Aboutus | createAboutusPayload | updateAboutusPayload | deleteAboutusPayload | AboutusConnection | AboutusAggregator | AboutusGroupBy | AboutusConnection_id | AboutusConnectionId | AboutusConnectionCreatedAt | AboutusConnectionUpdatedAt | AboutusConnectionFirst_block | AboutusConnectionSecond_block | AboutusConnectionThird_column | Additionaldata | createAdditionaldataPayload | updateAdditionaldataPayload | deleteAdditionaldataPayload | AdditionaldataConnection | AdditionaldataAggregator | AdditionaldataGroupBy | AdditionaldataConnection_id | AdditionaldataConnectionId | AdditionaldataConnectionCreatedAt | AdditionaldataConnectionUpdatedAt | AdditionaldataConnectionDelivery | AdditionaldataConnectionWarranty | AdditionaldataConnectionSecurity | AdditionaldataConnectionLicense_agreement | AdditionaldataConnectionUser_license | AdditionaldataConnectionBanner | Blog | createBlogPayload | updateBlogPayload | deleteBlogPayload | BlogConnection | BlogAggregator | BlogGroupBy | BlogConnection_id | BlogConnectionId | BlogConnectionCreatedAt | BlogConnectionUpdatedAt | BlogConnectionTitle | BlogConnectionPublishing | BlogConnectionNewsBody | BlogConnectionLink | BlogConnectionHeader_photo | BlogConnectionShort_desc | Callback | createCallbackPayload | updateCallbackPayload | deleteCallbackPayload | CallbackConnection | CallbackAggregator | CallbackAggregatorSum | CallbackAggregatorAvg | CallbackAggregatorMin | CallbackAggregatorMax | CallbackGroupBy | CallbackConnection_id | CallbackConnectionId | CallbackConnectionCreatedAt | CallbackConnectionUpdatedAt | CallbackConnectionAcq_id | CallbackConnectionAction | CallbackConnectionAgent_commission | CallbackConnectionAmount | CallbackConnectionAmount_bonus | CallbackConnectionAmount_credit | CallbackConnectionAmount_debit | CallbackConnectionAuthcode_credit | CallbackConnectionAuthcode_debit | CallbackConnectionCard_token | CallbackConnectionCommission_debit | CallbackConnectionCommission_credit | CallbackConnectionCustomer | CallbackConnectionErr_code | CallbackConnectionErr_description | CallbackConnectionIp | CallbackConnectionLiqpay_order_id | CallbackConnectionOrder_id | CallbackConnectionPayment_id | CallbackConnectionPaytype | CallbackConnectionSender_card_mask2 | CallbackConnectionSender_card_type | CallbackConnectionSender_first_name | CallbackConnectionSender_last_name | CallbackConnectionSender_phone | CallbackConnectionStatus | CallbackConnectionToken | CallbackConnectionType | CallbackConnectionVerifycode | Cart | createCartPayload | updateCartPayload | deleteCartPayload | CartConnection | CartAggregator | CartGroupBy | CartConnection_id | CartConnectionId | CartConnectionCreatedAt | CartConnectionUpdatedAt | CartConnectionOwner | CartConnectionDate | CartConnectionBody | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnection_id | CategoryConnectionId | CategoryConnectionCreatedAt | CategoryConnectionUpdatedAt | CategoryConnectionName_ru | CategoryConnectionParent | CategoryConnectionName_en | CategoryConnectionDesc | CategoryConnectionName_ua | CategoryConnectionRozetkacat | CategoryConnectionDiscount | CategoryConnectionStatus | CategoryConnectionCategory_photo | Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentAggregatorSum | CommentAggregatorAvg | CommentAggregatorMin | CommentAggregatorMax | CommentGroupBy | CommentConnection_id | CommentConnectionId | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionText | CommentConnectionRate | CommentConnectionVerified | CommentConnectionName | CommentConnectionGender | CommentConnectionResponse | CommentConnectionProduct | CommentConnectionOwner | Contacts | createContactsPayload | updateContactsPayload | deleteContactsPayload | ContactsConnection | ContactsAggregator | ContactsGroupBy | ContactsConnection_id | ContactsConnectionId | ContactsConnectionCreatedAt | ContactsConnectionUpdatedAt | ContactsConnectionContacts_block | Customersreview | createCustomersreviewPayload | updateCustomersreviewPayload | deleteCustomersreviewPayload | CustomersreviewConnection | CustomersreviewAggregator | CustomersreviewAggregatorSum | CustomersreviewAggregatorAvg | CustomersreviewAggregatorMin | CustomersreviewAggregatorMax | CustomersreviewGroupBy | CustomersreviewConnection_id | CustomersreviewConnectionId | CustomersreviewConnectionCreatedAt | CustomersreviewConnectionUpdatedAt | CustomersreviewConnectionMail | CustomersreviewConnectionPhone | CustomersreviewConnectionName | CustomersreviewConnectionRank | CustomersreviewConnectionRewiew | Discount | createDiscountPayload | updateDiscountPayload | deleteDiscountPayload | DiscountConnection | DiscountAggregator | DiscountAggregatorSum | DiscountAggregatorAvg | DiscountAggregatorMin | DiscountAggregatorMax | DiscountGroupBy | DiscountConnection_id | DiscountConnectionId | DiscountConnectionCreatedAt | DiscountConnectionUpdatedAt | DiscountConnectionName | DiscountConnectionExpiration_date | DiscountConnectionPercent | DiscountConnectionProduct | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | OrderConnection | OrderAggregator | OrderGroupBy | OrderConnection_id | OrderConnectionId | OrderConnectionCreatedAt | OrderConnectionUpdatedAt | OrderConnectionStatus | OrderConnectionOwner | OrderConnectionAdditionalInfo | OrderConnectionOrders | OrderConnectionNewpost | OrderConnectionDeliveryInfo | OrderConnectionType | OrderConnectionFeedback | Product | createProductPayload | updateProductPayload | deleteProductPayload | ProductConnection | ProductAggregator | ProductAggregatorSum | ProductAggregatorAvg | ProductAggregatorMin | ProductAggregatorMax | ProductGroupBy | ProductConnection_id | ProductConnectionId | ProductConnectionCreatedAt | ProductConnectionUpdatedAt | ProductConnectionName_ua | ProductConnectionDesc | ProductConnectionPrice | ProductConnectionRating | ProductConnectionCategory | ProductConnectionDiscounts | ProductConnectionName_ru | ProductConnectionName_en | ProductConnectionAmount | ProductConnectionRozetka_exp | ProductConnectionAvaliable | ProductConnectionVendor | ProductConnectionName_rozetka | ProductConnectionComments_len | ProductConnectionDescJSON | ProductConnectionMeta_title | ProductConnectionMeta_decription | ProductConnectionMeta_keywords | ProductConnectionPriority | ProductConnectionRecommendations | ProductConnectionPromocodes | Promocode | createPromocodePayload | updatePromocodePayload | deletePromocodePayload | PromocodeConnection | PromocodeAggregator | PromocodeGroupBy | PromocodeConnection_id | PromocodeConnectionId | PromocodeConnectionCreatedAt | PromocodeConnectionUpdatedAt | PromocodeConnectionPromocode | PromocodeConnectionCategory | Property | createPropertyPayload | updatePropertyPayload | deletePropertyPayload | PropertyConnection | PropertyAggregator | PropertyGroupBy | PropertyConnection_id | PropertyConnectionId | PropertyConnectionCreatedAt | PropertyConnectionUpdatedAt | PropertyConnectionShort_name | PropertyConnectionProperty_name | PropertyConnectionProperty_val | Slidercontent | createSlidercontentPayload | updateSlidercontentPayload | deleteSlidercontentPayload | SlidercontentConnection | SlidercontentAggregator | SlidercontentGroupBy | SlidercontentConnection_id | SlidercontentConnectionId | SlidercontentConnectionCreatedAt | SlidercontentConnectionUpdatedAt | SlidercontentConnectionName | SlidercontentConnectionImage | SlidercontentConnectionLink | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionSurname | UsersPermissionsUserConnectionThirdname | UsersPermissionsUserConnectionBirthday | UsersPermissionsUserConnectionAdress | UsersPermissionsUserConnectionWishlist | UsersPermissionsUserConnectionGender
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Aboutus | createAboutusPayload | updateAboutusPayload | deleteAboutusPayload | AboutusConnection | AboutusAggregator | AboutusGroupBy | AboutusConnection_id | AboutusConnectionId | AboutusConnectionCreatedAt | AboutusConnectionUpdatedAt | AboutusConnectionFirst_block | AboutusConnectionSecond_block | AboutusConnectionThird_block | Additionaldata | createAdditionaldataPayload | updateAdditionaldataPayload | deleteAdditionaldataPayload | AdditionaldataConnection | AdditionaldataAggregator | AdditionaldataGroupBy | AdditionaldataConnection_id | AdditionaldataConnectionId | AdditionaldataConnectionCreatedAt | AdditionaldataConnectionUpdatedAt | AdditionaldataConnectionLicense | AdditionaldataConnectionUser_agreement | AdditionaldataConnectionDelivery | AdditionaldataConnectionWarranty | AdditionaldataConnectionPayment | AdditionaldataConnectionBanner | Blog | createBlogPayload | updateBlogPayload | deleteBlogPayload | BlogConnection | BlogAggregator | BlogGroupBy | BlogConnection_id | BlogConnectionId | BlogConnectionCreatedAt | BlogConnectionUpdatedAt | BlogConnectionTitle | BlogConnectionPublishing | BlogConnectionNewsBody | BlogConnectionLink | BlogConnectionHeader_photo | BlogConnectionShort_desc | Callback | createCallbackPayload | updateCallbackPayload | deleteCallbackPayload | CallbackConnection | CallbackAggregator | CallbackAggregatorSum | CallbackAggregatorAvg | CallbackAggregatorMin | CallbackAggregatorMax | CallbackGroupBy | CallbackConnection_id | CallbackConnectionId | CallbackConnectionCreatedAt | CallbackConnectionUpdatedAt | CallbackConnectionAcq_id | CallbackConnectionAction | CallbackConnectionAgent_commission | CallbackConnectionAmount | CallbackConnectionAmount_bonus | CallbackConnectionAmount_credit | CallbackConnectionAmount_debit | CallbackConnectionAuthcode_credit | CallbackConnectionAuthcode_debit | CallbackConnectionCard_token | CallbackConnectionCommission_debit | CallbackConnectionCommission_credit | CallbackConnectionCustomer | CallbackConnectionErr_code | CallbackConnectionErr_description | CallbackConnectionIp | CallbackConnectionLiqpay_order_id | CallbackConnectionOrder_id | CallbackConnectionPayment_id | CallbackConnectionPaytype | CallbackConnectionSender_card_mask2 | CallbackConnectionSender_card_type | CallbackConnectionSender_first_name | CallbackConnectionSender_last_name | CallbackConnectionSender_phone | CallbackConnectionStatus | CallbackConnectionToken | CallbackConnectionType | CallbackConnectionVerifycode | Cart | createCartPayload | updateCartPayload | deleteCartPayload | CartConnection | CartAggregator | CartGroupBy | CartConnection_id | CartConnectionId | CartConnectionCreatedAt | CartConnectionUpdatedAt | CartConnectionOwner | CartConnectionDate | CartConnectionBody | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnection_id | CategoryConnectionId | CategoryConnectionCreatedAt | CategoryConnectionUpdatedAt | CategoryConnectionName_ru | CategoryConnectionParent | CategoryConnectionName_en | CategoryConnectionDesc | CategoryConnectionName_ua | CategoryConnectionRozetkacat | CategoryConnectionDiscount | CategoryConnectionStatus | CategoryConnectionCategory_photo | Comment | createCommentPayload | updateCommentPayload | deleteCommentPayload | CommentConnection | CommentAggregator | CommentAggregatorSum | CommentAggregatorAvg | CommentAggregatorMin | CommentAggregatorMax | CommentGroupBy | CommentConnection_id | CommentConnectionId | CommentConnectionCreatedAt | CommentConnectionUpdatedAt | CommentConnectionText | CommentConnectionRate | CommentConnectionVerified | CommentConnectionName | CommentConnectionGender | CommentConnectionResponse | CommentConnectionProduct | CommentConnectionOwner | Contacts | createContactsPayload | updateContactsPayload | deleteContactsPayload | ContactsConnection | ContactsAggregator | ContactsGroupBy | ContactsConnection_id | ContactsConnectionId | ContactsConnectionCreatedAt | ContactsConnectionUpdatedAt | ContactsConnectionContacts_block | Discount | createDiscountPayload | updateDiscountPayload | deleteDiscountPayload | DiscountConnection | DiscountAggregator | DiscountAggregatorSum | DiscountAggregatorAvg | DiscountAggregatorMin | DiscountAggregatorMax | DiscountGroupBy | DiscountConnection_id | DiscountConnectionId | DiscountConnectionCreatedAt | DiscountConnectionUpdatedAt | DiscountConnectionName | DiscountConnectionExpiration_date | DiscountConnectionPercent | DiscountConnectionProduct | Feedback | createFeedbackPayload | updateFeedbackPayload | deleteFeedbackPayload | FeedbackConnection | FeedbackAggregator | FeedbackAggregatorSum | FeedbackAggregatorAvg | FeedbackAggregatorMin | FeedbackAggregatorMax | FeedbackGroupBy | FeedbackConnection_id | FeedbackConnectionId | FeedbackConnectionCreatedAt | FeedbackConnectionUpdatedAt | FeedbackConnectionText | FeedbackConnectionRank | FeedbackConnectionOrder | Order | createOrderPayload | updateOrderPayload | deleteOrderPayload | OrderConnection | OrderAggregator | OrderGroupBy | OrderConnection_id | OrderConnectionId | OrderConnectionCreatedAt | OrderConnectionUpdatedAt | OrderConnectionStatus | OrderConnectionOwner | OrderConnectionAdditionalInfo | OrderConnectionOrders | OrderConnectionNewpost | OrderConnectionDeliveryInfo | OrderConnectionType | Product | createProductPayload | updateProductPayload | deleteProductPayload | ProductConnection | ProductAggregator | ProductAggregatorSum | ProductAggregatorAvg | ProductAggregatorMin | ProductAggregatorMax | ProductGroupBy | ProductConnection_id | ProductConnectionId | ProductConnectionCreatedAt | ProductConnectionUpdatedAt | ProductConnectionName_ua | ProductConnectionDesc | ProductConnectionPrice | ProductConnectionRating | ProductConnectionCategory | ProductConnectionDiscounts | ProductConnectionName_ru | ProductConnectionName_en | ProductConnectionAmount | ProductConnectionRozetka_exp | ProductConnectionAvaliable | ProductConnectionVendor | ProductConnectionName_rozetka | ProductConnectionComments_len | ProductConnectionDescJSON | ProductConnectionMeta_title | ProductConnectionMeta_decription | ProductConnectionMeta_keywords | ProductConnectionPriority | ProductConnectionRecommendations | ProductConnectionPromocodes | Promocode | createPromocodePayload | updatePromocodePayload | deletePromocodePayload | PromocodeConnection | PromocodeAggregator | PromocodeGroupBy | PromocodeConnection_id | PromocodeConnectionId | PromocodeConnectionCreatedAt | PromocodeConnectionUpdatedAt | PromocodeConnectionPromocode | PromocodeConnectionCategory | Property | createPropertyPayload | updatePropertyPayload | deletePropertyPayload | PropertyConnection | PropertyAggregator | PropertyGroupBy | PropertyConnection_id | PropertyConnectionId | PropertyConnectionCreatedAt | PropertyConnectionUpdatedAt | PropertyConnectionShort_name | PropertyConnectionProperty_name | PropertyConnectionProperty_val | Slidercontent | createSlidercontentPayload | updateSlidercontentPayload | deleteSlidercontentPayload | SlidercontentConnection | SlidercontentAggregator | SlidercontentGroupBy | SlidercontentConnection_id | SlidercontentConnectionId | SlidercontentConnectionCreatedAt | SlidercontentConnectionUpdatedAt | SlidercontentConnectionName | SlidercontentConnectionImage | SlidercontentConnectionLink | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionId | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionName | UsersPermissionsUserConnectionSurname | UsersPermissionsUserConnectionThirdname | UsersPermissionsUserConnectionBirthday | UsersPermissionsUserConnectionAdress | UsersPermissionsUserConnectionWishlist | UsersPermissionsUserConnectionGender
 
 type Mutation {
   createAboutus(input: createAboutusInput): createAboutusPayload
@@ -1771,12 +1752,12 @@ type Mutation {
   createContacts(input: createContactsInput): createContactsPayload
   updateContacts(input: updateContactsInput): updateContactsPayload
   deleteContacts(input: deleteContactsInput): deleteContactsPayload
-  createCustomersreview(input: createCustomersreviewInput): createCustomersreviewPayload
-  updateCustomersreview(input: updateCustomersreviewInput): updateCustomersreviewPayload
-  deleteCustomersreview(input: deleteCustomersreviewInput): deleteCustomersreviewPayload
   createDiscount(input: createDiscountInput): createDiscountPayload
   updateDiscount(input: updateDiscountInput): updateDiscountPayload
   deleteDiscount(input: deleteDiscountInput): deleteDiscountPayload
+  createFeedback(input: createFeedbackInput): createFeedbackPayload
+  updateFeedback(input: updateFeedbackInput): updateFeedbackPayload
+  deleteFeedback(input: deleteFeedbackInput): deleteFeedbackPayload
   createOrder(input: createOrderInput): createOrderPayload
   updateOrder(input: updateOrderInput): updateOrderPayload
   deleteOrder(input: deleteOrderInput): deleteOrderPayload
@@ -1826,7 +1807,6 @@ type Order {
   newpost: JSON
   deliveryInfo: JSON
   type: ENUM_ORDER_TYPE
-  feedback: String
 }
 
 type OrderAggregator {
@@ -1857,11 +1837,6 @@ type OrderConnectionCreatedAt {
 
 type OrderConnectionDeliveryInfo {
   key: JSON
-  connection: OrderConnection
-}
-
-type OrderConnectionFeedback {
-  key: String
   connection: OrderConnection
 }
 
@@ -1912,7 +1887,6 @@ type OrderGroupBy {
   newpost: [OrderConnectionNewpost]
   deliveryInfo: [OrderConnectionDeliveryInfo]
   type: [OrderConnectionType]
-  feedback: [OrderConnectionFeedback]
 }
 
 input OrderInput {
@@ -1923,7 +1897,6 @@ input OrderInput {
   newpost: JSON
   deliveryInfo: JSON
   type: ENUM_ORDER_TYPE
-  feedback: String
 }
 
 """Товар | Товары"""
@@ -2346,12 +2319,12 @@ type Query {
   contact(id: ID!): Contacts
   contacts(sort: String, limit: Int, start: Int, where: JSON): [Contacts]
   contactsConnection(sort: String, limit: Int, start: Int, where: JSON): ContactsConnection
-  customersreview(id: ID!): Customersreview
-  customersreviews(sort: String, limit: Int, start: Int, where: JSON): [Customersreview]
-  customersreviewsConnection(sort: String, limit: Int, start: Int, where: JSON): CustomersreviewConnection
   discount(id: ID!): Discount
   discounts(sort: String, limit: Int, start: Int, where: JSON): [Discount]
   discountsConnection(sort: String, limit: Int, start: Int, where: JSON): DiscountConnection
+  feedback(id: ID!): Feedback
+  feedbacks(sort: String, limit: Int, start: Int, where: JSON): [Feedback]
+  feedbacksConnection(sort: String, limit: Int, start: Int, where: JSON): FeedbackConnection
   order(id: ID!): Order
   orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
   ordersConnection(sort: String, limit: Int, start: Int, where: JSON): OrderConnection
@@ -2535,15 +2508,6 @@ type updateContactsPayload {
   contact: Contacts
 }
 
-input updateCustomersreviewInput {
-  where: InputID
-  data: editCustomersreviewInput
-}
-
-type updateCustomersreviewPayload {
-  customersreview: Customersreview
-}
-
 input updateDiscountInput {
   where: InputID
   data: editDiscountInput
@@ -2551,6 +2515,15 @@ input updateDiscountInput {
 
 type updateDiscountPayload {
   discount: Discount
+}
+
+input updateFeedbackInput {
+  where: InputID
+  data: editFeedbackInput
+}
+
+type updateFeedbackPayload {
+  feedback: Feedback
 }
 
 input updateOrderInput {
