@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "feedback",
   "info": {
     "name": "feedback",
     "description": "Отзыв о сайте"
@@ -19,6 +19,15 @@
     },
     "order": {
       "model": "order"
+    },
+    "name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
     }
   }
 }
