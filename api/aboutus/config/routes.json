@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/aboutuses",
+      "handler": "Aboutus.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/aboutuses/count",
+      "handler": "Aboutus.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/aboutuses/:_id",
+      "handler": "Aboutus.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/aboutuses",
+      "handler": "Aboutus.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/aboutuses/:_id",
+      "handler": "Aboutus.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/aboutuses/:_id",
+      "handler": "Aboutus.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "aboutus",
+    "description": "О нас | О нас"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "first_block": {
+      "type": "text"
+    },
+    "second_block": {
+      "type": "text"
+    },
+    "third_block": {
+      "type": "text"
+    },
+    "brands": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload"
+    }
+  }
+}
