@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "feedback",
+    "description": "Отзыв о сайте"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "text": {
+      "type": "text"
+    },
+    "rank": {
+      "type": "integer",
+      "default": "0",
+      "max": 5
+    },
+    "order": {
+      "model": "order"
+    }
+  }
+}
