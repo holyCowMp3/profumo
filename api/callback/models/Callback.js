@@ -37,6 +37,7 @@ module.exports = {
               price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) * product.count);
             }
           }
+
           // eslint-disable-next-line no-inner-declarations
           function formatDate(date) {
             var day = date.getDate();
@@ -44,6 +45,7 @@ module.exports = {
             var year = date.getFullYear();
             return day + '.' + monthIndex + '.' + year;
           }
+
           return await novaPoshta.counterparty.saveCounterparty({
             FirstName: order.deliveryInfo.name,
             MiddleName: '',
