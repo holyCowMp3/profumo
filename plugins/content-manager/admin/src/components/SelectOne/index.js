@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Select from 'react-select';
-import { FormattedMessage } from 'react-intl';
+import {FormattedMessage} from 'react-intl';
 import PropTypes from 'prop-types';
 import 'react-select/dist/react-select.css';
 import {
@@ -35,7 +35,7 @@ class SelectOne extends React.Component {
       isLoading: true,
       options: [],
       toSkip: 0,
-      parentValue: { _id: ''}
+      parentValue: {_id: ''}
     };
   }
 
@@ -45,10 +45,11 @@ class SelectOne extends React.Component {
     this.getOptions('');
 
   }
+
   componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.relation.model === 'category') {
       if (nextProps.record.category) {
-        this.props.mergeState({categoryId:nextProps.record.category._id});
+        this.props.mergeState({categoryId: nextProps.record.category._id});
       }
     }
 
@@ -62,11 +63,11 @@ class SelectOne extends React.Component {
   }
 
   getOptions = query => {
-    const params = !(this.props.relation.model === 'category' && this.props.currentModelName === 'product')?{
-      _limit:20,
+    const params = !(this.props.relation.model === 'category' && this.props.currentModelName === 'product') ? {
+      _limit: 20,
       _start: this.state.toSkip,
       source: this.props.relation.plugin || 'content-manager',
-    }:{_limit:-1} ;
+    } : {_limit: -1};
 
     // Set `query` parameter if necessary
     if (query) {
@@ -81,8 +82,8 @@ class SelectOne extends React.Component {
         ? get(this.props.record, [this.props.relation.alias])
         : '';
 
-    const requestUrl = (this.props.relation.model === 'category' && this.props.currentModelName === 'product') ? '/categories' :`/content-manager/explorer/${this.props.relation.model ||
-      this.props.relation.collection}/${requestUrlSuffix}`;
+    const requestUrl = (this.props.relation.model === 'category' && this.props.currentModelName === 'product') ? '/categories' : `/content-manager/explorer/${this.props.relation.model ||
+    this.props.relation.collection}/${requestUrlSuffix}`;
 
     // Call our request helper (see 'utils/request')
     return request(requestUrl, {
@@ -92,21 +93,21 @@ class SelectOne extends React.Component {
       .then(response => {
         const options = isArray(response)
           ? map(response, item => ({
-              value: item,
-              label: templateObject(
-                { mainField: this.props.relation.displayedAttribute },
-                item
-              ).mainField,
-            }))
+            value: item,
+            label: templateObject(
+              {mainField: this.props.relation.displayedAttribute},
+              item
+            ).mainField,
+          }))
           : [
-              {
-                value: response,
-                label: templateObject(
-                  { mainField: this.props.relation.displayedAttribute },
-                  response
-                ).mainField,
-              },
-            ];
+            {
+              value: response,
+              label: templateObject(
+                {mainField: this.props.relation.displayedAttribute},
+                response
+              ).mainField,
+            },
+          ];
 
         const newOptions = cloneDeep(this.state.options);
         options.map(option => {
@@ -133,16 +134,16 @@ class SelectOne extends React.Component {
   convertArrayToData = response => {
     console.log(response);
     const options = map(response, item => ({
-        value: item,
-        label: item.name_ru,
-      }));
+      value: item,
+      label: item.name_ru,
+    }));
     return options;
   }
 
   handleChange = value => {
     if (this.props.relation.model === 'category') {
       if (value) {
-        this.props.mergeState({categoryId:value._id});
+        this.props.mergeState({categoryId: value._id});
       }
     }
     const target = {
@@ -150,11 +151,11 @@ class SelectOne extends React.Component {
       value,
       type: 'select',
     };
-    this.props.setRecordAttribute({ target });
+    this.props.setRecordAttribute({target});
   };
 
   handleChangeInParent = value => {
-   return this.setState({parentValue: value});
+    return this.setState({parentValue: value});
   }
 
   handleBottomScroll = () => {
@@ -187,8 +188,9 @@ class SelectOne extends React.Component {
 
   render() {
     const description = this.props.relation.description ? (
-      <p>{this.props.relation.description}</p>
-    ) : (
+      < p > {this.props.relation.description} < /p>
+  ) :
+    (
       ''
     );
 
@@ -201,135 +203,197 @@ class SelectOne extends React.Component {
       isNull(value) || isUndefined(value) || excludeModel ? (
         ''
       ) : (
-        <FormattedMessage id="content-manager.containers.Edit.clickToJump">
-          {title => (
-            <a onClick={() => this.handleClick({ value })} title={title}>
-              <FormattedMessage id="content-manager.containers.Edit.seeDetails" />
-            </a>
-          )}
-        </FormattedMessage>
-      );
+        < FormattedMessage
+    id = "content-manager.containers.Edit.clickToJump" >
+      {title
+  =>
+    (
+    < a
+    onClick = {()
+  =>
+    this.handleClick({value})
+  }
+    title = {title} >
+      < FormattedMessage
+    id = "content-manager.containers.Edit.seeDetails" / >
+      < /a>
+  )
+  }
+  <
+    /FormattedMessage>
+  )
+    ;
     const par = this.state.parentValue;
     const entryLinkParent =
       isNull(value) || isUndefined(value) || excludeModel ? (
         ''
       ) : (
-        <FormattedMessage id="content-manager.containers.Edit.clickToJump">
-          {title => (
-            <a onClick={() => this.handleClick({ par })} title={title}>
-              <FormattedMessage id="content-manager.containers.Edit.seeDetails" />
-            </a>
-          )}
-        </FormattedMessage>
-      );
+        < FormattedMessage
+    id = "content-manager.containers.Edit.clickToJump" >
+      {title
+  =>
+    (
+    < a
+    onClick = {()
+  =>
+    this.handleClick({par})
+  }
+    title = {title} >
+      < FormattedMessage
+    id = "content-manager.containers.Edit.seeDetails" / >
+      < /a>
+  )
+  }
+  <
+    /FormattedMessage>
+  )
+    ;
 
     /* eslint-disable jsx-a11y/label-has-for */
     return (
-    (this.props.relation.model === 'category' && this.props.currentModelName === 'product')?
-      <div className={`form-group ${styles.selectOne}`}>
-        <nav className={styles.headline}>
-          <label htmlFor={this.props.relation.alias}>
-           Родительская категория
-          </label>
-          {entryLink}
-        </nav>
-        {description}
+        (this.props.relation.model === 'category' && this.props.currentModelName === 'product') ?
+      < div
+    className = {`form-group ${styles.selectOne}`
+  }>
+  <
+    nav
+    className = {styles.headline} >
+      < label
+    htmlFor = {this.props.relation.alias} >
+      Родительская
+    категория
+    < /label>
+    {
+      entryLink
+    }
+  <
+    /nav>
+    {
+      description
+    }
 
-        <Select
-          onChange={this.handleChangeInParent}
-          options={this.state.options.filter(cat => !cat.value.parent)}
-          id={this.props.relation.alias}
-          isLoading={this.state.isLoading}
-          onMenuScrollToBottom={this.handleBottomScroll}
-          onInputChange={this.handleInputChange}
-          onSelectResetsInput={false}
-          simpleValue
-          value={
-            isNull(this.state.parentValue) || isUndefined(this.state.parentValue)
-              ? null
-              : {
-                  value: isFunction(this.state.parentValue.toJS) ? this.state.parentValue.toJS() : this.state.parentValue,
-                  label:this.state.parentValue.name_ru
+  <
+    Select
+    onChange = {this.handleChangeInParent}
+    options = {this.state.options.filter(cat => !cat.value.parent)}
+    id = {this.props.relation.alias}
+    isLoading = {this.state.isLoading}
+    onMenuScrollToBottom = {this.handleBottomScroll}
+    onInputChange = {this.handleInputChange}
+    onSelectResetsInput = {false}
+    simpleValue
+    value = {
+      isNull(this.state.parentValue
+  ) ||
+    isUndefined(this.state.parentValue)
+      ? null
+      : {
+        value: isFunction(this.state.parentValue.toJS) ? this.state.parentValue.toJS() : this.state.parentValue,
+        label: this.state.parentValue.name_ru
 
-                }
-          }
-        />
-        <nav className={styles.headline}>
-          <label htmlFor={this.props.relation.alias}>
-            Подкатегория
-          </label>
-          {entryLink}
-        </nav>
+      }
+  }
+    />
+    < nav
+    className = {styles.headline} >
+      < label
+    htmlFor = {this.props.relation.alias} >
+      Подкатегория
+      < /label>
+    {
+      entryLink
+    }
+  <
+    /nav>
 
-        <Select
-          onChange={this.handleChange}
-          options={this.state.options.filter(opt =>{
-            console.log(opt);
-            console.log(this.state.parentValue);
+    < Select
+    onChange = {this.handleChange}
+    options = {
+      this.state.options.filter(opt => {
+        console.log(opt);
+        console.log(this.state.parentValue);
 
-            return opt.value.parent && opt.value.parent._id.toString() === this.state.parentValue._id.toString() }) }
-          id={this.props.relation.alias}
-          isLoading={this.state.isLoading}
-          onMenuScrollToBottom={this.handleBottomScroll}
-          onInputChange={this.handleInputChange}
-          onSelectResetsInput={false}
-          simpleValue
-          value={
-            isNull(value) || isUndefined(value)
-              ? null
-              : {
-                value: isFunction(value.toJS) ? value.toJS() : value,
-                label:
-                  templateObject(
-                    { mainField: this.props.relation.displayedAttribute },
-                    isFunction(value.toJS) ? value.toJS() : value
-                  ).mainField ||
-                  (isFunction(value.toJS)
-                    ? get(value.toJS(), 'id')
-                    : get(value, 'id')),
-              }
-          }
-        />
-      </div>
-      :
+        return opt.value.parent && opt.value.parent._id.toString() === this.state.parentValue._id.toString()
+      })
+    }
+    id = {this.props.relation.alias}
+    isLoading = {this.state.isLoading}
+    onMenuScrollToBottom = {this.handleBottomScroll}
+    onInputChange = {this.handleInputChange}
+    onSelectResetsInput = {false}
+    simpleValue
+    value = {
+      isNull(value) || isUndefined(value)
+      ? null
+      : {
+        value: isFunction(value.toJS) ? value.toJS() : value,
+        label:
+          templateObject(
+            {mainField: this.props.relation.displayedAttribute},
+            isFunction(value.toJS) ? value.toJS() : value
+          ).mainField ||
+          (isFunction(value.toJS)
+            ? get(value.toJS(), 'id')
+            : get(value, 'id')),
+      }
+  }
+    />
+    < /div>
+  :
 
-      <div className={`form-group ${styles.selectOne}`}>
-        <nav className={styles.headline}>
-          <label htmlFor={this.props.relation.alias}>
-            {get(this.props.relation, 'label', this.props.relation.label)
-              ? get(this.props.relation, 'label', this.props.relation.label)
-              : this.props.relation.alias}
-          </label>
-          {entryLink}
-        </nav>
-        {description}
-        <Select
-          onChange={this.handleChange}
-          options={this.state.options}
-          id={this.props.relation.alias}
-          isLoading={this.state.isLoading}
-          onMenuScrollToBottom={this.handleBottomScroll}
-          onInputChange={this.handleInputChange}
-          onSelectResetsInput={false}
-          simpleValue
-          value={
-            isNull(value) || isUndefined(value)
-              ? null
-              : {
-                value: isFunction(value.toJS) ? value.toJS() : value,
-                label:
-                  templateObject(
-                    { mainField: this.props.relation.displayedAttribute },
-                    isFunction(value.toJS) ? value.toJS() : value
-                  ).mainField ||
-                  (isFunction(value.toJS)
-                    ? get(value.toJS(), 'id')
-                    : get(value, 'id')),
-              }
-          }
-        />
-      </div>
-    );
+  <
+    div
+    className = {`form-group ${styles.selectOne}`
+  }>
+  <
+    nav
+    className = {styles.headline} >
+      < label
+    htmlFor = {this.props.relation.alias} >
+      {get(this.props.relation, 'label', this.props.relation.label
+  )
+      ? get(this.props.relation, 'label', this.props.relation.label)
+      : this.props.relation.alias
+  }
+  <
+    /label>
+    {
+      entryLink
+    }
+  <
+    /nav>
+    {
+      description
+    }
+  <
+    Select
+    onChange = {this.handleChange}
+    options = {this.state.options}
+    id = {this.props.relation.alias}
+    isLoading = {this.state.isLoading}
+    onMenuScrollToBottom = {this.handleBottomScroll}
+    onInputChange = {this.handleInputChange}
+    onSelectResetsInput = {false}
+    simpleValue
+    value = {
+      isNull(value) || isUndefined(value)
+      ? null
+      : {
+        value: isFunction(value.toJS) ? value.toJS() : value,
+        label:
+          templateObject(
+            {mainField: this.props.relation.displayedAttribute},
+            isFunction(value.toJS) ? value.toJS() : value
+          ).mainField ||
+          (isFunction(value.toJS)
+            ? get(value.toJS(), 'id')
+            : get(value, 'id')),
+      }
+  }
+    />
+    < /div>
+  )
+    ;
     /* eslint-disable jsx-a11y/label-has-for */
   }
 }

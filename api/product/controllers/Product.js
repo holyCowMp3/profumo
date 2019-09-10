@@ -62,6 +62,7 @@ module.exports = {
       if (!error && response.statusCode == 200) {
         let recommendResult = JSON.parse(body);
         for (let row of recommendResult.recommendations){
+          console.log(row);
           array.push(row.thing);
         }
       }
