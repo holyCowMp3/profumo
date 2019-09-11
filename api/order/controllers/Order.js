@@ -12,7 +12,7 @@ const NovaPoshta = require('novaposhta_3');
 var hapigerjs = require('hapigerjs');
 
 var client = new hapigerjs.Driver({
-  url: '127.0.0.1',
+  url: 'http://127.0.0.1',
   port: '3456'
 });
 
