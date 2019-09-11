@@ -83,17 +83,16 @@ module.exports = {
     let productNames = '';
     for (let product of order.orders) {
       let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
-      if (ctx.state.user) {
-        client.POST('/events', {
-          events: [{
-            'namespace': 'products',
-            'person': ctx.state.user._id,
-            'action': 'buy',
-            'thing': productFromDb._id
-          }]
-        }
-        ).then(res => console.log(res));
+      client.POST('/events', {
+        events: [{
+          'namespace': 'products',
+          'person': ctx.state.user?ctx.state.user._id:'public_user',
+          'action': 'buy',
+          'thing': productFromDb._id
+        }]
       }
+      ).then(res => console.log(res));
+
       let category = await strapi.services.category.fetch({'_id': productFromDb.category});
       let minusPrice = 0;
       if (category.discount) {

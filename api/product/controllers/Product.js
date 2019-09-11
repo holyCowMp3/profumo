@@ -42,7 +42,7 @@ module.exports = {
   recommendationsPersonal: async (ctx) => {
     return client.POST('/recommendations', {
       'namespace': 'products',
-      'person': ctx.state.user ? ctx.state.user._id : '',
+      'person': ctx.state.user ? ctx.state.user._id : 'public_user',
       'configuration': {
         'actions': {'view': 5, 'buy': 10}
       }
@@ -185,6 +185,7 @@ module.exports = {
         'thing': ctx.params._id
       }]
     }
+
     ).then(res => console.log(res));
 
     var result = await strapi.services.product.fetch(ctx.params);
@@ -206,7 +207,7 @@ module.exports = {
     });
     newRes.descJSON = mapped;
     try {
-      newRes.recommendations = await strapi.controllers.product.recommendationsPersonal(ctx);
+      newRes.recommendations = await strapi.controllers.product.recommendationPoint(ctx);
       console.log(newRes);
     } catch (e) {
       console.log(e);
