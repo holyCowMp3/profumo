@@ -181,7 +181,7 @@ module.exports = {
       events: [{
         'namespace': 'products',
         'person': ctx.state.user?ctx.state.user._id:'public_user',
-        'action': 'buy',
+        'action': 'view',
         'thing': ctx.params._id
       }]
     }
