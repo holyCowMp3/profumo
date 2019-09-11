@@ -9,6 +9,12 @@
 
 const request = require('request');
 const NovaPoshta = require('novaposhta_3');
+var hapigerjs = require('hapigerjs');
+
+var client = new hapigerjs.Driver({
+  url: '127.0.0.1',
+  port: '3456'
+});
 
 module.exports = {
 
@@ -64,12 +70,6 @@ module.exports = {
     let novaPoshta = new NovaPoshta({apiKey: liqPayConf.nova_poshta});
     const liqPay = LiqPay(liqPayConf.public, liqPayConf.private);
 
-    function callback(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        console.log(body);
-      }
-    }
-
     function formatDate(date) {
       var day = date.getDate();
       var monthIndex = date.getMonth() + 1;
@@ -84,22 +84,15 @@ module.exports = {
     for (let product of order.orders) {
       let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
       if (ctx.state.user) {
-        let dataString = {
-          'events': [
-            {
-              'namespace': 'products',
-              'person': ctx.state.user._id,
-              'action': 'buy',
-              'thing': productFromDb._id,
-            }
-          ]
-        };
-        let options = {
-          url: 'http://localhost:3456/events',
-          method: 'POST',
-          body: JSON.stringify(dataString)
-        };
-        request(options, callback);
+        client.POST('/events', {
+          events: [{
+            'namespace': 'products',
+            'person': ctx.state.user._id,
+            'action': 'buy',
+            'thing': productFromDb._id
+          }]
+        }
+        ).then(res => console.log(res));
       }
       let category = await strapi.services.category.fetch({'_id': productFromDb.category});
       let minusPrice = 0;
