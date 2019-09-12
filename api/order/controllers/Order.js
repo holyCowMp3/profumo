@@ -87,6 +87,8 @@ module.exports = {
     let price = 0;
     let productCategories = '';
     let productNames = '';
+    var now = new Date().setFullYear(new Date().getFullYear()+1);
+    var isoString = now.toISOString();
     for (let product of order.orders) {
       let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
       client.POST('/events', {
@@ -95,7 +97,7 @@ module.exports = {
           'person': ctx.state.user?ctx.state.user._id:'public_user',
           'action': 'buy',
           'thing': productFromDb._id,
-          'expires_at': new Date().setFullYear(new Date().getFullYear()+1).toISOString()
+          'expires_at': isoString
         }]
       }
       ).then(res => console.log(res));

@@ -175,17 +175,17 @@ module.exports = {
     if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
       return ctx.notFound();
     }
+    var now = new Date().setFullYear(new Date().getFullYear()+1);
+    var isoString = now.toISOString();
     client.POST('/events', {
       events: [{
         'namespace': 'products',
         'person': ctx.state.user?ctx.state.user._id:'public_user',
         'action': 'view',
         'thing': ctx.params._id,
-        'expires_at': new Date().setFullYear(new Date().getFullYear()+1).toISOString()
+        'expires_at': isoString
       }]
-    }
-
-    ).then(res => console.log(res));
+    }).then(res => console.log(res));
 
     var result = await strapi.services.product.fetch(ctx.params);
     var length = result.comments.length;
