@@ -175,7 +175,7 @@ module.exports = {
     if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
       return ctx.notFound();
     }
-    var now = new Date(new Date().getFullYear(), new Date().getMonth());
+    var now = new Date(new Date().getFullYear()+1, new Date().getMonth());
     var isoString = now.toISOString();
     client.POST('/events', {
       events: [{

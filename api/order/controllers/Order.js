@@ -87,7 +87,7 @@ module.exports = {
     let price = 0;
     let productCategories = '';
     let productNames = '';
-    var now = new Date(new Date().getFullYear(), new Date().getMonth());
+    var now = new Date(new Date().getFullYear()+1, new Date().getMonth());
     var isoString = now.toISOString();
     for (let product of order.orders) {
       let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
