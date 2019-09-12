@@ -23,7 +23,6 @@ module.exports = {
    * @return {Object|Array}
    */
   recommendationPoint: async (ctx, callback) => {
-
     return client.POST('/recommendations', {
       'namespace': 'products',
       'thing': ctx.params._id,
