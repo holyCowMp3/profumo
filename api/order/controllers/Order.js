@@ -95,7 +95,7 @@ module.exports = {
           'person': ctx.state.user?ctx.state.user._id:'public_user',
           'action': 'buy',
           'thing': productFromDb._id,
-          'expires_at': formatDateHapiger(new Date())
+          'expires_at': new Date().setFullYear(new Date().getFullYear()+1).toISOString()
         }]
       }
       ).then(res => console.log(res));
