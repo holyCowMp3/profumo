@@ -76,6 +76,12 @@ module.exports = {
       var year = date.getFullYear();
       return day + '.' + monthIndex + '.' + year;
     }
+    function formatDateHapiger(date) {
+      var day = date.getDate();
+      var monthIndex = date.getMonth() + 1;
+      var year = date.getFullYear() +1;
+      return year + '-' + monthIndex + '-' + day;
+    }
     ctx.request.body.status = 'processing';
     let order = await strapi.services.order.add(ctx.request.body);
     let price = 0;
@@ -88,7 +94,8 @@ module.exports = {
           'namespace': 'products',
           'person': ctx.state.user?ctx.state.user._id:'public_user',
           'action': 'buy',
-          'thing': productFromDb._id
+          'thing': productFromDb._id,
+          'expires_at': formatDateHapiger(new Date())
         }]
       }
       ).then(res => console.log(res));

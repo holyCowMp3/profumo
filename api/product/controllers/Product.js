@@ -175,13 +175,19 @@ module.exports = {
     if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
       return ctx.notFound();
     }
-
+    function formatDateHapiger(date) {
+      var day = date.getDate();
+      var monthIndex = date.getMonth() + 1;
+      var year = date.getFullYear() +1;
+      return year + '-' + monthIndex + '-' + day;
+    }
     client.POST('/events', {
       events: [{
         'namespace': 'products',
         'person': ctx.state.user?ctx.state.user._id:'public_user',
         'action': 'view',
-        'thing': ctx.params._id
+        'thing': ctx.params._id,
+        'expires_at': formatDateHapiger(new Date())
       }]
     }
 
