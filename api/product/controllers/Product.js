@@ -23,36 +23,26 @@ module.exports = {
    * @return {Object|Array}
    */
   recommendationPoint: async (ctx, callback) => {
-    return client.POST('/recommendations', {
+    return await client.POST('/recommendations', {
       'namespace': 'products',
       'thing': ctx.params._id,
       'configuration': {
         'actions': {'view': 5, 'buy': 10}
       }
     }
-    ).then(function (err, result) {
-      if (err) {
-        console.log(err);
-      } else {
-        return result.recommendations.map(i => i.thing);
-      }
-    });
+    ).then(res =>res.recommendations.map(i => i.thing))
+      .catch(error => console.log(error));
   },
   recommendationsPersonal: async (ctx) => {
-    return client.POST('/recommendations', {
+    return await client.POST('/recommendations', {
       'namespace': 'products',
       'person': ctx.state.user ? ctx.state.user._id : 'public_user',
       'configuration': {
         'actions': {'view': 5, 'buy': 10}
       }
     }
-    ).then(function (err, result) {
-      if (err) {
-        console.log(err);
-      } else {
-        return result.recommendations.map(i => i.thing);
-      }
-    });
+    ).then(res =>res.recommendations.map(i => i.thing))
+      .catch(error => console.log(error));
   },
 
   find: async (ctx, next, {populate} = {}) => {
