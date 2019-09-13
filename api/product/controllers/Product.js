@@ -7,7 +7,6 @@
  */
 const builder = require('xmlbuilder');
 const md = require('markdown-it')();
-const request = require('request');
 const _ = require('lodash');
 const hapigerjs = require('hapigerjs');
 
