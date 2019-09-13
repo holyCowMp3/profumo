@@ -140,7 +140,7 @@ module.exports = {
     middleElem = middleElem.up();
     var smth = middleElem.ele('offers');
     for (let i in products) {
-      var elem = smth.ele('offer', {id: products[i]._id, avaliable: products[i].avaliable})
+      var elem = smth.ele('offer', {id: products[i]._id, available: products[i].avaliable})
         .ele('url', 'http://olalala.com.ua/products/' + products[i]._id)
         .up()
         .ele('price', products[i].price)
