@@ -1,0 +1,18 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "banner",
+    "description": "Баннер | Баннер"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "banner": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    }
+  }
+}

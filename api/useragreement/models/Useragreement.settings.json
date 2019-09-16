@@ -1,0 +1,16 @@
+{
+  "connection": "default",
+  "collectionName": "useragreement",
+  "info": {
+    "name": "useragreement",
+    "description": "Пользовательское соглашение | Пользовательское соглашение"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "text": {
+      "type": "text"
+    }
+  }
+}

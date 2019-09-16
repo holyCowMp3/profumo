@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/useragreements",
+      "handler": "Useragreement.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/useragreements/count",
+      "handler": "Useragreement.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/useragreements/:_id",
+      "handler": "Useragreement.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/useragreements",
+      "handler": "Useragreement.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/useragreements/:_id",
+      "handler": "Useragreement.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/useragreements/:_id",
+      "handler": "Useragreement.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

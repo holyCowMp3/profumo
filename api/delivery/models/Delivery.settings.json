@@ -1,0 +1,16 @@
+{
+  "connection": "default",
+  "collectionName": "additionaldata",
+  "info": {
+    "name": "delivery",
+    "description": "Доставка | Доставка "
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "delivery": {
+      "type": "text"
+    }
+  }
+}

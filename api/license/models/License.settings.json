@@ -1,0 +1,17 @@
+{
+  "connection": "default",
+  "collectionName": "license",
+  "info": {
+    "name": "license",
+    "description": "Лиц. соглашение | Лиц. соглашение "
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "license": {
+      "default": "license",
+      "type": "text"
+    }
+  }
+}

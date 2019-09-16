@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/warranties",
+      "handler": "Warranty.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/warranties/count",
+      "handler": "Warranty.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/warranties/:_id",
+      "handler": "Warranty.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/warranties",
+      "handler": "Warranty.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/warranties/:_id",
+      "handler": "Warranty.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/warranties/:_id",
+      "handler": "Warranty.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
