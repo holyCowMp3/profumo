@@ -553,6 +553,15 @@
                 "type": "string"
               }
             }
+          },
+          "name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
           }
         }
       },
@@ -566,6 +575,15 @@
             "default": "0"
           },
           "order": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
             "type": "string"
           }
         }

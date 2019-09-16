@@ -29,7 +29,9 @@
       "path": "/comments",
       "handler": "Comment.create",
       "config": {
-        "policies": ["setOwner"]
+        "policies": [
+          "setOwner"
+        ]
       }
     },
     {
@@ -37,7 +39,9 @@
       "path": "/comments/:_id",
       "handler": "Comment.update",
       "config": {
-        "policies": ["isOwner"]
+        "policies": [
+          "isOwner"
+        ]
       }
     },
     {
@@ -45,7 +49,9 @@
       "path": "/comments/:_id",
       "handler": "Comment.destroy",
       "config": {
-        "policies": ["isOwner"]
+        "policies": [
+          "isOwner"
+        ]
       }
     }
   ]

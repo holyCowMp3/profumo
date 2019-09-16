@@ -11,6 +11,9 @@
   "attributes": {
     "contacts_block": {
       "type": "text"
+    },
+    "phones": {
+      "type": "text"
     }
   }
 }

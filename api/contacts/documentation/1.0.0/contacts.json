@@ -518,12 +518,18 @@
           },
           "contacts_block": {
             "type": "string"
+          },
+          "phones": {
+            "type": "string"
           }
         }
       },
       "NewContacts": {
         "properties": {
           "contacts_block": {
+            "type": "string"
+          },
+          "phones": {
             "type": "string"
           }
         }

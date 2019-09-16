@@ -5,7 +5,9 @@
       "path": "/carts",
       "handler": "Cart.find",
       "config": {
-        "policies": ["isOwner"]
+        "policies": [
+          "isOwner"
+        ]
       }
     },
     {
@@ -13,7 +15,9 @@
       "path": "/cart/me",
       "handler": "Cart.meGet",
       "config": {
-        "policies": ["isOwner"]
+        "policies": [
+          "isOwner"
+        ]
       }
     },
     {
@@ -21,7 +25,9 @@
       "path": "/carts/count",
       "handler": "Cart.count",
       "config": {
-        "policies": ["isOwner"]
+        "policies": [
+          "isOwner"
+        ]
       }
     },
     {
@@ -29,7 +35,9 @@
       "path": "/carts/:_id",
       "handler": "Cart.findOne",
       "config": {
-        "policies": ["isOwner"]
+        "policies": [
+          "isOwner"
+        ]
       }
     },
     {
@@ -37,7 +45,9 @@
       "path": "/cart/me",
       "handler": "Cart.meUpdate",
       "config": {
-        "policies": ["isOwner"]
+        "policies": [
+          "isOwner"
+        ]
       }
     },
     {
@@ -45,16 +55,19 @@
       "path": "/carts",
       "handler": "Cart.create",
       "config": {
-        "policies": ["setOwner"]
+        "policies": [
+          "setOwner"
+        ]
       }
     },
-
     {
       "method": "PUT",
       "path": "/carts/:_id",
       "handler": "Cart.update",
       "config": {
-        "policies": ["isOwner"]
+        "policies": [
+          "isOwner"
+        ]
       }
     },
     {
@@ -62,7 +75,9 @@
       "path": "/cart/me",
       "handler": "Cart.meClear",
       "config": {
-        "policies": ["isOwner"]
+        "policies": [
+          "isOwner"
+        ]
       }
     },
     {
@@ -70,9 +85,10 @@
       "path": "/carts/:_id",
       "handler": "Cart.destroy",
       "config": {
-        "policies": ["isOwner"]
+        "policies": [
+          "isOwner"
+        ]
       }
     }
-
   ]
 }
