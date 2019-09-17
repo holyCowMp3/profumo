@@ -112,10 +112,10 @@ module.exports = {
             minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
           }
         }
-        price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) * product.count);
+        price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) *
+        product.count>productFromDb.amount?productFromDb.amount:product.count);
         productCategories += category.name_ru + '\n';
         productNames += productFromDb.name_ru + '\n';
-
       }
     }
 
