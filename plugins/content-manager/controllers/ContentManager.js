@@ -281,7 +281,7 @@ module.exports = {
       // Return the last one which is the current model.
       if (ctx.request.body.fields.child){
         let body = ctx.request.body.fields;
-        ctx.request.body.fields.child = await body.child.map(cat => {"id": cat.id, "_id" : cat._id});
+        ctx.request.body.fields.child = await body.child.map(cat =>  { return {id: cat.id, _id: cat._id};});
 
       }
       ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].edit(ctx.params, ctx.request.body, source);
