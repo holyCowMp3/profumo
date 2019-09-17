@@ -97,9 +97,7 @@ class SelectMany extends React.PureComponent {
       this.props.currentModelName === 'product'
     ) {
       delete params.source;
-      params._limit =-1;
-      params['categories._id']=this.state.newCatId;
-      requestUrl = '/properties';
+      requestUrl = '/categories/'+this.state.newCatId;
     }
     // Call our request helper (see 'utils/request')
     return request(requestUrl, {
@@ -109,8 +107,9 @@ class SelectMany extends React.PureComponent {
       .then(response => {
 
         /* eslint-disable indent */
-        const options = isArray(response)
-          ? response.map(item => ({
+        console.log(response);
+        const options = isArray(response.properties)
+          ? response.properties.map(item => ({
               value: item,
               label: templateObject(
                 { mainField: this.props.relation.displayedAttribute },
