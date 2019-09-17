@@ -40,7 +40,7 @@ class SelectMany extends React.PureComponent {
     newCatId:'---'
   };
   componentDidMount() {
-    console.log(this.props.relation);
+
     this.getOptions('');
   }
 
@@ -107,8 +107,7 @@ class SelectMany extends React.PureComponent {
       params,
     })
       .then(response => {
-        
-        console.log(response.length);
+
         /* eslint-disable indent */
         const options = isArray(response)
           ? response.map(item => ({
@@ -190,8 +189,8 @@ class SelectMany extends React.PureComponent {
         value: value.value,
       });
     }
-    
-    
+
+
   };
 
   handleBottomScroll = () => {
@@ -224,8 +223,7 @@ class SelectMany extends React.PureComponent {
   };
   handleRemoveCustom = item => {
     const values = get(this.props.record, this.props.relation.alias);
-    console.log(item);
-    console.log(values);
+
     // Add removed value from available option;
     const toAdd = {
       value: item.value,
@@ -238,8 +236,7 @@ class SelectMany extends React.PureComponent {
       options: prevState.options.concat([toAdd]),
     }));
     let index = values.findIndex( items => items.short_name? items.short_name===item.value.short_name :items.value.short_name===item.value.short_name );
-    
-    console.log(index);
+
     this.props.onRemoveRelationItem({
       key: this.props.relation.alias,
       index,

@@ -296,7 +296,6 @@ module.exports = {
 
   updateSettings: async ctx => {
     const { schema } = ctx.request.body;
-    console.log(ctx.request.body);
     const pluginStore = strapi.store({
       environment: '',
       type: 'plugin',

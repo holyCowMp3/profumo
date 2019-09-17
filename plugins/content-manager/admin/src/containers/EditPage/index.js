@@ -443,7 +443,7 @@ export class EditPage extends React.Component {
     );
 
     if (isEmpty(formErrors)) {
-      console.log(this.generateFormFromRecord());
+
       if (this.getModelName()==='category') {
 
       }
@@ -464,7 +464,6 @@ export class EditPage extends React.Component {
     if (isEmpty(formErrors)) {
 
       getJwt(jwt => {
-        console.log(jwt);
         putData(jwt, this.generateFormFromRecord(), res => {
           if (res) {
             console.log('Exported');

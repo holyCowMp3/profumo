@@ -131,7 +131,6 @@ class SelectOne extends React.Component {
   };
 
   convertArrayToData = response => {
-    console.log(response);
     const options = map(response, item => ({
       value: item,
       label: item.name_ru,
@@ -264,9 +263,6 @@ class SelectOne extends React.Component {
           <Select
             onChange={this.handleChange}
             options={this.state.options.filter(opt =>{
-              console.log(opt);
-              console.log(this.state.parentValue);
-
               return opt.value.parent && opt.value.parent._id.toString() === this.state.parentValue._id.toString() }) }
             id={this.props.relation.alias}
             isLoading={this.state.isLoading}
