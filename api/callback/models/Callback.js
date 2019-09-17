@@ -55,7 +55,7 @@ module.exports = {
             CounterpartyType: 'PrivatePerson',
             CounterpartyProperty: 'Recipient'
           }).then((res) => {
-            console.log(res);
+
             return novaPoshta.document.saveInternetDocument(
               {
                 NewAddress: '1',
@@ -81,7 +81,7 @@ module.exports = {
                 DateTime: formatDate(new Date())
               }
             ).then(json => {
-              console.log(json);
+
               order.newpost = json.data;
               order.status = result.status;
               strapi.services.order.edit({'_id': order._id}, order);

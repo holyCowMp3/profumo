@@ -7,7 +7,7 @@ module.exports = async (ctx, next) => {
   if(role !== "root"){
     ctx.query.owner =  _id;
   }
-  console.log(ctx.params._id);
+
   await next();
   if(ctx.params._id){
     let owner = ctx.response.body.get("role");

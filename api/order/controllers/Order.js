@@ -100,7 +100,7 @@ module.exports = {
           'expires_at': isoString
         }]
       }
-      ).then(res => console.log(res));
+      );
 
       let category = await strapi.services.category.fetch({'_id': productFromDb.category});
       let minusPrice = 0;
@@ -122,7 +122,7 @@ module.exports = {
     let profumoCounterparty = '4187cb04-cd83-11e9-9937-005056881c6b';
     switch (order.type) {
       case 'nova_poshta': {
-        console.log(formatDate(new Date()));
+
         return await novaPoshta.counterparty.saveCounterparty({
           FirstName: order.deliveryInfo.name,
           MiddleName: '',
@@ -158,7 +158,7 @@ module.exports = {
               DateTime:formatDate(new Date())
             }
           ).then(json => {
-            console.log(json);
+
             order.newpost = json.data;
             strapi.services.order.edit({'_id':order._id}, order);
             return json.data;
@@ -179,7 +179,7 @@ module.exports = {
           'product_category': productCategories,
           'product_name': productNames
         });
-        console.log(dataAndSignature);
+
         return await dataAndSignature;
       }
     }

@@ -196,7 +196,6 @@ module.exports = {
     newRes.descJSON = mapped;
     try {
       newRes.recommendations = await strapi.controllers.product.recommendationPoint(ctx);
-      console.log(newRes);
     } catch (e) {
       console.log(e);
       newRes.recommendations = [];

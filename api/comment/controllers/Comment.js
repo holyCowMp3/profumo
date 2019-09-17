@@ -19,7 +19,7 @@ module.exports = {
     if (ctx.query._q) {
        const comment = await strapi.services.comment.search(ctx.query);
       const {owner} = comment;
-      console.log(owner);
+
       return comment;
     } else {
       return await strapi.services.comment.fetchAll(ctx.query, populate).then(col => {
@@ -49,7 +49,6 @@ module.exports = {
         if (ctx.state.user == undefined || col['owner']['id'].toString()!== ctx.state.user._id.toString()) {
             col['owner'] =undefined;
         }
-        console.log(col);
       return col;
     });
   },

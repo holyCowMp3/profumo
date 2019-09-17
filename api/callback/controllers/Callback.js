@@ -63,7 +63,7 @@ module.exports = {
     );
     let text = base64decode(ctx.request.body.data);
 
-    console.log(text);
+
     if (sign === ctx.request.body.signature)
       return strapi.services.callback.add(JSON.parse(text));
     else{
