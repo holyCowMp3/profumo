@@ -1,0 +1,332 @@
+[
+  {
+    "key": "5cf4f369d559ca6c77ce929d",
+    "label": "Парфюмерия",
+    "icon": "pi pi-fw pi-folder",
+    "data": "",
+    "children": [
+      {
+        "key": "5d2f4c196e10e070140aced3",
+        "label": "Акции",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3051d46e10e070140aced9",
+        "label": "Новинки",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3058ec6e10e070140aceda",
+        "label": "Для женщин",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3058f46e10e070140acedb",
+        "label": "Для мужчин",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3059226e10e070140acedd",
+        "label": "Нишевая",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d30594b6e10e070140acede",
+        "label": "Унисекс",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3059df6e10e070140acedf",
+        "label": "Тестеры",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3059e56e10e070140acee0",
+        "label": "Пробники",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3059fb6e10e070140acee1",
+        "label": "Духи для детей",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d305a146e10e070140acee2",
+        "label": "Подарочные наборы",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      }
+    ]
+  },
+  {
+    "key": "5cf4f7a9d4b3832435234fe2",
+    "label": "Макияж",
+    "icon": "pi pi-fw pi-folder",
+    "data": "",
+    "children": [
+      {
+        "key": "5cf4f780d4b3832435234fd2",
+        "label": "Губы",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d1627f4ca8902046ed9528f",
+        "label": "Глаза",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d162873ca8902046ed952a8",
+        "label": "Лицо",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d305b6a6e10e070140acee3",
+        "label": "Аксессуары",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      }
+    ]
+  },
+  {
+    "key": "5cf4f80ed4b3832435234fe5",
+    "label": "Лицо",
+    "icon": "pi pi-fw pi-folder",
+    "data": "",
+    "children": [
+      {
+        "key": "5d306efd6e10e070140acee4",
+        "label": "Средства для снятия макияжа",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d306f186e10e070140acf7d",
+        "label": "Очистка лица",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d306f426e10e070140acf7e",
+        "label": "Тонизирующие средства",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3074d96e10e070140acf7f",
+        "label": "Кремы для лица",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3075616e10e070140acf80",
+        "label": "Уход за кожей вокруг глаз",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d30756f6e10e070140acf81",
+        "label": "Сыроватки",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3075a86e10e070140acf82",
+        "label": "Косметика по уходу за губами",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3075bc6e10e070140acf83",
+        "label": "Кремы с тонизирующим эффектом",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d3075cd6e10e070140acf84",
+        "label": "Косметические наборы",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      }
+    ]
+  },
+  {
+    "key": "5d3075e66e10e070140acf85",
+    "label": "Тело",
+    "icon": "pi pi-fw pi-folder",
+    "data": "",
+    "children": [
+      {
+        "key": "5d3076f4f02a394248ed92a5",
+        "label": "Уход за телом",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d307714f02a394248ed934b",
+        "label": "Уход за руками",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d30780cf02a394248ed934c",
+        "label": "Уход за ногами",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d307842f02a394248ed934d",
+        "label": "Средства для душа и ванны",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d307af5f02a394248ed934e",
+        "label": "Солнцезащитные средства",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d307b9af02a394248ed936c",
+        "label": "Косметика для детей",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      }
+    ]
+  },
+  {
+    "key": "5d307e4df02a394248ed936f",
+    "label": "Волосы",
+    "icon": "pi pi-fw pi-folder",
+    "data": "",
+    "children": [
+      {
+        "key": "5d307e5df02a394248ed9370",
+        "label": "Шампуни",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d307e68f02a394248ed959d",
+        "label": "Бальзамы",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d307fdef02a394248ed96bf",
+        "label": "Кондиционеры",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d308a17f02a394248ed96c0",
+        "label": "Маски",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d308a2af02a394248ed96c1",
+        "label": "Скрабы и пилинги",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d308a47f02a394248ed96c2",
+        "label": "Масло для волос",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d308a71f02a394248ed96c3",
+        "label": "Средства для укладки",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d308a9bf02a394248ed96c4",
+        "label": "Краски для волос",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d308ad9f02a394248ed96c5",
+        "label": "Аксессуары",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      }
+    ]
+  },
+  {
+    "key": "5d80aaca186ce76ef1c95cc6",
+    "label": "Ниша",
+    "icon": "pi pi-fw pi-folder",
+    "data": "",
+    "children": [
+      {
+        "key": "5d80ac260e72bf6f567bb6e8",
+        "label": "Акции",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d80acf130647f6f9cff214d",
+        "label": "Новинки",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d80ae896bb6876fca5fa7a4",
+        "label": "Парфюмерия для мужчин",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d80aebe6bb6876fca5fa7af",
+        "label": "Парфюмерия для женщин",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d80af326bb6876fca5fa7b9",
+        "label": "Унисекс",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d80af436bb6876fca5fa7ba",
+        "label": "Тестеры",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d80af666bb6876fca5fa7bb",
+        "label": "Ароматы для дома",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d80af916bb6876fca5fa8d6",
+        "label": "Нишевая косметика",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d80b0521c68e3703bfcc7e7",
+        "label": "Подарочные наборы",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      }
+    ]
+  }
+]
