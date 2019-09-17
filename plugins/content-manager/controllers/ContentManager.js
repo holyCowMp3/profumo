@@ -276,7 +276,6 @@ module.exports = {
 
   update: async ctx => {
     const { source } = ctx.request.query;
-    console.log(ctx.request.body);
     try {
       // Return the last one which is the current model.
 
