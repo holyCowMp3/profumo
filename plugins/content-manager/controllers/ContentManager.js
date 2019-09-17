@@ -279,12 +279,15 @@ module.exports = {
     console.log(ctx.request.body);
     try {
       // Return the last one which is the current model.
+
+      ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].edit(ctx.params, ctx.request.body, source);
       if (ctx.request.body.fields.child){
         let body = ctx.request.body.fields;
-        console.log(typeof body.child);
-        ctx.request.body.fields.child = await JSON.parse(body.child).map(cat =>  { return {id: cat.id, _id: cat._id};});
+        await JSON.parse(body.child).forEach(cat =>  {
+          strapi.services.category.edit({'_id':cat._id}, {parent:cat.parent});
+        });
       }
-      ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].edit(ctx.params, ctx.request.body, source);
+
     } catch(error) {
       // TODO handle error update
       strapi.log.error(error);
