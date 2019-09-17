@@ -8,7 +8,7 @@ const _ = require('lodash');
 
 module.exports = {
   models: async ctx => {
-    
+
     const pluginsStore = strapi.store({
       environment: '',
       type: 'plugin',
@@ -276,10 +276,10 @@ module.exports = {
 
   update: async ctx => {
     const { source } = ctx.request.query;
-    console.log(ctx.request.query);
+    console.log(ctx.request.body);
     try {
       // Return the last one which is the current model.
-      ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].edit(ctx.params, ctx.request.body, source);
+      //ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].edit(ctx.params, ctx.request.body, source);
     } catch(error) {
       // TODO handle error update
       strapi.log.error(error);
