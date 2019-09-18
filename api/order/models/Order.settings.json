@@ -13,12 +13,12 @@
       "default": "",
       "type": "enumeration",
       "enum": [
-        "Успешно доставлено",
-        "Произошла ошибка",
-        "В обработке",
-        "Передан в службу доставки",
-        "Новый заказ",
-        "Отказ клиента"
+        "success",
+        "error",
+        "processing",
+        "manager_processing",
+        "revoke",
+        "in_post"
       ]
     },
     "owner": {

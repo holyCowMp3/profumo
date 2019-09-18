@@ -234,7 +234,7 @@ class InputJSON extends React.Component {
             <JsonTable
               theadClassName={'table-dark'}
               style={{background:'rgba(104, 118, 142, 0.15)', fontWeight: 'bold'}}
-              className={"table table-sm table-bordered "}
+              className={"table table-sm table-bordered"}
               excludeColumns={this.state.excludeColumns[this.props.name]}
               columns={this.state.columns[this.props.name]}
               rows={Array.isArray(this.props.value) ? this.props.value : [this.props.value]}

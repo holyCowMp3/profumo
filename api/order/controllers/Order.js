@@ -82,7 +82,7 @@ module.exports = {
       var year = date.getFullYear() +1;
       return year + '-' + monthIndex + '-' + day;
     }
-    ctx.request.body.status = 'В обработке';
+    ctx.request.body.status = 'processing';
     let order = await strapi.services.order.add(ctx.request.body);
     let price = 0;
     let productCategories = '';
