@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import cm from 'codemirror';
 import 'codemirror/lib/codemirror.css';
@@ -25,7 +25,7 @@ import {isEmpty, isObject, trimStart} from 'lodash';
 import jsonlint from './jsonlint';
 import styles from './styles.scss';
 import OrderTable from './OrderTable';
-import Button from "primereact/button";
+import {Button} from "primereact/button";
 
 const WAIT = 600;
 const stringify = JSON.stringify;
@@ -216,28 +216,28 @@ class InputJSON extends React.Component {
       this.markSelection(err);
     }
   };
-  onClick = value => {
-   return this.setState({show:!this.state.show});
-  };
+  showJson = value => {
+
+    this.setState((prevState, props) => ({
+      show: !prevState.show
+    }));
+
+  }
 
   render() {
-
+    console.log(this.props.value);
     if (this.state.error) {
 
       return <div>error json</div>;
     }
     return (
       <span>
-        {(this.props.name === 'orders' && this.props.value) ?
+        <strong>{this.props.label}</strong>
+        {(this.props.name === 'orders' && this.state.hasInitValue)?
           <div>
-            <strong>{this.props.label}</strong>
             <OrderTable data={this.props.value}/>
-            <Button
-              onClick={this.onClick}
-            ></Button>
           </div>
-          : (this.props.name === 'deliveryInfo' || this.props.name === 'newpost' && this.props.value) ? <div>
-            <strong>{this.props.label}</strong>
+          : ((this.props.name === 'deliveryInfo' || this.props.name === 'newpost') && this.state.hasInitValue) ? <div>
             <JsonTable
               theadClassName={'table-dark'}
               style={{background:'rgba(104, 118, 142, 0.15)', fontWeight: 'bold'}}
@@ -246,14 +246,13 @@ class InputJSON extends React.Component {
               columns={this.state.columns[this.props.name]}
               rows={Array.isArray(this.props.value) ? this.props.value : [this.props.value]}
             />
-            <Button
-            onClick={this.onClick}
-            ></Button>
           </div> : <div/>
         }
-        {/**/}
         <div>
-          <div style={{display: this.props.show?'':'none'}} className={styles.jsonWrapper}>
+           <div
+             onClick={this.showJson}
+           > Показать для редактирования</div>
+          <div style={{display: this.state.show?'':'none'}} className={styles.jsonWrapper}>
             <textarea
               ref={this.editor}
               autoComplete="off"
