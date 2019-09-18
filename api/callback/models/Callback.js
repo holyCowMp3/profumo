@@ -83,7 +83,13 @@ module.exports = {
             ).then(json => {
 
               order.newpost = json.data;
-              order.status = result.status;
+              let statusMap = {delivered:"Успешно доставлено",
+                error:"Произошла ошибка",
+                processing:"В обработке",
+                onPost:"Передан в службу доставки",
+                success:"Новый заказ",
+                revoke:"Отказ клиента"};
+              order.status = statusMap[result.status];
               strapi.services.order.edit({'_id': order._id}, order);
               return json.data;
             }).catch(err => console.log(err));

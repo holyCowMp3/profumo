@@ -73,29 +73,30 @@ import io from 'socket.io-client';
 const socket = io('http://localhost:3000');
 
 export class ListPage extends React.Component {
-  state = { isOpen: false, showWarning: false, target: '', showNew:false};
+  state = {isOpen: false, showWarning: false, target: '', showNew: false};
 
   componentDidMount() {
     this.getData(this.props);
     this.setTableHeaders();
-    socket.on('connect',this.toggleNew);
-    socket.on('event', (data)=>{
-      
+    socket.on('connect', this.toggleNew);
+    socket.on('event', (data) => {
+
       console.log(data);
     });
-    socket.on('disconnect', function(){});
+    socket.on('disconnect', function () {
+    });
   }
 
   componentDidUpdate(prevProps) {
     const {
-      location: { pathname, search },
+      location: {pathname, search},
     } = prevProps;
     const {
       listPage: {
         didChangeDisplayedFields,
         filtersUpdated,
         displayedFields,
-        params: { _sort },
+        params: {_sort},
       },
     } = this.props;
 
@@ -111,7 +112,7 @@ export class ListPage extends React.Component {
 
     if (prevProps.listPage.filtersUpdated !== filtersUpdated) {
       const updatedSearch = this.generateSearch();
-      this.props.history.push({ pathname, search: updatedSearch });
+      this.props.history.push({pathname, search: updatedSearch});
     }
 
     if (
@@ -167,7 +168,7 @@ export class ListPage extends React.Component {
       sortable: true,
     };
     const attributes = Object.assign(
-      { [primaryKey]: defaultAttr },
+      {[primaryKey]: defaultAttr},
       get(this.getCurrentModel(), ['attributes'], {})
     );
 
@@ -203,7 +204,7 @@ export class ListPage extends React.Component {
       toInteger(getQueryParameters(props.location.search, '_page')) || 1;
     const _sort = this.findPageSort(props); // TODO sort
     const _q = getQueryParameters(props.location.search, '_q') || '';
-    const params = { _limit, _page, _sort, _q };
+    const params = {_limit, _page, _sort, _q};
     const filters = generateFiltersFromSearch(props.location.search);
 
     this.props.setParams(params, filters);
@@ -263,7 +264,7 @@ export class ListPage extends React.Component {
 
   generateSearch = () => {
     const {
-      listPage: { filters, params },
+      listPage: {filters, params},
     } = this.props;
 
     return `?${generateSearchFromParams(
@@ -273,12 +274,12 @@ export class ListPage extends React.Component {
 
   areAllEntriesSelected = () => {
     const {
-      listPage: { entriesToDelete, records },
+      listPage: {entriesToDelete, records},
     } = this.props;
 
     return (
       entriesToDelete.length ===
-        get(records, this.getCurrentModelName(), []).length &&
+      get(records, this.getCurrentModelName(), []).length &&
       get(records, this.getCurrentModelName(), []).length > 0
     );
   };
@@ -300,7 +301,7 @@ export class ListPage extends React.Component {
     );
   };
 
-  handleChangeHeader = ({ target }) => {
+  handleChangeHeader = ({target}) => {
     const defaultSettingsDisplay = get(this.getCurrentModel(), ['listDisplay']);
     const attrIndex = this.findAttrIndex(target.name);
     const defaultSettingsAttrIndex = findIndex(defaultSettingsDisplay, [
@@ -357,7 +358,7 @@ export class ListPage extends React.Component {
   handleChangeParams = e => {
     const {
       history,
-      listPage: { filters, params },
+      listPage: {filters, params},
     } = this.props;
     const _q = params._q !== '' ? `&_q=${params._q}` : '';
     const searchEnd = `&_sort=${
@@ -382,7 +383,7 @@ export class ListPage extends React.Component {
       value: sort,
     };
     const {
-      listPage: { filters, params },
+      listPage: {filters, params},
     } = this.props;
     const _q = params._q !== '' ? `&_q=${params._q}` : '';
     this.props.history.push({
@@ -394,7 +395,7 @@ export class ListPage extends React.Component {
       )}`,
     });
 
-    this.props.changeParams({ target });
+    this.props.changeParams({target});
   };
 
   handleDelete = e => {
@@ -406,7 +407,7 @@ export class ListPage extends React.Component {
       this.getSource(),
       this.context
     );
-    this.setState({ showWarning: false });
+    this.setState({showWarning: false});
   };
 
   handleResetDisplayedFields = () => {
@@ -438,7 +439,7 @@ export class ListPage extends React.Component {
 
   showLoaders = () => {
     const {
-      listPage: { isLoading, records, updatingParams },
+      listPage: {isLoading, records, updatingParams},
     } = this.props;
 
     return (
@@ -466,7 +467,7 @@ export class ListPage extends React.Component {
       this.context.emitEvent('willChangeDisplayedFields');
     }
 
-    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+    this.setState(prevState => ({isOpen: !prevState.isOpen}));
   };
 
   toggleModalWarning = e => {
@@ -481,7 +482,7 @@ export class ListPage extends React.Component {
     if (this.props.listPage.entriesToDelete.length > 0) {
       this.props.onClickSelectAll();
     }
-    this.setState(prevState => ({ showWarning: !prevState.showWarning }));
+    this.setState(prevState => ({showWarning: !prevState.showWarning}));
   };
 
   renderDropdown = item => {
@@ -489,7 +490,7 @@ export class ListPage extends React.Component {
       <DropdownItem
         key={item}
         toggle={false}
-        onClick={() => this.handleChangeHeader({ target: { name: item } })}
+        onClick={() => this.handleChangeHeader({target: {name: item}})}
       >
         <div>
           <InputCheckbox
@@ -505,9 +506,9 @@ export class ListPage extends React.Component {
   renderDropdownHeader = msg => {
     return (
       <DropdownItem onClick={this.handleResetDisplayedFields}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <span>{msg}</span>
-          <FormattedMessage id="content-manager.containers.Edit.reset" />
+          <FormattedMessage id="content-manager.containers.Edit.reset"/>
         </div>
       </DropdownItem>
     );
@@ -545,7 +546,7 @@ export class ListPage extends React.Component {
       },
     ];
     const {
-      listPage: { count },
+      listPage: {count},
     } = this.props;
 
     return (
@@ -571,7 +572,7 @@ export class ListPage extends React.Component {
   renderPopUpWarningDeleteAll = () => {
     const {
       deleteSeveralData,
-      listPage: { entriesToDelete, showWarningDeleteAll },
+      listPage: {entriesToDelete, showWarningDeleteAll},
       onToggleDeleteAll,
     } = this.props;
 
@@ -603,7 +604,7 @@ export class ListPage extends React.Component {
     this.toggleNew();
   }
 
-  renderPopUpNew(count){
+  renderPopUpNew(count) {
     return (
       <PopUpWarning
         isOpen={this.state.showNew}
@@ -624,10 +625,8 @@ export class ListPage extends React.Component {
   };
 
 
-
-
   toggleNew = () =>
-    this.setState(prevState => ({ showNew: !prevState.showNew }));
+    this.setState(prevState => ({showNew: !prevState.showNew}));
 
   render() {
     const {
@@ -651,7 +650,7 @@ export class ListPage extends React.Component {
       removeAllFilters,
       removeFilter,
     } = this.props;
-    const { isOpen } = this.state;
+    const {isOpen} = this.state;
 
     return (
       <div>
@@ -716,7 +715,7 @@ export class ListPage extends React.Component {
                         toggle={this.toggle}
                         direction="left"
                       >
-                        <DropdownToggle />
+                        <DropdownToggle/>
                         <DropdownMenu>
                           <FormattedMessage id="content-manager.containers.ListPage.displayedFields">
                             {this.renderDropdownHeader}
@@ -731,13 +730,15 @@ export class ListPage extends React.Component {
             )}
             <div className={cn('row', styles.row)}>
               <div className="col-md-12">
-                {this.getCurrentModelName()=='category'?
+                {this.getCurrentModelName() == 'category' ?
                   <TreeOfCategories
                     redirectUrl={this.generateRedirectURI()}
                     route={this.props.match}
                     routeParams={this.props.match.params}
-                  />:this.getCurrentModelName()=='order'?
+                  /> : this.getCurrentModelName() == 'order' ?
+
                     <Fragment>
+                      <h2> Новые заказы</h2>
                       <Table
                         deleteAllValue={this.areAllEntriesSelected()}
                         entriesToDelete={entriesToDelete}
@@ -752,7 +753,7 @@ export class ListPage extends React.Component {
                         onToggleDeleteAll={onToggleDeleteAll}
                         primaryKey={this.getModelPrimaryKey()}
                         records={get(records, this.getCurrentModelName(), []).filter(rec => {
-                          return (rec.status == 'processing');
+                          return (rec.status == 'В обработке');
                         })}
                         redirectUrl={this.generateRedirectURI()}
                         route={this.props.match}
@@ -761,6 +762,7 @@ export class ListPage extends React.Component {
                         showLoader={this.showLoaders()}
                         sort={params._sort}
                       />
+                      <h2> Обработаные заказы / ошибки</h2>
                       <Table
                         deleteAllValue={this.areAllEntriesSelected()}
                         entriesToDelete={entriesToDelete}
@@ -775,7 +777,7 @@ export class ListPage extends React.Component {
                         onToggleDeleteAll={onToggleDeleteAll}
                         primaryKey={this.getModelPrimaryKey()}
                         records={get(records, this.getCurrentModelName(), []).filter(rec => {
-                          return (rec.status !== 'processing');
+                          return (rec.status !== 'В обработке');
                         })}
                         redirectUrl={this.generateRedirectURI()}
                         route={this.props.match}
@@ -784,28 +786,28 @@ export class ListPage extends React.Component {
                         showLoader={this.showLoaders()}
                         sort={params._sort}
                       />
-                    </Fragment>:
-                  <Table
-                    deleteAllValue={this.areAllEntriesSelected()}
-                    entriesToDelete={entriesToDelete}
-                    enableBulkActions={this.showBulkActions()}
-                    filters={filters}
-                    handleDelete={this.toggleModalWarning}
-                    headers={this.getTableHeaders()}
-                    history={this.props.history}
-                    onChangeSort={this.handleChangeSort}
-                    onClickSelectAll={onClickSelectAll}
-                    onClickSelect={onClickSelect}
-                    onToggleDeleteAll={onToggleDeleteAll}
-                    primaryKey={this.getModelPrimaryKey()}
-                    records={get(records, this.getCurrentModelName(), [])}
-                    redirectUrl={this.generateRedirectURI()}
-                    route={this.props.match}
-                    routeParams={this.props.match.params}
-                    search={params._q}
-                    showLoader={this.showLoaders()}
-                    sort={params._sort}
-                  />
+                    </Fragment> :
+                    <Table
+                      deleteAllValue={this.areAllEntriesSelected()}
+                      entriesToDelete={entriesToDelete}
+                      enableBulkActions={this.showBulkActions()}
+                      filters={filters}
+                      handleDelete={this.toggleModalWarning}
+                      headers={this.getTableHeaders()}
+                      history={this.props.history}
+                      onChangeSort={this.handleChangeSort}
+                      onClickSelectAll={onClickSelectAll}
+                      onClickSelect={onClickSelect}
+                      onToggleDeleteAll={onToggleDeleteAll}
+                      primaryKey={this.getModelPrimaryKey()}
+                      records={get(records, this.getCurrentModelName(), [])}
+                      redirectUrl={this.generateRedirectURI()}
+                      route={this.props.match}
+                      routeParams={this.props.match.params}
+                      search={params._q}
+                      showLoader={this.showLoaders()}
+                      sort={params._sort}
+                    />
                 }
                 <PopUpWarning
                   isOpen={this.state.showWarning}
@@ -813,7 +815,7 @@ export class ListPage extends React.Component {
                   content={{
                     title: 'content-manager.popUpWarning.title',
                     message:
-                            'content-manager.popUpWarning.bodyMessage.contentType.delete',
+                      'content-manager.popUpWarning.bodyMessage.contentType.delete',
                     cancel: 'content-manager.popUpWarning.button.cancel',
                     confirm: 'content-manager.popUpWarning.button.confirm',
                   }}
@@ -826,7 +828,7 @@ export class ListPage extends React.Component {
                   count={get(count, this.getCurrentModelName(), 0)}
                   onChangeParams={this.handleChangeParams}
                   params={listPage.params}
-                  style={{ marginTop: '2.9rem', padding: '0 15px 0 15px' }}
+                  style={{marginTop: '2.9rem', padding: '0 15px 0 15px'}}
                 />
               </div>
             </div>
@@ -912,7 +914,7 @@ const withReducer = strapi.injectReducer({
   reducer,
   pluginId,
 });
-const withSaga = strapi.injectSaga({ key: 'listPage', saga, pluginId });
+const withSaga = strapi.injectSaga({key: 'listPage', saga, pluginId});
 
 export default compose(
   withReducer,

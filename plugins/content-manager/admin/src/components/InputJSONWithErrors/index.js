@@ -121,10 +121,11 @@ class InputJSONWithErrors extends React.Component {
         <Label
           className={labelClassName}
           htmlFor={name}
-          message={label}
+
           style={labelStyle}
         />
         <InputJSON
+          label={label}
           autoFocus={autoFocus}
           className={inputClassName}
           disabled={disabled}

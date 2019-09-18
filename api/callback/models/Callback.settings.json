@@ -139,7 +139,8 @@
         "success",
         "unsubscribed",
         "prepared",
-        "processing"
+        "processing",
+        "wait_accept"
       ]
     },
     "token": {

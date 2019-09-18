@@ -46,10 +46,13 @@ module.exports = {
 
   find: async (ctx, next, {populate} = {}) => {
     if (ctx.query._q) {
+      if(ctx.query._q.length===0){
+        return [];
+      }
       return strapi.services.product.search(ctx.query);
-    } else {
-      return strapi.services.product.fetchAll(ctx.query, populate);
-    }
+     } //else {
+    //   return strapi.services.product.fetchAll(ctx.query, populate);
+    // }
   },
   build: async (ctx) => {
     class Category {

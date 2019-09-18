@@ -28,7 +28,7 @@
   -webkit-appearance: none;
   text-transform: capitalize;
   color: #787E8F;
-  
+
   &:focus, &:active {
     outline: 0;
   }
@@ -37,4 +37,24 @@
 .colored {
   background-color: yellow;
   color: black !important;
+}
+.json-to-table { /* stylelint-disable */
+  border-radius: 3px;
+  border-collapse: initial;
+  overflow: hidden;
+  box-shadow: 0 2px 4px #E3E9F3;
+  table-layout: fixed;
+  font-size: 20px;
+  tr, th, td{
+    border: none;
+    padding: 0;
+  }
+
+  th{
+    padding: 0 25px;
+  }
+
+  td{
+    padding: 0 25px;
+  }
 }
