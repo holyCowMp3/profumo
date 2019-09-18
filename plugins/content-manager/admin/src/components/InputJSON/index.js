@@ -25,6 +25,7 @@ import {isEmpty, isObject, trimStart} from 'lodash';
 import jsonlint from './jsonlint';
 import styles from './styles.scss';
 import OrderTable from './OrderTable';
+import Button from "primereact/button";
 
 const WAIT = 600;
 const stringify = JSON.stringify;
@@ -215,6 +216,9 @@ class InputJSON extends React.Component {
       this.markSelection(err);
     }
   };
+  onClick = value => {
+   return this.setState({show:!this.state.show});
+  };
 
   render() {
 
@@ -224,12 +228,15 @@ class InputJSON extends React.Component {
     }
     return (
       <span>
-        {(this.props.name === 'orders') ?
+        {(this.props.name === 'orders' && this.props.value) ?
           <div>
             <strong>{this.props.label}</strong>
             <OrderTable data={this.props.value}/>
+            <Button
+              onClick={this.onClick}
+            ></Button>
           </div>
-          : (this.props.name === 'deliveryInfo' || this.props.name === 'newpost') ? <div>
+          : (this.props.name === 'deliveryInfo' || this.props.name === 'newpost' && this.props.value) ? <div>
             <strong>{this.props.label}</strong>
             <JsonTable
               theadClassName={'table-dark'}
@@ -239,6 +246,9 @@ class InputJSON extends React.Component {
               columns={this.state.columns[this.props.name]}
               rows={Array.isArray(this.props.value) ? this.props.value : [this.props.value]}
             />
+            <Button
+            onClick={this.onClick}
+            ></Button>
           </div> : <div/>
         }
         {/**/}

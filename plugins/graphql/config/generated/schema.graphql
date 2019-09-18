@@ -1767,12 +1767,16 @@ enum ENUM_CALLBACK_STATUS {
   unsubscribed
   prepared
   processing
+  wait_accept
 }
 
 enum ENUM_ORDER_STATUS {
   success
   error
   processing
+  manager_processing
+  revoke
+  in_post
 }
 
 enum ENUM_ORDER_TYPE {
