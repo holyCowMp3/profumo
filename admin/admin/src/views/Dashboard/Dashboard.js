@@ -148,12 +148,12 @@ class Dashboard extends Component {
       <div className="content">
         <div className="row">
           <div className="col col-md-12">
-            <CardDash symbol={<Money color={'success'}/>} title={'Продажи по датам'} graph={<Calendar height={300}/>}/>
+            {/*<CardDash symbol={<Money color={'success'}/>} title={'Продажи по датам'} graph={<Calendar height={300}/>}/>*/}
 
           </div>
           <div className="col col-md-12">
-            <CardDash symbol={<Money color={'success'}/>} title={'График регистраций'}
-              graph={<LineChart data={this.getStats()} height={300}/>}/>
+            {/*<CardDash symbol={<Money color={'success'}/>} title={'График регистраций'}*/}
+            {/*  graph={<LineChart data={this.getStats()} height={300}/>}/>*/}
           </div>
         </div>
         <div className="row">

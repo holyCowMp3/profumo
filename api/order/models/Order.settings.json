@@ -10,7 +10,7 @@
   },
   "attributes": {
     "status": {
-      "default": "",
+      "default": "processing",
       "type": "enumeration",
       "enum": [
         "success",
@@ -30,13 +30,44 @@
       "type": "text"
     },
     "orders": {
-      "type": "json"
+      "type": "json",
+      "default": [
+        {
+          "product": {
+            "image": "https://profumo.com.ua/uploads/7e5584e02a2f4748a2ab675bcd17b998.jpg",
+            "rating": 0,
+            "reviews": 0,
+            "name": "Chanel Palette Essentielle Concealer # 150 beige Clair ",
+            "id": "5d8115ed4c0c711269a5b32b",
+            "vendor": "Набор для скульптурирования лица ",
+            "price": 2,
+            "avaliable": true
+          },
+          "count": 4
+        }
+      ]
     },
     "newpost": {
-      "type": "json"
+      "type": "json",
+      "default": [
+        {
+          "CostOnSite": "Вартість доставки (цифрою)",
+          "EstimatedDeliveryDate": "Очікувана дата доставки",
+          "IntDocNumber": "Номер ЕН",
+          "TypeDocument": "Тип документ"
+        }
+      ]
     },
     "deliveryInfo": {
-      "type": "json"
+      "type": "json",
+      "default": {
+        "name": "Ім'я",
+        "surname": "Прізвище",
+        "phone": "Номер Телефону",
+        "cityDescription": "Місто призначення",
+        "cityName": " Повна адреса (с. Черніїв, Тисменицький р-н, Івано-Франківська обл.)",
+        "postOfficeName": "Адресса відділення НП Відділення №1: вул. Надвірнянcька, 2В"
+      }
     },
     "type": {
       "enum": [
