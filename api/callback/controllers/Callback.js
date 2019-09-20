@@ -64,11 +64,11 @@ module.exports = {
     let text = base64decode(ctx.request.body.data);
 
 
-    if (sign === ctx.request.body.signature)
+    if (sign === ctx.request.body.signature) {
       strapi.services.callback.add(JSON.parse(text));
       ctx.status = 301;
       ctx.redirect('/cabinet/purchase');
-    else{
+    }else{
       return ctx.response.unauthorized('Bad ass');
     }
   },
