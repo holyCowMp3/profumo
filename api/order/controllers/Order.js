@@ -101,7 +101,6 @@ module.exports = {
         }]
       }
       );
-
       let category = await strapi.services.category.fetch({'_id': productFromDb.category});
       let minusPrice = 0;
       if (category.discount) {
@@ -122,7 +121,6 @@ module.exports = {
     let profumoCounterparty = '4187cb04-cd83-11e9-9937-005056881c6b';
     switch (order.type) {
       case 'nova_poshta': {
-
         return await novaPoshta.counterparty.saveCounterparty({
           FirstName: order.deliveryInfo.name,
           MiddleName: '',
@@ -139,8 +137,8 @@ module.exports = {
               PayerType: 'Sender',
               PaymentMethod: 'Cash',
               CargoType: 'Parcel',
-              VolumeGeneral: '0.1',
-              Weight: '1',
+              VolumeGeneral: '0.01',
+              Weight: '2',
               ServiceType: 'WarehouseWarehouse',
               SeatsAmount: '1',
               Description: 'Косметичні засоби. Доставка з післяоплатою',

@@ -55,15 +55,14 @@ module.exports = {
             CounterpartyType: 'PrivatePerson',
             CounterpartyProperty: 'Recipient'
           }).then((res) => {
-
             return novaPoshta.document.saveInternetDocument(
               {
                 NewAddress: '1',
                 PayerType: 'Sender',
                 PaymentMethod: 'Cash',
                 CargoType: 'Parcel',
-                VolumeGeneral: '0.1',
-                Weight: '1',
+                VolumeGeneral: '0.01',
+                Weight: '2',
                 ServiceType: 'WarehouseWarehouse',
                 SeatsAmount: '1',
                 Description: 'Косметичні засоби. Доставка з післяоплатою',
@@ -96,6 +95,10 @@ module.exports = {
 
           });
         }
+      } break;
+      default:{
+        strapi.services.order.edit({'_id': model.order_id},{status:model.status});
+        break;
       }
     }
 

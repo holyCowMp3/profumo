@@ -736,9 +736,8 @@ export class ListPage extends React.Component {
                     route={this.props.match}
                     routeParams={this.props.match.params}
                   /> : this.getCurrentModelName() == 'order' ?
-
                     <Fragment>
-                      <h2> Новые заказы</h2>
+                      <h2>Новые заказы</h2>
                       <Table
                         deleteAllValue={this.areAllEntriesSelected()}
                         entriesToDelete={entriesToDelete}
@@ -753,7 +752,7 @@ export class ListPage extends React.Component {
                         onToggleDeleteAll={onToggleDeleteAll}
                         primaryKey={this.getModelPrimaryKey()}
                         records={get(records, this.getCurrentModelName(), []).filter(rec => {
-                          return (rec.status == 'В обработке');
+                          return (rec.status === 'processing');
                         })}
                         redirectUrl={this.generateRedirectURI()}
                         route={this.props.match}
@@ -762,7 +761,7 @@ export class ListPage extends React.Component {
                         showLoader={this.showLoaders()}
                         sort={params._sort}
                       />
-                      <h2> Обработаные заказы / ошибки</h2>
+                      <h2> Ошибки </h2>
                       <Table
                         deleteAllValue={this.areAllEntriesSelected()}
                         entriesToDelete={entriesToDelete}
@@ -777,7 +776,31 @@ export class ListPage extends React.Component {
                         onToggleDeleteAll={onToggleDeleteAll}
                         primaryKey={this.getModelPrimaryKey()}
                         records={get(records, this.getCurrentModelName(), []).filter(rec => {
-                          return (rec.status !== 'В обработке');
+                          return (rec.status === 'error' );
+                        })}
+                        redirectUrl={this.generateRedirectURI()}
+                        route={this.props.match}
+                        routeParams={this.props.match.params}
+                        search={params._q}
+                        showLoader={this.showLoaders()}
+                        sort={params._sort}
+                      />
+                      <h2> Обработаные заказы / Доставленые заказы</h2>
+                      <Table
+                        deleteAllValue={this.areAllEntriesSelected()}
+                        entriesToDelete={entriesToDelete}
+                        enableBulkActions={this.showBulkActions()}
+                        filters={filters}
+                        handleDelete={this.toggleModalWarning}
+                        headers={this.getTableHeaders()}
+                        history={this.props.history}
+                        onChangeSort={this.handleChangeSort}
+                        onClickSelectAll={onClickSelectAll}
+                        onClickSelect={onClickSelect}
+                        onToggleDeleteAll={onToggleDeleteAll}
+                        primaryKey={this.getModelPrimaryKey()}
+                        records={get(records, this.getCurrentModelName(), []).filter(rec => {
+                          return (rec.status !== 'processing' && rec.status !== 'error');
                         })}
                         redirectUrl={this.generateRedirectURI()}
                         route={this.props.match}

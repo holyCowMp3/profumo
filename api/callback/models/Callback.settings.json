@@ -134,10 +134,7 @@
         "error",
         "failure",
         "reversed",
-        "sandbox",
-        "subscribed",
         "success",
-        "unsubscribed",
         "prepared",
         "processing",
         "wait_accept"

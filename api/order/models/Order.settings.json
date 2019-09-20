@@ -15,8 +15,8 @@
       "enum": [
         "success",
         "error",
+        "failure",
         "processing",
-        "manager_processing",
         "revoke",
         "in_post"
       ]

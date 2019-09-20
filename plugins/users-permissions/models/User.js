@@ -14,7 +14,9 @@ module.exports = {
 
   // After saving a value.
   // Fired after an `insert` or `update` query.
-  // afterSave: async (model, result) => {},
+  afterSave: async (model, result) => {
+    strapi.services.cart.create({body:[],owner:result._id});
+  },
 
   // Before fetching all values.
   // Fired before a `fetchAll` operation.

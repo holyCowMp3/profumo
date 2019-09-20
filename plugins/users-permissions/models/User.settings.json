@@ -77,10 +77,12 @@
       "type": "date"
     },
     "adress": {
-      "type": "json"
+      "type": "json",
+      "default": []
     },
     "wishlist": {
-      "type": "json"
+      "type": "json",
+      "default": []
     },
     "gender": {
       "enum": [
