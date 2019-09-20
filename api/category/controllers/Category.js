@@ -77,24 +77,6 @@ module.exports = {
   },
 
   getTreeWithoutProducts: async (ctx, next, { populate } = {}) => {
-
-    const fs = require('fs');
-
-    if(!ctx.request.body.tree) {
-      try {
-        let raw = fs.readFileSync('./cat.json');
-        let tree = JSON.parse(raw);
-        if (tree) {
-          return tree;
-        }
-      } catch (e) {
-        ctx.request.body.tree = true;
-        let catTree = await this.getTreeWithoutProducts(ctx, next, {populate} = {});
-        fs.writeFileSync('./cat.json', JSON.stringify(catTree));
-      }
-    }
-    let array =[];
-    let tree = [];
     async function processCategory(cat) {
       let node = {};
       node.key = cat._id;
@@ -117,21 +99,37 @@ module.exports = {
       }
       return node;
     }
-    ctx.query._limit = 500;
-    if (ctx.query._q) {
-      array = await strapi.services.category.search(ctx.query);
-      array.filter(cat => !cat.parent).map(cat => {
-        tree.push(processCategory(cat));
-      });
-      return tree;
-    } else {
-      array = await strapi.services.category.fetchAll(ctx.query, populate);
-      var parentsCat = array.filter(cat => !cat.parent);
-      for (let cat of parentsCat){
-        let result = await processCategory(cat);
-        tree.push(result);
+    const fs = require('fs');
+
+    if(!ctx.request.body.tree) {
+      try {
+        let raw = fs.readFileSync('./cat.json');
+        let tree = JSON.parse(raw);
+        if (tree) {
+          return tree;
+        }
+      } catch (e) {
+        ctx.request.body.tree = true;
+        let array =[];
+        let tree = [];
+        ctx.query._limit = 500;
+        if (ctx.query._q) {
+          array = await strapi.services.category.search(ctx.query);
+          array.filter(cat => !cat.parent).map(cat => {
+            tree.push(processCategory(cat));
+          });
+          return tree;
+        } else {
+          array = await strapi.services.category.fetchAll(ctx.query, populate);
+          var parentsCat = array.filter(cat => !cat.parent);
+          for (let cat of parentsCat){
+            let result = await processCategory(cat);
+            tree.push(result);
+          }
+        }
+        let catTree = await tree;
+        fs.writeFileSync('./cat.json', JSON.stringify(catTree));
       }
-      return await tree;
     }
   },
   /**
