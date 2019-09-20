@@ -98,6 +98,7 @@ function putData(jwt, body, call) {
   delete res.properties;
   delete res.category;
   delete res.discount;
+  delete res.photos;
   fetch('https://profumo.com.ua/products', {
     method: 'POST',
     headers: headers,
