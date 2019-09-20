@@ -85,7 +85,7 @@ module.exports = {
         return tree;
       }
     } catch (e) {
-      let catTree = await this.getTreeWithoutProducts(ctx, next, { populate } = {});
+      let catTree = await getTreeWithoutProducts(ctx, next, { populate } = {});
       fs.writeFileSync('./cat.json', JSON.stringify(catTree));
       return catTree;
     }
