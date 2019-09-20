@@ -88,7 +88,7 @@ module.exports = {
         }
       } catch (e) {
         ctx.request.body.tree = true;
-        let catTree = await Category.getTreeWithoutProducts(ctx, next, {populate} = {});
+        let catTree = await getTreeWithoutProducts(ctx, next, {populate} = {});
         fs.writeFileSync('./cat.json', JSON.stringify(catTree));
       }
     }
