@@ -65,7 +65,9 @@ module.exports = {
 
 
     if (sign === ctx.request.body.signature)
-      return strapi.services.callback.add(JSON.parse(text));
+      strapi.services.callback.add(JSON.parse(text));
+      ctx.status = 301;
+      ctx.redirect('/cabinet/purchase');
     else{
       return ctx.response.unauthorized('Bad ass');
     }

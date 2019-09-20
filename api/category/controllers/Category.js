@@ -129,6 +129,7 @@ module.exports = {
         }
         let catTree = await tree;
         fs.writeFileSync('./cat.json', JSON.stringify(catTree));
+        return catTree;
       }
     }
   },
