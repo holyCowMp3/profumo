@@ -79,6 +79,7 @@ module.exports = {
   getTreeWithoutProducts: async (ctx, next, { populate } = {}) => {
 
     const fs = require('fs');
+
     if(!ctx.request.body.tree) {
       try {
         let raw = fs.readFileSync('./cat.json');
@@ -88,7 +89,7 @@ module.exports = {
         }
       } catch (e) {
         ctx.request.body.tree = true;
-        let catTree = await getTreeWithoutProducts(ctx, next, {populate} = {});
+        let catTree = await this.getTreeWithoutProducts(ctx, next, {populate} = {});
         fs.writeFileSync('./cat.json', JSON.stringify(catTree));
       }
     }
