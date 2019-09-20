@@ -119,7 +119,7 @@ function putData(jwt, body, call) {
                   }
                 }
     `;
-  fetch('http://profumo.com.ua/graphql', {
+  fetch('https://profumo.com.ua/graphql', {
     method: 'POST',
     headers: headers,
     body: JSON.stringify({query:mutation})

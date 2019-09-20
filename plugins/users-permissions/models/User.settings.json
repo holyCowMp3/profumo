@@ -18,6 +18,9 @@
       "configurable": false,
       "required": true
     },
+    "createdAt": {
+      "type": "date"
+    },
     "provider": {
       "type": "string",
       "configurable": false

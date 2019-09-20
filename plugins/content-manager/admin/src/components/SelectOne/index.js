@@ -35,7 +35,7 @@ class SelectOne extends React.Component {
       isLoading: true,
       options: [],
       toSkip: 0,
-      parentValue: { _id: ''}
+      parentValue: {_id: '', name_ru: 'Выбрать'}
     };
   }
 
@@ -48,7 +48,7 @@ class SelectOne extends React.Component {
   componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.relation.model === 'category') {
       if (nextProps.record.category) {
-        this.props.mergeState({categoryId:nextProps.record.category._id});
+        this.props.mergeState({categoryId: nextProps.record.category._id});
       }
     }
 
@@ -224,7 +224,7 @@ class SelectOne extends React.Component {
 
     /* eslint-disable jsx-a11y/label-has-for */
     return (
-      (this.props.relation.model === 'category' && this.props.currentModelName === 'product')?
+      (this.props.relation.model === 'category' && this.props.currentModelName === 'product') ?
         <div className={`form-group ${styles.selectOne}`}>
           <nav className={styles.headline}>
             <label htmlFor={this.props.relation.alias}>
@@ -262,8 +262,9 @@ class SelectOne extends React.Component {
 
           <Select
             onChange={this.handleChange}
-            options={this.state.options.filter(opt =>{
-              return opt.value.parent && opt.value.parent._id.toString() === this.state.parentValue._id.toString() }) }
+            options={this.state.parentValue ? this.state.options.filter(opt => {
+              return opt.value.parent && opt.value.parent._id.toString() === this.state.parentValue._id.toString()
+            }) : this.state.options}
             id={this.props.relation.alias}
             isLoading={this.state.isLoading}
             onMenuScrollToBottom={this.handleBottomScroll}

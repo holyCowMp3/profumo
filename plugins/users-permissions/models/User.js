@@ -7,7 +7,10 @@
 module.exports = {
   // Before saving a value.
   // Fired before an `insert` or `update` query.
-  // beforeSave: async (model) => {},
+  beforeSave: async (model) => {
+    var now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDay());
+    model.createdAt= now;
+  },
 
   // After saving a value.
   // Fired after an `insert` or `update` query.

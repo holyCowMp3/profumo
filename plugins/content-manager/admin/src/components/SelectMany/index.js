@@ -107,7 +107,6 @@ class SelectMany extends React.PureComponent {
       .then(response => {
 
         /* eslint-disable indent */
-        console.log(response);
         const options = isArray(response.properties)
           ? response.properties.map(item => ({
               value: item,

@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import CardDash from './CardDash';
+import Calendar from './Calendar';
+import LineChart from './LineChart';
+import Money from '@kiwicom/orbit-components/es/icons/Money';
 import {cloneDeep, findIndex, isArray} from 'lodash';
 
 class Dashboard extends Component {
@@ -7,17 +10,48 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalDaySalary:0,
-      newOrders:20,
-      newUsers:0,
-      data:[]
+      totalDaySalary: 0,
+      newOrders: 20,
+      newUsers: 0,
+      data: []
     };
+  }
+
+  getJwt() {
+    var headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Connection': 'keep-alive',
+    };
+    var dataString = '{"identifier":"test","password":"testtest"}';
+    return fetch('https://profumo.com.ua/auth/local',
+      {
+        method: 'POST',
+        headers: headers,
+        body: dataString,
+      }
+    ).then(body => body.json().jwt);
+  }
+
+  getDataFromSite(jwt, body) {
+    var headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + jwt,
+      'Connection': 'keep-alive',
+    };
+    return fetch('https://profumo.com.ua/graphql', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({query: body})
+    }).then(body => body.json());
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
     this.getStats();
     this.setState(nextProps);
   }
+
   getOptions = query => {
     const params = {
       _limit: 20,
@@ -31,7 +65,7 @@ class Dashboard extends Component {
       params[`${this.props.relation.displayedAttribute}_contains`] = query;
     }
     // Request URL
-    let requestUrl = `/content-manager/stats`;
+    let requestUrl = '/content-manager/stats';
     // Call our request helper (see 'utils/request')
     return request(requestUrl, {
       method: 'GET',
@@ -44,7 +78,7 @@ class Dashboard extends Component {
           ? response.map(item => ({
             value: item,
             label: templateObject(
-              { mainField: this.props.relation.displayedAttribute },
+              {mainField: this.props.relation.displayedAttribute},
               item
             ).mainField,
           }))
@@ -75,20 +109,51 @@ class Dashboard extends Component {
         );
       });
   };
-  getStats = () => {
 
+  getStats = () => {
+    var jwt = '';
+    return this.getJwt().then(res => {
+      jwt = res;
+      this.getDataFromSite(res, `query{
+                                      usersConnection{
+                                     \t\tgroupBy{
+                                          createdAt{
+                                            key 
+                                          }
+                                        }
+                                      }
+                                    }`
+      ).then(res => res.data.usersConnection.groupBy.createdAt).map(
+        key => {
+          return {
+            x: key.toLocaleDateString(),
+            y: this.getDataFromSite(jwt, `
+            query{
+              usersConnection (where:{createdAt:"${key.toISOString()}"}){
+                aggregate{
+                  count
+                }
+              }        
+            }
+          `)
+          };
+        }
+      );
+    });
 
   }
+
   render() {
     return (
       <div className="content">
         <div className="row">
           <div className="col col-md-12">
-            <CardDash/>
+            <CardDash symbol={<Money color={'success'}/>} title={'Продажи по датам'} graph={<Calendar height={300}/>}/>
 
           </div>
           <div className="col col-md-12">
-            <CardDash/>
+            <CardDash symbol={<Money color={'success'}/>} title={'График регистраций'}
+              graph={<LineChart data={this.getStats()} height={300}/>}/>
           </div>
         </div>
         <div className="row">

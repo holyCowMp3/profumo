@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-// import Card from '@kiwicom/orbit-components/es/Card';
-// import Stack from '@kiwicom/orbit-components/es/Stack';
-// import CardSectionHeader from '@kiwicom/orbit-components/es/Card/CardSection/CardSectionHeader';
-// import CardSection from '@kiwicom/orbit-components/es/Card/CardSection';
-// import Heading from '@kiwicom/orbit-components/es/Heading';
-// import {CardSectionContent} from '@kiwicom/orbit-components/es/Card/CardSection/index';
+import Card from '@kiwicom/orbit-components/es/Card';
+import Stack from '@kiwicom/orbit-components/es/Stack';
+import CardSectionHeader from '@kiwicom/orbit-components/es/Card/CardSection/CardSectionHeader';
+import CardSection from '@kiwicom/orbit-components/es/Card/CardSection';
+import Heading from '@kiwicom/orbit-components/es/Heading';
+import {CardSectionContent} from '@kiwicom/orbit-components/es/Card/CardSection/index';
 import {cloneDeep, findIndex, isArray} from 'lodash';
 
 class CardDash extends Component {
@@ -12,10 +12,10 @@ class CardDash extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalDaySalary:0,
-      newOrders:20,
-      newUsers:0,
-      data:[]
+      totalDaySalary: 0,
+      newOrders: 20,
+      newUsers: 0,
+      data: []
     };
   }
 
@@ -23,6 +23,7 @@ class CardDash extends Component {
     this.getStats();
     this.setState(nextProps);
   }
+
   getOptions = query => {
     const params = {
       _limit: 20,
@@ -36,7 +37,7 @@ class CardDash extends Component {
       params[`${this.props.relation.displayedAttribute}_contains`] = query;
     }
     // Request URL
-    let requestUrl = `/content-manager/stats`;
+    let requestUrl = '/content-manager/stats';
     // Call our request helper (see 'utils/request')
     return request(requestUrl, {
       method: 'GET',
@@ -49,7 +50,7 @@ class CardDash extends Component {
           ? response.map(item => ({
             value: item,
             label: templateObject(
-              { mainField: this.props.relation.displayedAttribute },
+              {mainField: this.props.relation.displayedAttribute},
               item
             ).mainField,
           }))
@@ -84,8 +85,31 @@ class CardDash extends Component {
 
 
   }
+
   render() {
-    return (<div></div>
+    return (
+      <Card>
+        <CardSection expandable>
+          <CardSectionHeader>
+            <Stack direction="row" align="center" justify="between">
+              <div> {this.props.symbol} </div>
+              <Heading type="title2" element="h2">
+                {this.props.title}
+              </Heading>
+              <div>
+                <Stack direction="row" align="center">
+                  <Heading type="title2" element="h2">
+                    {this.props.value}
+                  </Heading>
+                </Stack>
+              </div>
+            </Stack>
+          </CardSectionHeader>
+          <CardSectionContent>
+            {this.props.graph}
+          </CardSectionContent>
+        </CardSection>
+      </Card>
     );
   }
 }

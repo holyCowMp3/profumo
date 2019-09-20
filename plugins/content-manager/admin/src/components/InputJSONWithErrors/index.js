@@ -138,6 +138,7 @@ class InputJSONWithErrors extends React.Component {
           style={inputStyle}
           tabIndex={tabIndex}
           value={value}
+          defaultValue={this.props.defaultValue}
         />
         <InputDescription
           className={inputDescriptionClassName}

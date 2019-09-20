@@ -225,7 +225,6 @@ class InputJSON extends React.Component {
   }
 
   render() {
-    console.log(this.props.value);
     if (this.state.error) {
 
       return <div>error json</div>;
@@ -257,7 +256,7 @@ class InputJSON extends React.Component {
               ref={this.editor}
               autoComplete="off"
               id={this.props.name}
-              defaultValue=""
+              defaultValue={this.props.defaultValue}
             />
           </div>
 

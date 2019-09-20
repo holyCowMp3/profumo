@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { findIndex, get, has, isEmpty, isFunction, upperFirst } from 'lodash';
+import {findIndex, get, has, isEmpty, isFunction, upperFirst} from 'lodash';
 // You can find these components in either
 // ./node_modules/strapi-helper-plugin/lib/src
 // or strapi/packages/strapi-helper-plugin/lib/src
@@ -60,7 +60,7 @@ class Edit extends React.PureComponent {
    * @return {Object}      Object containing the Input's label customBootstrapClass, ...
    */
   getInputLayout = attr => {
-    const { layout } = this.props;
+    const {layout} = this.props;
 
     return Object.keys(get(layout, ['attributes', attr], {})).reduce(
       (acc, current) => {
@@ -80,7 +80,7 @@ class Edit extends React.PureComponent {
    * @return {Object}
    */
   getInputValidations = attr => {
-    const { formValidations } = this.props;
+    const {formValidations} = this.props;
     const index = findIndex(formValidations, ['name', attr]);
 
     return get(formValidations, [index, 'validations'], {});
@@ -113,7 +113,7 @@ class Edit extends React.PureComponent {
     if (attr.includes('__col-md')) {
       const className = attr.split('__')[1];
 
-      return <div key={key} className={className} />;
+      return <div key={key} className={className}/>;
     }
 
     const details = get(this.props.schema, [
@@ -128,7 +128,7 @@ class Edit extends React.PureComponent {
       ? appearance.toLowerCase()
       : get(layout, 'type', getInputType(details.type));
     const inputDescription = get(details, 'description', null);
-    const inputStyle = type === 'textarea' ? { height: '196px' } : {};
+    const inputStyle = type === 'textarea' ? {height: '196px'} : {};
     let className = get(layout, 'className');
 
     if (type === 'toggle' && !className) {
@@ -139,7 +139,7 @@ class Edit extends React.PureComponent {
       <Input
         autoFocus={key === 0}
         customBootstrapClass={className}
-        customInputs={{ json: InputJSONWithErrors, wysiwyg: WysiwygWithErrors }}
+        customInputs={{json: InputJSONWithErrors, wysiwyg: WysiwygWithErrors}}
         didCheckErrors={this.props.didCheckErrors}
         disabled={!get(details, 'editable', true)}
         errors={this.getInputErrors(attr)}
@@ -157,9 +157,11 @@ class Edit extends React.PureComponent {
         type={type}
         validations={this.getInputValidations(attr)}
         value={this.props.record[attr]}
+        defaultValue={this.props.schema.attributes[attr].default}
       />
     );
-  };
+  }
+
 
   render() {
     return (
@@ -175,8 +177,10 @@ Edit.defaultProps = {
   formErrors: [],
   formValidations: [],
   layout: {},
-  onBlur: () => {},
-  onChange: () => {},
+  onBlur: () => {
+  },
+  onChange: () => {
+  },
   record: {},
   resetProps: false,
   schema: {},

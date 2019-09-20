@@ -186,24 +186,24 @@ export class HomePage extends React.PureComponent {
       <div className={cn('container-fluid', styles.containerFluid)}>
         <Helmet title="Home Page" />
         <Dashboard/>
-        <div className="row">
-          {/*  <div className="col-md-3 col-lg-3">*/}
-          {/*    <Block>*/}
-          {/*    </Block>*/}
-          {/*  </div>*/}
-          {/*  <div className="col-md-3 col-lg-3">*/}
-          {/*    <Block>*/}
-          {/*    </Block>*/}
-          {/*  </div>*/}
-          {/*  <div className="col-md-3 col-lg-3">*/}
-          {/*    <Block>*/}
-          {/*    </Block>*/}
-          {/*  </div>*/}
-          {/*  <div className="col-md-3 col-lg-3">*/}
-          {/*    <Block>*/}
-          {/*    </Block>*/}
-          {/*  </div>*/}
-        </div>
+        {/*<div className="row">*/}
+        {/*    <div className="col-md-3 col-lg-3">*/}
+        {/*      <Block>*/}
+        {/*      </Block>*/}
+        {/*    </div>*/}
+        {/*    <div className="col-md-3 col-lg-3">*/}
+        {/*      <Block>*/}
+        {/*      </Block>*/}
+        {/*    </div>*/}
+        {/*    <div className="col-md-3 col-lg-3">*/}
+        {/*      <Block>*/}
+        {/*      </Block>*/}
+        {/*    </div>*/}
+        {/*    <div className="col-md-3 col-lg-3">*/}
+        {/*      <Block>*/}
+        {/*      </Block>*/}
+        {/*    </div>*/}
+        {/*</div>*/}
       </div>
     );
   }

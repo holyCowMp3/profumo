@@ -15,13 +15,9 @@ class LineChart extends Component {
       newUsers: 0,
       data: [
         {
-          'id': 'japan',
+          'id': 'users',
           'color': 'hsl(106, 70%, 50%)',
           'data': [
-            {
-              'x': 'plane',
-              'y': 208
-            },
             {
               'x': 'helicopter',
               'y': 159
@@ -79,7 +75,7 @@ class LineChart extends Component {
     return (
       <div style={{height:this.props.height}}>
         <ResponsiveLine
-          data={this.state.data}
+          data={this.props.data}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
           xScale={{ type: 'point' }}
           yScale={{ type: 'linear', stacked: true, min: 'auto', max: 'auto' }}
