@@ -88,42 +88,21 @@ function getJwt(call) {
 }
 
 function putData(jwt, body, call) {
-
   var headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ' + jwt,
     'Connection': 'keep-alive',
   };
-  let mutation = `mutation {
-                  createProduct(
-                    input: 
-                    { data: 
-                      { name_ru: "${body.name_ru}" 
-                        name_ua: "${body.name_ua}"
-                        name_en: "${body.name_en}"
-                        name_rozetka: "${body.name_rozetka}"
-                        price:${body.price?body.price:0} 
-                        priority:${body.priority?body.priority:5} 
-                        meta_title:"${body.meta_title}"
-                        meta_keywords:"${body.meta_keywords}"
-                        meta_decription:"${body.meta_decription}"
-                        desc:"${body.desc}"
-                        amount:${body.amount?body.amount:0} 
-                        vendor:"${body.vendor}" 
-                        avaliable:${body.avaliable?body.avaliable:true}
-                      } }) {
-                    product {
-                      name_ru
-                    }
-                  }
-                }
-    `;
+  let res = body;
+  delete res.properties;
+  delete res.category;
+  delete res.discount;
   fetch('http://profumo.com.ua/graphql', {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify({query:mutation})
-  }).then(body => call(body.json()));
+    body: JSON.stringify(res)
+  }).then(resp => call(resp.json()));
 }
 
 export class EditPage extends React.Component {
