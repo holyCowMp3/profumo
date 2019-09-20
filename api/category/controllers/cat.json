@@ -96,6 +96,12 @@
         "label": "Аксессуары",
         "icon": "pi pi-fw pi-folder",
         "data": ""
+      },
+      {
+        "key": "5d8473ed215a560ee65c66c0",
+        "label": "Контуринг",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
       }
     ]
   },
@@ -324,6 +330,32 @@
       {
         "key": "5d80b0521c68e3703bfcc7e7",
         "label": "Подарочные наборы",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      }
+    ]
+  },
+  {
+    "key": "5d8470d87f14837fbc0d0a5c",
+    "label": "Аксессуары",
+    "icon": "pi pi-fw pi-folder",
+    "data": "",
+    "children": [
+      {
+        "key": "5d84722f7f14837fbc0d0aac",
+        "label": "Косметички",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d8472ef7f14837fbc0d0aad",
+        "label": "Для визажа",
+        "icon": "pi pi-fw pi-folder",
+        "data": ""
+      },
+      {
+        "key": "5d8473367f14837fbc0d0aae",
+        "label": "Для бани и сауны",
         "icon": "pi pi-fw pi-folder",
         "data": ""
       }
