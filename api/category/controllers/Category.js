@@ -14,7 +14,7 @@ module.exports = {
    * @return {Object|Array}
    */
 
-  find: async (ctx, next, { populate } = {}) => {
+  find: async (ctx, next, {populate} = {}) => {
     if (ctx.query._q) {
       return strapi.services.category.search(ctx.query);
     } else {
@@ -22,10 +22,11 @@ module.exports = {
     }
   },
 
-  getTree: async (ctx, next, { populate } = {}) => {
-    let array =[];
+  getTree: async (ctx, next, {populate} = {}) => {
+    let array = [];
     let tree = [];
-   async function processCategory(cat) {
+
+    async function processCategory(cat) {
       let node = {};
       node.key = cat._id;
       node.label = cat.name_ru;
@@ -34,7 +35,7 @@ module.exports = {
       try {
         if (cat.child.length != 0) {
           node.children = [];
-          for (let child  of cat.child) {
+          for (let child of cat.child) {
             let res = await strapi.services.category.fetch({'_id': child._id});
             let resproc = await processCategory(res);
             node.children.push(resproc);
@@ -58,6 +59,7 @@ module.exports = {
 
       return node;
     }
+
     ctx.query._limit = 500;
     if (ctx.query._q) {
       array = await strapi.services.category.search(ctx.query);
@@ -68,7 +70,7 @@ module.exports = {
     } else {
       array = await strapi.services.category.fetchAll(ctx.query, populate);
       var parentsCat = array.filter(cat => !cat.parent);
-      for (let cat of parentsCat){
+      for (let cat of parentsCat) {
         let result = await processCategory(cat);
         tree.push(result);
       }
@@ -76,22 +78,21 @@ module.exports = {
     }
   },
 
-  getTreeWithoutProducts: async (ctx, next, { populate } = {}) => {
+  getTreeWithoutProducts: async (ctx, next, {populate} = {}) => {
     const fs = require('fs');
-
-
-
-
-    try{
-      let tree = require('./cat.json');
-      if(tree){
-        return tree;
+    fs.readFile('./cat.json', async (err, data) => {
+      if (err) {
+        fs.writeFileSync('./cat.json', JSON.stringify(await this.getTreeWithoutProducts(ctx, next, {populate} = {})));
+        throw err;
       }
-    } catch (e) {
-      fs.writeFileSync('./cat.json', JSON.stringify(await this.getTreeWithoutProducts(ctx, next, { populate } = {})));
-    }
-    let array =[];
+      let tree = JSON.parse(data);
+      if (tree) {
+        ctx.send(tree);
+      }
+    });
+    let array = [];
     let tree = [];
+
     async function processCategory(cat) {
       let node = {};
       node.key = cat._id;
@@ -101,11 +102,12 @@ module.exports = {
       try {
         if (cat.child.length != 0) {
           node.children = [];
-          for (let child  of cat.child) {
+          for (let child of cat.child) {
             let res = await strapi.services.category.fetch({'_id': child._id});
             let resproc = await processCategory(res);
             node.children.push(resproc);
-          };
+          }
+          ;
           return node;
         } else {
           return node;
@@ -114,6 +116,7 @@ module.exports = {
       }
       return node;
     }
+
     ctx.query._limit = 500;
     if (ctx.query._q) {
       array = await strapi.services.category.search(ctx.query);
@@ -124,7 +127,7 @@ module.exports = {
     } else {
       array = await strapi.services.category.fetchAll(ctx.query, populate);
       var parentsCat = array.filter(cat => !cat.parent);
-      for (let cat of parentsCat){
+      for (let cat of parentsCat) {
         let result = await processCategory(cat);
         tree.push(result);
       }
@@ -173,7 +176,7 @@ module.exports = {
    */
 
   update: async (ctx, next) => {
-    return strapi.services.category.edit(ctx.params, ctx.request.body) ;
+    return strapi.services.category.edit(ctx.params, ctx.request.body);
   },
 
   /**
