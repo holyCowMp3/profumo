@@ -77,17 +77,20 @@ module.exports = {
   },
 
   getTreeWithoutProducts: async (ctx, next, { populate } = {}) => {
+
     const fs = require('fs');
-    try{
-      let raw = fs.readFileSync('./cat.json');
-      let tree = JSON.parse(raw);
-      if(tree){
-        return tree;
+    if(!ctx.request.body.tree) {
+      try {
+        let raw = fs.readFileSync('./cat.json');
+        let tree = JSON.parse(raw);
+        if (tree) {
+          return tree;
+        }
+      } catch (e) {
+        ctx.request.body.tree = true;
+        let catTree = await Category.getTreeWithoutProducts(ctx, next, {populate} = {});
+        fs.writeFileSync('./cat.json', JSON.stringify(catTree));
       }
-    } catch (e) {
-      let catTree = await getTreeWithoutProducts(ctx, next, { populate } = {});
-      fs.writeFileSync('./cat.json', JSON.stringify(catTree));
-      return catTree;
     }
     let array =[];
     let tree = [];
@@ -127,7 +130,6 @@ module.exports = {
         let result = await processCategory(cat);
         tree.push(result);
       }
-
       return await tree;
     }
   },
