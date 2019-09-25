@@ -95,10 +95,10 @@ module.exports = {
       let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
       if (product.count > productFromDb.amount) {
         ctx.status = 301;
-        ctx.redirect(`/order?postdata=${base64encode(JSON.stringify({
+        ctx.redirect(`/order?postdata=${encodeURIComponent(base64encode(JSON.stringify({
           data: {error: 'Вы попытались купить больше товаров, чем есть у нас на сайте, попробуйте создать заказ еще раз'},
           sign: 'profumo.com.ua'
-        }))}`);
+        })))}`);
         return;
       }
       client.POST('/events', {

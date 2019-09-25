@@ -148,14 +148,14 @@ module.exports = {
             });
 
             ctx.status=301;
-            ctx.redirect(`/order?postdata=${base64encode(JSON.stringify({data:newPostData, sign:'profumo.com.ua'}))}`);
+            ctx.redirect(`/order?postdata=${encodeURIComponent(base64encode(JSON.stringify({data:newPostData, sign:'profumo.com.ua'})))}`);
 
           }
         } break;
         default:{
           strapi.services.order.edit({'_id': result.order_id},{status:result.status});
           ctx.status=301;
-          ctx.redirect(`/order?postdata=${base64encode(JSON.stringify({data:{error:result.err_description}, sign:'profumo.com.ua'}))}`);
+          ctx.redirect(`/order?postdata=${encodeURIComponent(base64encode(JSON.stringify({data:{error:result.err_description}, sign:'profumo.com.ua'})))}`);
           break;
         }
       }
