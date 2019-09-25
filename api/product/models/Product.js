@@ -7,19 +7,23 @@
 module.exports = {
   // Before saving a value.
   // Fired before an `insert` or `update` query.
-  beforeSave: async (model) => {
-    console.log(model._update);
-    if(model._update.amount) {
-      if (model._update.amount <= 0) {
-        model._update.amount = await 0;
-        model._update.avaliable = await false;
-      }
-    }
-  },
+  // beforeSave: async (model) => {
+  //   console.log(model._update);
+  //   if(model._update.amount) {
+  //     if (model._update.amount <= 0) {
+  //       model._update.amount = 0;
+  //       model._update.avaliable = false;
+  //     }
+  //   }
+  // },
 
   // After saving a value.
   // Fired after an `insert` or `update` query.
-  // afterSave: async (model, result) => {},
+  afterSave: async (model, result) => {
+    if(result.amount<=0 ){
+      strapi.services.product.edit({_id:result._id},{avaliable:false});
+    }
+  },
 
   // Before fetching all values.
   // Fired before a `fetchAll` operation.
@@ -54,15 +58,15 @@ module.exports = {
 
   // Before updating a value.
   // Fired before an `update` query.
-  beforeUpdate: async (model) => {
-    console.log(model._update);
-    if(model._update.amount) {
-      if (model._update.amount <= 0) {
-        model._update.amount = await 0;
-        model._update.avaliable = await false;
-      }
-    }
-  },
+  // beforeUpdate: async (model) => {
+  //   console.log(model._update);
+  //   if(model._update.amount) {
+  //     if (model._update.amount <= 0) {
+  //       model._update.amount = 0;
+  //       model._update.avaliable = false;
+  //     }
+  //   }
+  // },
 
   // After updating a value.
   // Fired after an `update` query.
