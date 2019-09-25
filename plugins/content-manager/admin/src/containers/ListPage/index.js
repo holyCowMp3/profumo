@@ -776,7 +776,7 @@ export class ListPage extends React.Component {
                         onToggleDeleteAll={onToggleDeleteAll}
                         primaryKey={this.getModelPrimaryKey()}
                         records={get(records, this.getCurrentModelName(), []).filter(rec => {
-                          return (rec.status === 'error' );
+                          return (rec.status === 'error' && rec.status==='failure' );
                         })}
                         redirectUrl={this.generateRedirectURI()}
                         route={this.props.match}
@@ -800,7 +800,7 @@ export class ListPage extends React.Component {
                         onToggleDeleteAll={onToggleDeleteAll}
                         primaryKey={this.getModelPrimaryKey()}
                         records={get(records, this.getCurrentModelName(), []).filter(rec => {
-                          return (rec.status !== 'processing' && rec.status !== 'error');
+                          return (rec.status !== 'processing' && rec.status !== 'error' && rec.status!=='failure' );
                         })}
                         redirectUrl={this.generateRedirectURI()}
                         route={this.props.match}
