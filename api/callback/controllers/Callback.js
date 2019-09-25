@@ -86,7 +86,10 @@ module.exports = {
                     minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
                   }
                 }
-                price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) * product.count);
+                let count = product.count >= productFromDb.amount ? productFromDb.amount : product.count;
+                let subPrice = productFromDb.discounts ? (productFromDb.price - minusPrice) : productFromDb.price;
+                price += subPrice*count;
+                strapi.services.product.edit({'_id': product.product.id}, {amount: (productFromDb.amount - product.count <= 0) ? 0 : productFromDb.amount - product.count});
               }
             }
             // eslint-disable-next-line no-inner-declarations

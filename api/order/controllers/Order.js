@@ -121,19 +121,12 @@ module.exports = {
             minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
           }
         }
-        console.log(product);
-        console.log(productFromDb);
-        console.log(minusPrice + " THIS is MINUS PRICE");
-        console.log(price + " AMOUNT OF MONEY");
-        console.log();
+
         let count = product.count >= productFromDb.amount ? productFromDb.amount : product.count;
         let subPrice = productFromDb.discounts ? (productFromDb.price - minusPrice) : productFromDb.price;
-        console.log(count);
-        console.log(subPrice);
+
         price += subPrice*count;
-        console.log()
-        console.log(price + " AMOUNT OF MONEY");
-        console.log();
+
       }
     }
     let profumoCounterparty = '4187cb04-cd83-11e9-9937-005056881c6b';
@@ -182,7 +175,13 @@ module.exports = {
               }).catch(err => console.log(err));
             }
             return json.data;
-          }).catch(err => console.log(err));
+          }).catch(err => {
+            ctx.status = 301;
+            ctx.redirect(`/order?postdata=${base64encode(JSON.stringify({
+              data: {error: err},
+              sign: 'profumo.com.ua'
+            }))}`);
+          });
 
         });
       }

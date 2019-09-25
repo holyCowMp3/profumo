@@ -585,6 +585,9 @@
                 "email": {
                   "type": "string"
                 },
+                "createdAt": {
+                  "type": "string"
+                },
                 "provider": {
                   "type": "string"
                 },
