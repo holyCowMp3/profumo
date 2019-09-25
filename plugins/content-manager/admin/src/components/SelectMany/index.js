@@ -178,6 +178,7 @@ class SelectMany extends React.PureComponent {
       });
 
     } else{
+
       this.state.options = this.state.options.filter(
         el =>
           !((el.value._id || el.value.id) === (value.value.id || value.value._id))
@@ -280,7 +281,10 @@ class SelectMany extends React.PureComponent {
         </label>
         {description}
         <div></div>
-        {(this.props.currentModelName==='product' && this.props.relation.alias==='properties')?<div></div>:<SortableList
+        {(this.props.currentModelName!=='properties'
+          && this.props.currentModelName==='product'
+          && this.props.relation.alias==='properties')?<div></div>:
+          <SortableList
           items={
             /* eslint-disable indent */
             isNull(value) || isUndefined(value) || value.size === 0

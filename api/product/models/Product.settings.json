@@ -9,6 +9,10 @@
     "timestamps": true
   },
   "attributes": {
+    "name_ru": {
+      "default": "",
+      "type": "string"
+    },
     "name_ua": {
       "default": "",
       "type": "string"
@@ -40,10 +44,7 @@
       "model": "discount",
       "via": "product"
     },
-    "name_ru": {
-      "default": "",
-      "type": "string"
-    },
+
     "name_en": {
       "default": "",
       "type": "string"
