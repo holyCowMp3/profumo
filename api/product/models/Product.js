@@ -21,8 +21,8 @@ module.exports = {
   // Fired after an `insert` or `update` query.
   afterSave: async (model, result) => {
     console.log(result);
-    if(result.amount<=0 ){
-      strapi.services.product.edit({_id:result._id},{avaliable:false});
+    if (result.amount <= 0) {
+      await strapi.services.product.edit({_id: result._id}, {avaliable: false});
     }
   },
 
@@ -33,8 +33,8 @@ module.exports = {
   // After fetching all values.
   // Fired after a `fetchAll` operation.
   afterFetchAll: async (model, results) => {
-    for (let result of results){
-      result.promocode =undefined;
+    for (let result of results) {
+      result.promocode = undefined;
     }
   },
 
@@ -46,7 +46,7 @@ module.exports = {
 
   afterFetch: async (model, result) => {
     result.order = undefined;
-    result.promocode =undefined;
+    result.promocode = undefined;
   },
 
   // Before creating a value.
