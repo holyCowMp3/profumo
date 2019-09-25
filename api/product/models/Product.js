@@ -8,7 +8,7 @@ module.exports = {
   // Before saving a value.
   // Fired before an `insert` or `update` query.
   beforeSave: async (model) => {
-    console.log(model);
+    console.log(model._update);
     if(model._update.amount) {
       if (model._update.amount <= 0) {
         model._update.amount = await 0;
@@ -55,7 +55,7 @@ module.exports = {
   // Before updating a value.
   // Fired before an `update` query.
   beforeUpdate: async (model) => {
-    console.log(model);
+    console.log(model._update);
     if(model._update.amount) {
       if (model._update.amount <= 0) {
         model._update.amount = await 0;
