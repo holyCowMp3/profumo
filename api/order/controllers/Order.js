@@ -125,15 +125,17 @@ module.exports = {
         console.log(productFromDb);
         console.log(minusPrice + " THIS is MINUS PRICE");
         console.log(price + " AMOUNT OF MONEY");
-        console.log()
-        price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) *
-        product.count >= productFromDb.amount ? productFromDb.amount : product.count);
+        console.log();
+        let count = product.count >= productFromDb.amount ? productFromDb.amount : product.count;
+        let subPrice = productFromDb.discounts ? (productFromDb.price - minusPrice) : productFromDb.price;
+        console.log(count);
+        console.log(subPrice);
+        price += subPrice*count;
         console.log()
         console.log(price + " AMOUNT OF MONEY");
         console.log();
       }
     }
-
     let profumoCounterparty = '4187cb04-cd83-11e9-9937-005056881c6b';
     switch (order.type) {
       case 'nova_poshta': {
