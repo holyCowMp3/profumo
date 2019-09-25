@@ -10,7 +10,7 @@
 const request = require('request');
 const NovaPoshta = require('novaposhta_3');
 var hapigerjs = require('hapigerjs');
-
+const {base64decode, base64encode} = require('nodejs-base64');
 var client = new hapigerjs.Driver({
   url: 'http://127.0.0.1',
   port: '3456'
@@ -76,30 +76,40 @@ module.exports = {
       var year = date.getFullYear();
       return day + '.' + monthIndex + '.' + year;
     }
+
     function formatDateHapiger(date) {
       var day = date.getDate();
       var monthIndex = date.getMonth() + 1;
-      var year = date.getFullYear() +1;
+      var year = date.getFullYear() + 1;
       return year + '-' + monthIndex + '-' + day;
     }
+
     ctx.request.body.status = 'processing';
     let order = await strapi.services.order.add(ctx.request.body);
     let price = 0;
     let productCategories = '';
     let productNames = '';
-    var now = new Date(new Date().getFullYear()+1, new Date().getMonth());
+    var now = new Date(new Date().getFullYear() + 1, new Date().getMonth());
     var isoString = now.toISOString();
     for (let product of order.orders) {
       let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
-      client.POST('/events', {
-        events: [{
-          'namespace': 'products',
-          'person': ctx.state.user?ctx.state.user._id:'public_user',
-          'action': 'buy',
-          'thing': productFromDb._id,
-          'expires_at': isoString
-        }]
+      if (product.count > productFromDb.amount) {
+        ctx.status = 301;
+        ctx.redirect(`/order?postdata=${base64encode(JSON.stringify({
+          data: {error: 'Вы попытались купить больше товаров, чем есть у нас на сайте, попробуйте создать заказ еще раз'},
+          sign: 'profumo.com.ua'
+        }))}`);
+        return;
       }
+      client.POST('/events', {
+          events: [{
+            'namespace': 'products',
+            'person': ctx.state.user ? ctx.state.user._id : 'public_user',
+            'action': 'buy',
+            'thing': productFromDb._id,
+            'expires_at': isoString
+          }]
+        }
       );
       let category = await strapi.services.category.fetch({'_id': productFromDb.category});
       let minusPrice = 0;
@@ -112,11 +122,10 @@ module.exports = {
           }
         }
 
-        price += ((productFromDb.discounts ? productFromDb.price-minusPrice:productFromDb.price) *
-        product.count>=productFromDb.amount?productFromDb.amount:product.count);
+        price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) *
+        product.count >= productFromDb.amount ? productFromDb.amount : product.count);
         productCategories += category.name_ru + '\n';
         productNames += productFromDb.name_ru + '\n';
-
       }
     }
 
@@ -131,8 +140,8 @@ module.exports = {
           Email: '',
           CounterpartyType: 'PrivatePerson',
           CounterpartyProperty: 'Recipient'
-        }).then((res) =>{
-          console. log(res);
+        }).then((res) => {
+          console.log(res);
           return novaPoshta.document.saveInternetDocument(
             {
               NewAddress: '1',
@@ -155,17 +164,21 @@ module.exports = {
               RecipientAddress: order.deliveryInfo.postOfficeCode,
               ContactRecipient: res.data[0].Ref,
               RecipientsPhone: order.deliveryInfo.phone,
-              DateTime:formatDate(new Date())
+              DateTime: formatDate(new Date())
             }
           ).then(json => {
             order.newpost = json.data;
-            strapi.services.order.edit({'_id':order._id}, order);
+            strapi.services.order.edit({'_id': order._id}, order);
+            for (let product of order.orders) {
+              strapi.services.product.fetch({'_id': product.product.id}).then(res => {
+                strapi.services.product.edit({'_id': product.product.id}, {amount: res.amount - product.count <= 0 ? 0 : res.amount - product.count});
+              }).catch(err => console.log(err));
+            }
             return json.data;
           }).catch(err => console.log(err));
 
         });
       }
-
       case 'liqpay': {
         let dataAndSignature = await liqPay.cnb_object({
           'action': 'pay',
@@ -178,7 +191,6 @@ module.exports = {
           'product_category': productCategories,
           'product_name': productNames
         });
-
         return await dataAndSignature;
       }
     }

@@ -5,7 +5,7 @@
  *
  * @description: A set of functions called "actions" for managing `Callback`.
  */
-const {base64decode } = require('nodejs-base64');
+const {base64decode, base64encode } = require('nodejs-base64');
 const NovaPoshta = require('novaposhta_3');
 module.exports = {
 
@@ -96,8 +96,7 @@ module.exports = {
               var year = date.getFullYear();
               return day + '.' + monthIndex + '.' + year;
             }
-
-            return await novaPoshta.counterparty.saveCounterparty({
+            let newPostData = await novaPoshta.counterparty.saveCounterparty({
               FirstName: order.deliveryInfo.name,
               MiddleName: '',
               LastName: order.deliveryInfo.surname,
@@ -144,17 +143,21 @@ module.exports = {
               }).catch(err => console.log(err));
 
             });
+
+            ctx.status=301;
+            ctx.redirect(`/order?postdata=${base64encode(JSON.stringify({data:newPostData, sign:'profumo.com.ua'}))}`);
+
           }
         } break;
         default:{
           strapi.services.order.edit({'_id': result.order_id},{status:result.status});
-          ctx.status=300;
-          ctx.redirect('/');
+          ctx.status=301;
+          ctx.redirect(`/order?postdata=${base64encode(JSON.stringify({data:{error:result.err_description}, sign:'profumo.com.ua'}))}`);
           break;
         }
       }
 
-    }else{
+    } else {
       return ctx.response.unauthorized('Bad ass');
     }
   },
