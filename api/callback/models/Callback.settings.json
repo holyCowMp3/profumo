@@ -96,16 +96,7 @@
     },
     "paytype": {
       "default": "",
-      "type": "enumeration",
-      "enum": [
-        "card",
-        "liqpay",
-        "privat24",
-        "masterpass",
-        "cash",
-        "invoice",
-        "qr"
-      ]
+      "type": "string"
     },
     "sender_card_mask2": {
       "default": "",
