@@ -93,18 +93,11 @@ class SelectOne extends React.Component {
         const options = isArray(response)
           ? map(response, item => ({
             value: item,
-            label: templateObject(
-              { mainField: this.props.relation.displayedAttribute },
-              item
-            ).mainField,
-          }))
+            label: templateObject({ mainField: this.props.relation.displayedAttribute }, item).mainField,}))
           : [
             {
               value: response,
-              label: templateObject(
-                { mainField: this.props.relation.displayedAttribute },
-                response
-              ).mainField,
+              label: templateObject({ mainField: this.props.relation.displayedAttribute }, response).mainField,
             },
           ];
 

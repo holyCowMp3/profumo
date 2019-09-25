@@ -43,7 +43,7 @@ class Dashboard extends Component {
   // }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    this.getStats();
+    // this.getStats();
     this.setState(nextProps);
   }
   //
