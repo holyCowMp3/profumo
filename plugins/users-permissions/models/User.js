@@ -8,15 +8,14 @@ module.exports = {
   // Before saving a value.
   // Fired before an `insert` or `update` query.
   beforeSave: async (model) => {
-    var now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDay());
-    model.createdAt= now;
+
   },
 
   // After saving a value.
   // Fired after an `insert` or `update` query.
-  afterSave: async (model, result) => {
-    Cart.create({body:[],owner:result._id});
-  },
+  // afterSave: async (model, result) => {
+  //
+  // },
 
   // Before fetching all values.
   // Fired before a `fetchAll` operation.
@@ -35,11 +34,17 @@ module.exports = {
 
   // Before creating a value.
   // Fired before `insert` query.
-  // beforeCreate: async (model) => {},
+  beforeCreate: async (model) => {
+    var now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDay());
+    model.createdAt= now;
+  },
 
   // After creating a value.
   // Fired after `insert` query.
-  // afterCreate: async (model, result) => {},
+  afterCreate: async (model, result) => {
+    Cart.create({body:[],owner:result._id});
+
+  },
 
   // Before updating a value.
   // Fired before an `update` query.

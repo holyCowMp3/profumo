@@ -111,10 +111,12 @@ module.exports = {
             minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
           }
         }
-        price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) *
-        product.count>productFromDb.amount?productFromDb.amount:product.count);
+
+        price += ((productFromDb.discounts ? productFromDb.price-minusPrice:productFromDb.price) *
+        product.count>=productFromDb.amount?productFromDb.amount:product.count);
         productCategories += category.name_ru + '\n';
         productNames += productFromDb.name_ru + '\n';
+
       }
     }
 
@@ -156,7 +158,6 @@ module.exports = {
               DateTime:formatDate(new Date())
             }
           ).then(json => {
-
             order.newpost = json.data;
             strapi.services.order.edit({'_id':order._id}, order);
             return json.data;

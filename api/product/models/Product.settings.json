@@ -66,6 +66,14 @@
       "default": "",
       "type": "string"
     },
+    "gift_status": {
+      "default": false,
+      "type": "boolean"
+    },
+    "gift_text": {
+      "default": "",
+      "type": "text"
+    },
     "name_rozetka": {
       "default": "",
       "type": "string"
