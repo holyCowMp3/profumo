@@ -8,9 +8,10 @@ module.exports = {
   // Before saving a value.
   // Fired before an `insert` or `update` query.
   beforeSave: async (model) => {
+    console.log(model);
     if(model.amount<=0) {
-      model.amount=0;
-      model.avaliable =false;
+      model.amount= await 0;
+      model.avaliable = await false;
     }
   },
 
@@ -51,7 +52,13 @@ module.exports = {
 
   // Before updating a value.
   // Fired before an `update` query.
-  // beforeUpdate: async (model) => {},
+  beforeUpdate: async (model) => {
+    console.log(model);
+    if(model.amount<=0) {
+      model.amount= await 0;
+      model.avaliable = await false;
+    }
+  },
 
   // After updating a value.
   // Fired after an `update` query.
