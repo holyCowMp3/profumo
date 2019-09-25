@@ -121,11 +121,16 @@ module.exports = {
             minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
           }
         }
-
+        console.log(product);
+        console.log(productFromDb);
+        console.log(minusPrice + " THIS is MINUS PRICE");
+        console.log(price + " AMOUNT OF MONEY");
+        console.log()
         price += ((productFromDb.discounts ? productFromDb.price - minusPrice : productFromDb.price) *
         product.count >= productFromDb.amount ? productFromDb.amount : product.count);
-        productCategories += category.name_ru + '\n';
-        productNames += productFromDb.name_ru + '\n';
+        console.log()
+        console.log(price + " AMOUNT OF MONEY");
+        console.log();
       }
     }
 
@@ -187,9 +192,7 @@ module.exports = {
           'currency': 'UAH',
           'order_id': order._id,
           'version': '3',
-          'customer': ctx.state.user ? ctx.state.user._id : 'public_user',
-          'product_category': productCategories,
-          'product_name': productNames
+          'customer': ctx.state.user ? ctx.state.user._id : 'public_user'
         });
         return await dataAndSignature;
       }
