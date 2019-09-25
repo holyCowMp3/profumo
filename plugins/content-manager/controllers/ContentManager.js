@@ -286,6 +286,13 @@ module.exports = {
           strapi.services.category.edit({'_id':cat._id}, {parent:cat.parent});
         });
       }
+      if (ctx.request.body.fields.amount){
+        let body = ctx.request.body.fields;
+        let  amount  = await JSON.parse(body.amount);
+        if (ctx.body.amount <=0){
+          strapi.services.product.edit({'_id':ctx.body._id}, {avaliable:false});
+        }
+      }
 
     } catch(error) {
       // TODO handle error update
