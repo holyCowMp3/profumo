@@ -87,8 +87,7 @@ module.exports = {
     ctx.request.body.status = 'processing';
     let order = await strapi.services.order.add(ctx.request.body);
     let price = 0;
-    let productCategories = '';
-    let productNames = '';
+
     var now = new Date(new Date().getFullYear() + 1, new Date().getMonth());
     var isoString = now.toISOString();
     for (let product of order.orders) {
@@ -111,16 +110,14 @@ module.exports = {
           }]
         }
       );
-      if(productFromDb.avaliable && productFromDb.amount>0) {
+      if (productFromDb.avaliable && productFromDb.amount > 0) {
         let category = await strapi.services.category.fetch({'_id': productFromDb.category});
         let minusPrice = 0;
-        if (category.discount && category.discount.expirate_date.getTime()>new Date().getTime()) {
+        if (category.discount && category.discount.expirate_date.getTime() > new Date().getTime()) {
           minusPrice = (productFromDb.price * (category.discount.percent / 100));
         } else {
-          if (productFromDb.discount && productFromDb.discount.expirate_date.getTime()>new Date().getTime()) {
-            for (let disc of productFromDb.discount) {
-              minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
-            }
+          if (productFromDb.discount && productFromDb.discount.expirate_date.getTime() > new Date().getTime()) {
+            minusPrice += (productFromDb.discount.percent / 100) * (productFromDb.price - minusPrice);
           }
           let count = product.count >= productFromDb.amount ? productFromDb.amount : product.count;
           let subPrice = productFromDb.discount ? (productFromDb.price - minusPrice) : productFromDb.price;

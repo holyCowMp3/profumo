@@ -207,9 +207,7 @@ module.exports = {
       minusPrice = (result.price * (category.discount.percent / 100));
     } else {
       if (result.discount && result.discount.expirate_date.getTime() > new Date().getTime()) {
-        for (let disc of result.discount) {
-          minusPrice += (disc.percent / 100) * (result.price - minusPrice);
-        }
+        minusPrice += (result.discount.percent / 100) * (result.price - minusPrice);
       }
       newRes.discount_price = result.discount ? (result.price - minusPrice) : result.price;
     }
