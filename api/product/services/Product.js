@@ -25,9 +25,9 @@ module.exports = {
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
     console.log(populateOpt);
-    if (params.properties){
+    if (params['properties._id']){
       console.log(filters);
-      return Product.all({properties: params['properties._id']}).where(filters);
+      return Product.where('properties').all(params['properties._id']);
     }
     return buildQuery({
       model: Product,
