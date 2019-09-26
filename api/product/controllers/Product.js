@@ -209,7 +209,7 @@ module.exports = {
       if (result.discount && result.discount.expirate_date.getTime() > new Date().getTime()) {
         minusPrice += (result.discount.percent / 100) * (result.price - minusPrice);
       }
-      newRes.discount_price = result.discount ? (result.price - minusPrice) : result.price;
+      newRes.discount_price = result.discount ? (result.price - minusPrice) : 0;
     }
     return Promise.resolve(newRes);
   },

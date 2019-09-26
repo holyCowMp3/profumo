@@ -19,11 +19,16 @@ module.exports = {
 
   fetchAll: (params, populate) => {
     console.log(params);
+
     const filters = convertRestQueryParams(params);
     const populateOpt = populate || Product.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
     console.log(populateOpt);
+    if (params.properties){
+      console.log(filters);
+      return Product.all({properties: params['properties._id']}).where(filters);
+    }
     return buildQuery({
       model: Product,
       filters,
