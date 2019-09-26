@@ -45,7 +45,23 @@ module.exports = {
   },
 
   find: async (ctx, next, {populate} = {}) => {
-
+    /**
+     * Returns TRUE if the first specified array contains all elements
+     * from the second one. FALSE otherwise.
+     *
+     * @param {array} superset
+     * @param {array} subset
+     *
+     * @returns {boolean}
+     */
+    function arrayContainsArray (superset, subset) {
+      if (0 === subset.length) {
+        return false;
+      }
+      return subset.every(function (value) {
+        return (superset.indexOf(value) >= 0);
+      });
+    }
     if (ctx.query._q) {
       return await strapi.services.product.search(ctx.query).filter(res => {
         return res.properties.some(r =>ctx.query['properties._id'].includes(r));
@@ -60,7 +76,7 @@ module.exports = {
           console.log(filteredProps);
           console.log(mapped);
           console.log(mapped.some(r =>filteredProps.includes(r)));
-          return mapped.some(r =>filteredProps.includes(r));
+          return arrayContainsArray(mapped, filteredProps);
         });
       }
       return  strapi.services.product.fetchAll(ctx.query, populate);
