@@ -28,7 +28,6 @@ module.exports = {
     if (params['properties._id']) {
       console.log(params['properties._id']);
 
-      console.log(res);
       return Product.where('properties').all(params['properties._id']).populate();
     }
     return buildQuery({
