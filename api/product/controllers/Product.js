@@ -47,9 +47,13 @@ module.exports = {
   find: async (ctx, next, {populate} = {}) => {
 
     if (ctx.query._q) {
-      return strapi.services.product.search(ctx.query);
+      return strapi.services.product.search(ctx.query).filter(res => {
+        return res.properties.some(r =>ctx.query['properties._id'].includes(r));
+      });;
     } else {
-      return strapi.services.product.fetchAll(ctx.query, populate);
+      return strapi.services.product.fetchAll(ctx.query, populate).filter(res => {
+        return res.properties.some(r =>ctx.query['properties._id'].includes(r));
+      });;
     }
   },
   build: async (ctx) => {

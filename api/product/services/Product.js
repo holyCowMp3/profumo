@@ -31,8 +31,6 @@ module.exports = {
         model: Product,
         filters,
         populate: populateOpt,
-      }).filter(res => {
-        return res.properties.some(r =>params['properties._id'].includes(r));
       });
     }
     return buildQuery({
