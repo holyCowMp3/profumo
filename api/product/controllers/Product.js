@@ -58,6 +58,7 @@ module.exports = {
           console.log(res.properties);
           let mapped =res.properties.map(s => s._id.toString());
           console.log(mapped);
+          console.log(mapped.some(r =>filteredProps.includes(r)));
           return mapped.some(r =>filteredProps.includes(r));
         });
       }
