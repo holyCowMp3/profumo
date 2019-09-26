@@ -107,7 +107,8 @@
       "via": "products"
     },
     "discount_price": {
-      "type": "float"
+      "type": "float",
+      "default": "0"
     }
   }
 }
