@@ -292,16 +292,16 @@ module.exports = {
         let category = await strapi.services.category.fetch({'_id': ctx.body.category});
         let result = ctx.body;
         let minusPrice = 0;
+
         if (category.discount && category.discount.expirate_date.getTime() > new Date().getTime()) {
           minusPrice = (result.price * (category.discount.percent / 100));
         } else {
           if (result.discount && result.discount.expirate_date.getTime() > new Date().getTime()) {
             minusPrice += (result.discount.percent / 100) * (result.price - minusPrice);
           }
-          let discount_price = result.discount ? (result.price - minusPrice) : 0;
-          if (ctx.body.amount <=0){
-            strapi.services.product.edit({'_id':ctx.body._id}, {discount_price:discount_price});
-          }
+          let discount_pr = result.discount ? (result.price - minusPrice) : 0;
+          strapi.services.product.edit({'_id':ctx.body._id}, {discount_price:discount_pr});
+
         }
         if (ctx.body.amount <=0){
           strapi.services.product.edit({'_id':ctx.body._id}, {avaliable:false});
