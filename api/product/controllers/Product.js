@@ -46,7 +46,7 @@ module.exports = {
 
   find: async (ctx, next, {populate} = {}) => {
     console.log(populate);
-    console.log(ctx + " CTX");
+    console.log(ctx.query);
     if (ctx.query._q) {
       return strapi.services.product.search(ctx.query);
     } else {
