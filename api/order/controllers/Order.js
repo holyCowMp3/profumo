@@ -111,7 +111,7 @@ module.exports = {
           }]
         }
       );
-      if(productFromDb.avaliable) {
+      if(productFromDb.avaliable && productFromDb.amount>0) {
         let category = await strapi.services.category.fetch({'_id': productFromDb.category});
         let minusPrice = 0;
         if (category.discount && category.discount.expirate_date.getTime()>new Date().getTime()) {
