@@ -174,7 +174,11 @@ module.exports = {
             strapi.services.order.edit({'_id': order._id}, order);
             for (let product of order.orders) {
               strapi.services.product.fetch({'_id': product.product.id}).then(res => {
-                strapi.services.product.edit({'_id': product.product.id}, {amount: res.amount - product.count <= 0 ? 0 : res.amount - product.count});
+                let am = ((res.amount - product.count )<= 0)? 0:res.amount - product.count;
+                strapi.services.product.edit({'_id': product.product.id}, {amount: am});
+                if (am===0){
+                  strapi.services.product.edit({'_id': product.product.id}, {avaliable: false});
+                }
               }).catch(err => console.log(err));
             }
             return json.data;

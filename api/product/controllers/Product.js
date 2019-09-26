@@ -73,9 +73,6 @@ module.exports = {
         return await filtered.filter(res => {
 
           let mapped =res.properties.map(s => s._id.toString());
-          console.log(filteredProps);
-          console.log(mapped);
-          console.log(mapped.some(r =>filteredProps.includes(r)));
           return arrayContainsArray(mapped, filteredProps);
         });
       }
