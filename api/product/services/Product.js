@@ -27,10 +27,7 @@ module.exports = {
     console.log(populateOpt);
     if (params['properties._id']) {
       console.log(params['properties._id']);
-      let res = Product.where('properties').all(params['properties._id']).then(sd => {
-        console.log(sd)
-        return sd;
-      });
+      let res = Product.where('properties').all(params['properties._id']).populate(filters);
       console.log(res);
       return res;
     }
