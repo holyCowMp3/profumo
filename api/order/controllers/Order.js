@@ -90,6 +90,7 @@ module.exports = {
 
     var now = new Date(new Date().getFullYear() + 1, new Date().getMonth());
     var isoString = now.toISOString();
+    let deleteFromOrderArray = [];
     for (let product of order.orders) {
       let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
       if (product.count > productFromDb.amount) {
@@ -123,8 +124,14 @@ module.exports = {
           let subPrice = productFromDb.discount ? (productFromDb.price - minusPrice) : productFromDb.price;
           price += subPrice * count;
         }
+      } else {
+        deleteFromOrderArray.push(order.orders.indexOf(product));
       }
     }
+    for (let  i = 0; i <deleteFromOrderArray.length; i++) {
+      delete order.orders[deleteFromOrderArray[i]];
+    }
+    await strapi.services.order.edit({_id:order._id, order});
     let profumoCounterparty = '4187cb04-cd83-11e9-9937-005056881c6b';
     switch (order.type) {
       case 'nova_poshta': {
@@ -182,6 +189,9 @@ module.exports = {
         });
       }
       case 'liqpay': {
+        if(price===0){
+          return {error: 'Произошла ошибка, попробуйте оформить заказ снова'};
+        }
         let dataAndSignature = await liqPay.cnb_object({
           'action': 'pay',
           'amount': price,
