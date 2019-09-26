@@ -56,7 +56,7 @@ module.exports = {
         let filteredProps = ctx.query['properties._id'];
         return await filtered.filter(res => {
           console.log(res.properties);
-          let mapped =res.properties.map(s => s.id);
+          let mapped =res.properties.map(s => s._id.toString());
           console.log(mapped);
           return mapped.some(r =>filteredProps.includes(r));
         });
