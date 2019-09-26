@@ -18,6 +18,7 @@ module.exports = {
    */
 
   fetchAll: (params, populate) => {
+    console.log(params);
     const filters = convertRestQueryParams(params);
     const populateOpt = populate || Product.associations
       .filter(ast => ast.autoPopulate !== false)
