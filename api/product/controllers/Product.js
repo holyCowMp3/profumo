@@ -47,32 +47,25 @@ module.exports = {
   find: async (ctx, next, {populate} = {}) => {
     console.log(populate);
     if (ctx.query._q) {
-      return await strapi.services.product.search(ctx.query).map( async result  =>  {
-        let category = await strapi.services.category.fetch({'_id': result.category});
-        let minusPrice = 0;
-        if (category.discount && category.discount.expirate_date.getTime() > new Date().getTime()) {
-          minusPrice = (result.price * (category.discount.percent / 100));
-        } else {
-          if (result.discount && result.discount.expirate_date.getTime() > new Date().getTime()) {
-            minusPrice += (result.discount.percent / 100) * (result.price - minusPrice);
-          }
-          result.discount_price = result.discount ? (result.price - minusPrice) : result.price;
-          return result;
-        }
-      });
+      return strapi.services.product.search(ctx.query);
     } else {
-      return await strapi.services.product.fetchAll(ctx.query, populate).map( async result  =>  {
-        let category = await strapi.services.category.fetch({'_id': result.category});
-        let minusPrice = 0;
-        if (category.discount && category.discount.expirate_date.getTime() > new Date().getTime()) {
-          minusPrice = (result.price * (category.discount.percent / 100));
-        } else {
-          if (result.discount && result.discount.expirate_date.getTime() > new Date().getTime()) {
-            minusPrice += (result.discount.percent / 100) * (result.price - minusPrice);
-          }
-          result.discount_price = result.discount ? (result.price - minusPrice) : result.price;
-          return result;
-        }
+      return strapi.services.product.fetchAll(ctx.query, populate).then(res => {
+        return res.map(result => {
+          return strapi.services.category.fetch({'_id': result.category}).then(category => {
+              let minusPrice = 0;
+              if (category.discount && category.discount.expirate_date.getTime() > new Date().getTime()) {
+                minusPrice = (result.price * (category.discount.percent / 100));
+              } else {
+                if (result.discount && result.discount.expirate_date.getTime() > new Date().getTime()) {
+                  minusPrice += (result.discount.percent / 100) * (result.price - minusPrice);
+                }
+                result.discount_price = result.discount ? (result.price - minusPrice) : result.price;
+                return result;
+              }
+            }
+          );
+
+        });
       });
     }
   },
