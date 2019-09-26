@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "",
+  "collectionName": "discount",
   "info": {
     "name": "discount",
     "description": "Скидка | Скидки"
@@ -13,22 +13,21 @@
       "default": "",
       "type": "string"
     },
-    "expiration_date": {
-      "default": "",
-      "type": "integer"
-    },
     "percent": {
       "default": "",
       "max": 100,
       "type": "integer"
     },
-    "product": {
-      "model": "product",
-      "via": "discounts"
+    "products": {
+      "collection": "product",
+      "via": "discount"
     },
     "categories": {
       "collection": "category",
       "via": "discount"
+    },
+    "expirate_date": {
+      "type": "date"
     }
   }
 }

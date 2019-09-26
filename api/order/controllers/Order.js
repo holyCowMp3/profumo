@@ -111,22 +111,21 @@ module.exports = {
           }]
         }
       );
-      let category = await strapi.services.category.fetch({'_id': productFromDb.category});
-      let minusPrice = 0;
-      if (category.discount) {
-        minusPrice = (productFromDb.price * (category.discount.percent / 100));
-      } else {
-        if (productFromDb.discounts) {
-          for (let disc of productFromDb.discounts) {
-            minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
+      if(productFromDb.avaliable) {
+        let category = await strapi.services.category.fetch({'_id': productFromDb.category});
+        let minusPrice = 0;
+        if (category.discount && category.discount.expirate_date.getTime()>new Date().getTime()) {
+          minusPrice = (productFromDb.price * (category.discount.percent / 100));
+        } else {
+          if (productFromDb.discount && productFromDb.discount.expirate_date.getTime()>new Date().getTime()) {
+            for (let disc of productFromDb.discount) {
+              minusPrice += (disc.percent / 100) * (productFromDb.price - minusPrice);
+            }
           }
+          let count = product.count >= productFromDb.amount ? productFromDb.amount : product.count;
+          let subPrice = productFromDb.discount ? (productFromDb.price - minusPrice) : productFromDb.price;
+          price += subPrice * count;
         }
-
-        let count = product.count >= productFromDb.amount ? productFromDb.amount : product.count;
-        let subPrice = productFromDb.discounts ? (productFromDb.price - minusPrice) : productFromDb.price;
-
-        price += subPrice*count;
-
       }
     }
     let profumoCounterparty = '4187cb04-cd83-11e9-9937-005056881c6b';

@@ -40,11 +40,6 @@
       "model": "category",
       "via": "products"
     },
-    "discounts": {
-      "model": "discount",
-      "via": "product"
-    },
-
     "name_en": {
       "default": "",
       "type": "string"
@@ -107,6 +102,10 @@
     },
     "promocodes": {
       "model": "promocode"
+    },
+    "discount": {
+      "model": "discount",
+      "via": "products"
     }
   }
 }
