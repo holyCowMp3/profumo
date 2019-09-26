@@ -53,8 +53,9 @@ module.exports = {
     } else {
       if(ctx.query['properties._id']){
         let filtered=  await strapi.services.product.fetchAll(ctx.query, populate);
-        console.log(filtered);
+
         return await filtered.filter(res => {
+          console.log(res.properties);
           return res.properties.some(r =>ctx.query['properties._id'].includes(r));
         });
       }
