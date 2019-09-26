@@ -16,8 +16,8 @@
       "model": "category",
       "via": "promocodes"
     },
-    "products": {
-      "collection": "product",
+    "undefined": {
+      "model": "product",
       "via": "promocodes"
     }
   }

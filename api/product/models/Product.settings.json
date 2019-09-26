@@ -63,7 +63,6 @@
       "type": "string"
     },
     "gift_status": {
-      "default": false,
       "type": "boolean"
     },
     "gift_text": {
@@ -106,6 +105,9 @@
     "discount": {
       "model": "discount",
       "via": "products"
+    },
+    "discount_price": {
+      "type": "float"
     }
   }
 }

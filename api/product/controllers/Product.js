@@ -23,24 +23,24 @@ module.exports = {
    */
   recommendationPoint: async (ctx, callback) => {
     return await client.POST('/recommendations', {
-      'namespace': 'products',
-      'thing': ctx.params._id,
-      'configuration': {
-        'actions': {'view': 5, 'buy': 10}
+        'namespace': 'products',
+        'thing': ctx.params._id,
+        'configuration': {
+          'actions': {'view': 5, 'buy': 10}
+        }
       }
-    }
-    ).then(res =>res.recommendations.map(i => i.thing))
+    ).then(res => res.recommendations.map(i => i.thing))
       .catch(error => console.log(error));
   },
   recommendationsPersonal: async (ctx) => {
     return await client.POST('/recommendations', {
-      'namespace': 'products',
-      'person': ctx.state.user ? ctx.state.user._id : 'public_user',
-      'configuration': {
-        'actions': {'view': 5, 'buy': 10}
+        'namespace': 'products',
+        'person': ctx.state.user ? ctx.state.user._id : 'public_user',
+        'configuration': {
+          'actions': {'view': 5, 'buy': 10}
+        }
       }
-    }
-    ).then(res =>res.recommendations.map(i => i.thing))
+    ).then(res => res.recommendations.map(i => i.thing))
       .catch(error => console.log(error));
   },
 
@@ -48,7 +48,7 @@ module.exports = {
     if (ctx.query._q) {
 
       return strapi.services.product.search(ctx.query);
-     } else {
+    } else {
       return strapi.services.product.fetchAll(ctx.query, populate);
     }
   },
@@ -165,12 +165,12 @@ module.exports = {
     if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
       return ctx.notFound();
     }
-    var now = new Date(new Date().getFullYear()+1, new Date().getMonth());
+    var now = new Date(new Date().getFullYear() + 1, new Date().getMonth());
     var isoString = now.toISOString();
     client.POST('/events', {
       events: [{
         'namespace': 'products',
-        'person': ctx.state.user?ctx.state.user._id:'public_user',
+        'person': ctx.state.user ? ctx.state.user._id : 'public_user',
         'action': 'view',
         'thing': ctx.params._id,
         'expires_at': isoString
@@ -200,6 +200,18 @@ module.exports = {
     } catch (e) {
       console.log(e);
       newRes.recommendations = [];
+    }
+    let category = await strapi.services.category.fetch({'_id': result.category});
+    let minusPrice = 0;
+    if (category.discount && category.discount.expirate_date.getTime() > new Date().getTime()) {
+      minusPrice = (result.price * (category.discount.percent / 100));
+    } else {
+      if (result.discount && result.discount.expirate_date.getTime() > new Date().getTime()) {
+        for (let disc of result.discount) {
+          minusPrice += (disc.percent / 100) * (result.price - minusPrice);
+        }
+      }
+      newRes.discount_price = result.discount ? (result.price - minusPrice) : result.price;
     }
     return Promise.resolve(newRes);
   },
