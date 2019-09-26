@@ -19,17 +19,17 @@ module.exports = {
 
   fetchAll: (params, populate) => {
     const filters = convertRestQueryParams(params);
-
     const populateOpt = populate || Product.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
-
+    console.log(populateOpt);
     return buildQuery({
       model: Product,
       filters,
       populate: populateOpt,
     });
-  },
+
+    },
 
 
   /**
@@ -155,6 +155,7 @@ module.exports = {
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Mongo.
+    console.log(params);
     const filters = strapi.utils.models.convertParams('product', params);
     // Select field to populate.
     const populate = Product.associations
@@ -170,7 +171,6 @@ module.exports = {
           if (!_.isNaN(_.toNumber(params._q))) {
             return acc.concat({ [curr]: params._q });
           }
-
           return acc;
         case 'string':
         case 'text':
@@ -180,13 +180,11 @@ module.exports = {
           if (params._q === 'true' || params._q === 'false') {
             return acc.concat({ [curr]: params._q === 'true' });
           }
-
           return acc;
         default:
           return acc;
       }
     }, []);
-
     return Product
       .find({ $or })
       .sort(filters.sort)
