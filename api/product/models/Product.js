@@ -28,21 +28,9 @@ module.exports = {
 
   // Before fetching all values.
   // Fired before a `fetchAll` operation.
-  beforeFetchAll: async (model) => {
-    for (let result in  await model) {
-      console.log(result);
-      let category = await strapi.services.category.fetch({'_id': model[result].category});
-      let minusPrice = 0;
-      if (category.discount && category.discount.expirate_date.getTime() > new Date().getTime()) {
-        minusPrice = (model[result].price * (category.discount.percent / 100));
-      } else {
-        if (model[result].discount && model[result].discount.expirate_date.getTime() > new Date().getTime()) {
-          minusPrice += (model[result].discount.percent / 100) * (model[result].price - minusPrice);
-        }
-        model[result].discount_price = model[result].discount ? (model[result].price - minusPrice) : model[result].price;
-      }
-    }
-  },
+  // beforeFetchAll: async (model) => {
+  //
+  // },
 
   // After fetching all values.
   // Fired after a `fetchAll` operation.
