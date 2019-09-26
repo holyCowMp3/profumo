@@ -27,8 +27,11 @@ module.exports = {
     console.log(populateOpt);
     if (params['properties._id']) {
       console.log(params['properties._id']);
-
-      return Product.find().where('properties').all(params['properties._id'].map( id => ({_id:id}))).populate('product');
+      return buildQuery({
+        model: Product,
+        filters,
+        populate: populateOpt,
+      }).all(params['properties._id'].map( id => ({_id:id})))
     }
     return buildQuery({
       model: Product,
