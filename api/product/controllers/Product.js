@@ -51,9 +51,13 @@ module.exports = {
         return res.properties.some(r =>ctx.query['properties._id'].includes(r));
       });
     } else {
-      return await strapi.services.product.fetchAll(ctx.query, populate).filter(res => {
-        return  res.properties.some(r =>ctx.query['properties._id'].includes(r));
-      });;
+      if(ctx.query['properties._id']){
+        let filtered=  await strapi.services.product.fetchAll(ctx.query, populate);
+        return filtered.filter(res => {
+          return res.properties.some(r =>ctx.query['properties._id'].includes(r));
+        });
+      }
+      return  strapi.services.product.fetchAll(ctx.query, populate);
     }
   },
   build: async (ctx) => {
