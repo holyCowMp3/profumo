@@ -186,12 +186,24 @@ module.exports = {
       type: 'plugin',
       name: 'users-permissions'
     }).get({ key: 'email' }))['reset_password'].options;
-
-    settings.message = await strapi.plugins['users-permissions'].services.userspermissions.template(settings.message, {
-      URL: url,
-      USER: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken', 'role', 'provider']),
-      TOKEN: resetPasswordToken
-    });
+    let phones =  await strapi.services.contacts.fetchAll();
+    if(phones) {
+      let phone1 = phones[0].phones.split(",")[0];
+      let phone2 = phones[0].phones.split(",")[1];
+      settings.message = await strapi.plugins['users-permissions'].services.userspermissions.template(settings.message, {
+        URL: url,
+        USER: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken', 'role', 'provider']),
+        TOKEN: resetPasswordToken,
+        PHONE1: phone1,
+        PHONE2: phone2
+      });
+    } else {
+      settings.message = await strapi.plugins['users-permissions'].services.userspermissions.template(settings.message, {
+        URL: url,
+        USER: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken', 'role', 'provider']),
+        TOKEN: resetPasswordToken,
+      });
+    }
 
     settings.object = await strapi.plugins['users-permissions'].services.userspermissions.template(settings.object, {
       USER: _.omit(user.toJSON ? user.toJSON() : user, ['password', 'resetPasswordToken', 'role', 'provider'])
