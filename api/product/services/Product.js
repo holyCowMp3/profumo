@@ -31,7 +31,9 @@ module.exports = {
         model: Product,
         filters,
         populate: populateOpt,
-      }).all(params['properties._id'].map( id => ({_id:id})))
+      }).filter(res => {
+        return res.properties.some(r =>params['properties._id'].includes(r));
+      });
     }
     return buildQuery({
       model: Product,
