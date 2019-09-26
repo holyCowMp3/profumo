@@ -8,7 +8,7 @@
 
 // Public dependencies.
 const _ = require('lodash');
-const { convertRestQueryParams, buildQuery } = require('strapi-utils');
+const {convertRestQueryParams, buildQuery} = require('strapi-utils');
 module.exports = {
 
   /**
@@ -25,10 +25,14 @@ module.exports = {
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
     console.log(populateOpt);
-    if (params['properties._id']){
-     let res = Product.where('properties').all(params['properties._id']);
-     console.log(res);
-     return res;
+    if (params['properties._id']) {
+      console.log(params['properties._id']);
+      let res = Product.where('properties').all(params['properties._id']).then(sd => {
+        console.log(sd)
+        return sd;
+      });
+      console.log(res);
+      return res;
     }
     return buildQuery({
       model: Product,
@@ -36,14 +40,14 @@ module.exports = {
       populate: populateOpt,
     });
 
-    },
+  },
 
 
   /**
-     * Promise to fetch a/an product.
-     *
-     * @return {Promise}
-     */
+   * Promise to fetch a/an product.
+   *
+   * @return {Promise}
+   */
 
   fetch: (params) => {
     // Select field to populate.
@@ -68,7 +72,7 @@ module.exports = {
 
     return buildQuery({
       model: Product,
-      filters: { where: filters.where },
+      filters: {where: filters.where},
     })
       .count();
 
@@ -89,7 +93,7 @@ module.exports = {
     const entry = await Product.create(data);
 
     // Create relational data and return the entry.
-    return Product.updateRelations({ _id: entry.id, values: relations });
+    return Product.updateRelations({_id: entry.id, values: relations});
   },
 
   /**
@@ -104,10 +108,10 @@ module.exports = {
     const data = _.omit(values, Product.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Product.updateOne(params, data, { multi: true });
+    const entry = await Product.updateOne(params, data, {multi: true});
 
     // Update relational data and return the entry.
-    return Product.updateRelations(Object.assign(params, { values: relations }));
+    return Product.updateRelations(Object.assign(params, {values: relations}));
   },
 
   /**
@@ -139,15 +143,15 @@ module.exports = {
           return true;
         }
 
-        const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
-        const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
+        const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? {[association.via]: data._id} : {[association.via]: {$in: [data._id]}};
+        const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? {[association.via]: null} : {$pull: {[association.via]: data._id}};
 
         // Retrieve model.
         const model = association.plugin ?
           strapi.plugins[association.plugin].models[association.model || association.collection] :
           strapi.models[association.model || association.collection];
 
-        return model.update(search, update, { multi: true });
+        return model.update(search, update, {multi: true});
       })
     );
 
@@ -176,16 +180,16 @@ module.exports = {
         case 'float':
         case 'decimal':
           if (!_.isNaN(_.toNumber(params._q))) {
-            return acc.concat({ [curr]: params._q });
+            return acc.concat({[curr]: params._q});
           }
           return acc;
         case 'string':
         case 'text':
         case 'password':
-          return acc.concat({ [curr]: { $regex: params._q, $options: 'i' } });
+          return acc.concat({[curr]: {$regex: params._q, $options: 'i'}});
         case 'boolean':
           if (params._q === 'true' || params._q === 'false') {
-            return acc.concat({ [curr]: params._q === 'true' });
+            return acc.concat({[curr]: params._q === 'true'});
           }
           return acc;
         default:
@@ -193,7 +197,7 @@ module.exports = {
       }
     }, []);
     return Product
-      .find({ $or })
+      .find({$or})
       .sort(filters.sort)
       .skip(filters.start)
       .limit(filters.limit)
