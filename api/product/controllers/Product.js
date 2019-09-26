@@ -56,7 +56,9 @@ module.exports = {
         let filteredProps = ctx.query['properties._id'];
         return await filtered.filter(res => {
           console.log(res.properties);
-          return res.properties.map(s => s.id).some(r =>filteredProps.includes(r));
+          let mapped =res.properties.map(s => s.id);
+          console.log(mapped);
+          return mapped.some(r =>filteredProps.includes(r));
         });
       }
       return  strapi.services.product.fetchAll(ctx.query, populate);
