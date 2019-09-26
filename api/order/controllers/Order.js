@@ -179,11 +179,8 @@ module.exports = {
             }
             return json.data;
           }).catch(err => {
-            ctx.status = 301;
-            ctx.redirect(`/order?postdata=${base64encode(JSON.stringify({
-              data: {error: err},
-              sign: 'profumo.com.ua'
-            }))}`);
+            ctx.status = 200;
+            return {data: {error: err}, sign: 'profumo.com.ua'};
           });
 
         });

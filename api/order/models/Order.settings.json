@@ -18,7 +18,8 @@
         "failure",
         "processing",
         "revoke",
-        "in_post"
+        "in_post",
+        "ordered"
       ]
     },
     "owner": {
