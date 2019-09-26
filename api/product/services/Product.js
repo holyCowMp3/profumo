@@ -28,7 +28,7 @@ module.exports = {
     if (params['properties._id']) {
       console.log(params['properties._id']);
 
-      return Product.where('properties').all(params['properties._id']).populate();
+      return Product.where('properties').all(params['properties._id'].map( id => ({_id:id}))).populate();
     }
     return buildQuery({
       model: Product,
