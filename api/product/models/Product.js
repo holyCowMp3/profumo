@@ -20,7 +20,7 @@ module.exports = {
   // After saving a value.
   // Fired after an `insert` or `update` query.
   afterSave: async (model, result) => {
-    console.log(result);
+    console.log(result.amount + ' !!!!!!! UPDATED');
     if (result.amount <= 0) {
       await strapi.services.product.edit({_id: result._id}, {avaliable: false});
     }
@@ -73,7 +73,12 @@ module.exports = {
 
   // After updating a value.
   // Fired after an `update` query.
-  // afterUpdate: async (model, result) => {},
+  afterUpdate: async (model, result) => {
+    console.log(result.amount + ' !!!!!!! UPDATED');
+    if (result.amount <= 0) {
+      await strapi.services.product.edit({_id: result._id}, {avaliable: false});
+    }
+  },
 
   // Before destroying a value.
   // Fired before a `delete` query.
