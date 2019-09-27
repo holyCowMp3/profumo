@@ -143,9 +143,10 @@ module.exports = {
                 order.status = statusMap[result.status];
                 strapi.services.order.edit({'_id': order._id}, order);
                 return json.data;
-              }).catch(err => ({data:{error:err}, sign:'profumo.com.ua'}));
+              }).catch(err => ({error:err}));
 
             });
+
 
             ctx.status=301;
             let data ={data:newPostData, sign:'profumo.com.ua'};

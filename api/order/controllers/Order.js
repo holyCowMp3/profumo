@@ -91,6 +91,8 @@ module.exports = {
     var now = new Date(new Date().getFullYear() + 1, new Date().getMonth());
     var isoString = now.toISOString();
     let deleteFromOrderArray = [];
+    let orderStr = '';
+    let index=1;
     for (let product of order.orders) {
       let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
       if (product.count > productFromDb.amount) {
@@ -127,11 +129,45 @@ module.exports = {
       } else {
         deleteFromOrderArray.push(order.orders.indexOf(product));
       }
+      orderStr+= `<tr>
+    <td style="border: 1px solid gray;">${index++}</td>
+    <td style="border: 1px solid gray;">
+        <img src="https://profumo.com.ua" + ${productFromDb.photos?productFromDb.photos[0].url:''} style="maxHeight: 50px; max-width: 50px; object-fit: contain;"/>
+    </td>
+    <td style="border: 1px solid gray;">
+    <a href="https://profumo.com.ua/product/" + ${product.product.id}>${productFromDb.name_ru}</a>
+    </td>
+    <td style="border: 1px solid gray;">${productFromDb.discount_price===0?productFromDb.price:productFromDb.discount_price} грн.</td>
+    <td style="border: 1px solid gray;">${product.count}</td>
+    <td style="border: 1px solid gray;">${(productFromDb.discount_price===0?productFromDb.price:productFromDb.discount_price) * product.count} грн.</td>
+</tr>`;
     }
     for (let  i = 0; i <deleteFromOrderArray.length; i++) {
       delete order.orders[deleteFromOrderArray[i]];
     }
     await strapi.services.order.edit({_id:order._id, order});
+    if(ctx.state.user) {
+      let fs = require('fs');
+      let raw = fs.readFileSync('./order.html');
+      let emailText = raw.toString();
+      emailText.replace('<123456>', orderStr);
+      emailText.replace('${user}', ctx.state.user ? ctx.state.user.name : 'Пользователь');
+      let phones = await strapi.services.contacts.fetchAll();
+      if (phones) {
+        let phone1 = phones[0].phones.split(',')[0];
+        let phone2 = phones[0].phones.split(',')[1];
+        emailText.replace('<%= PHONE1 %>', phone1);
+        emailText.replace('<%= PHONE2 %>', phone2);
+      }
+      await strapi.plugins['email'].services.email.send({
+        to: ctx.state.user.email,
+        from: 'robot@profumo.com.ua',
+        replyTo: 'no-reply@profumo.com.ua',
+        subject: 'Оформление заказа',
+        text: 'Заказ №' + order._id,
+        html: emailText
+      });
+    }
     let profumoCounterparty = '4187cb04-cd83-11e9-9937-005056881c6b';
     switch (order.type) {
       case 'nova_poshta': {
