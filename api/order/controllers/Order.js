@@ -96,12 +96,7 @@ module.exports = {
     for (let product of order.orders) {
       let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
       if (product.count > productFromDb.amount) {
-        ctx.status = 301;
-        ctx.redirect(`/order?postdata=${encodeURIComponent(base64encode(JSON.stringify({
-          data: {error: 'Вы попытались купить больше товаров, чем есть у нас на сайте, попробуйте создать заказ еще раз'},
-          sign: 'profumo.com.ua'
-        })))}`);
-        return;
+        return {error: 'Вы попытались купить больше товаров, чем есть у нас на сайте, попробуйте создать заказ еще раз'};
       }
       client.POST('/events', {
           events: [{
@@ -147,6 +142,8 @@ module.exports = {
     }
     await strapi.services.order.edit({_id:order._id, order});
     if(ctx.state.user) {
+      console.log(ctx.state.user);
+      console.log("SENDING EMAIL!");
       let fs = require('fs');
       let raw = fs.readFileSync('./order.html');
       let emailText = raw.toString();
