@@ -730,12 +730,12 @@ export class ListPage extends React.Component {
             )}
             <div className={cn('row', styles.row)}>
               <div className="col-md-12">
-                {this.getCurrentModelName() == 'category' ?
+                {this.getCurrentModelName() === 'category' ?
                   <TreeOfCategories
                     redirectUrl={this.generateRedirectURI()}
                     route={this.props.match}
                     routeParams={this.props.match.params}
-                  /> : this.getCurrentModelName() == 'order' ?
+                  /> : this.getCurrentModelName() === 'order' ?
                     <Fragment>
                       <h2>Новые заказы</h2>
                       <Table

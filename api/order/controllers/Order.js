@@ -147,8 +147,8 @@ module.exports = {
       let fs = require('fs');
       let raw = fs.readFileSync('./order.html');
       let emailText = raw.toString();
-      emailText.replace('<123456>', orderStr);
-      emailText.replace('${user}', ctx.state.user ? ctx.state.user.name : 'Пользователь');
+      emailText.replace(/1234566/g, orderStr);
+      emailText.replace(/user/g, ctx.state.user ? ctx.state.user.name : 'Пользователь');
       let phones = await strapi.services.contacts.fetchAll();
       if (phones) {
         let phone1 = phones[0].phones.split(',')[0];
