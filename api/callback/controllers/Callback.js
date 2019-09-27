@@ -5,7 +5,7 @@
  *
  * @description: A set of functions called "actions" for managing `Callback`.
  */
-const {base64decode, base64encode } = require('nodejs-base64');
+const {base64decode, base64encode} = require('nodejs-base64');
 const NovaPoshta = require('novaposhta_3');
 module.exports = {
 
@@ -88,10 +88,16 @@ module.exports = {
                 }
                 let count = product.count >= productFromDb.amount ? productFromDb.amount : product.count;
                 let subPrice = productFromDb.discounts ? (productFromDb.price - minusPrice) : productFromDb.price;
-                price += subPrice*count;
-                strapi.services.product.edit({'_id': product.product.id}, {amount: (productFromDb.amount - product.count <= 0) ? 0 : productFromDb.amount - product.count});
+                price += subPrice * count;
+                let amount = (productFromDb.amount - product.count <= 0) ? 0 : productFromDb.amount - product.count;
+                if (amount === 0) {
+                  strapi.services.product.edit({'_id': product.product.id}, {amount: amount, avaliable: false});
+                } else {
+                  strapi.services.product.edit({'_id': product.product.id}, {amount: amount});
+                }
               }
             }
+
             // eslint-disable-next-line no-inner-declarations
             function formatDate(date) {
               var day = date.getDate();
@@ -99,6 +105,7 @@ module.exports = {
               var year = date.getFullYear();
               return day + '.' + monthIndex + '.' + year;
             }
+
             let newPostData = await novaPoshta.counterparty.saveCounterparty({
               FirstName: order.deliveryInfo.name,
               MiddleName: '',
@@ -134,32 +141,35 @@ module.exports = {
                 }
               ).then(json => {
                 order.newpost = json.data;
-                let statusMap = {delivered:'Успешно доставлено',
-                  error:'Произошла ошибка',
-                  processing:'В обработке',
-                  onPost:'Передан в службу доставки',
-                  success:'Новый заказ',
-                  revoke:'Отказ клиента'};
+                let statusMap = {
+                  delivered: 'Успешно доставлено',
+                  error: 'Произошла ошибка',
+                  processing: 'В обработке',
+                  onPost: 'Передан в службу доставки',
+                  success: 'Новый заказ',
+                  revoke: 'Отказ клиента'
+                };
                 order.status = statusMap[result.status];
                 strapi.services.order.edit({'_id': order._id}, order);
                 return json.data;
-              }).catch(err => ({error:err}));
+              }).catch(err => ({error: err}));
 
             });
 
 
-            ctx.status=301;
-            let data ={data:newPostData, sign:'profumo.com.ua'};
-            let str =encodeURIComponent(base64encode(JSON.stringify(data)));
+            ctx.status = 301;
+            let data = {data: newPostData, sign: 'profumo.com.ua'};
+            let str = encodeURIComponent(base64encode(JSON.stringify(data)));
             ctx.redirect(`/order?postdata=${str}`);
 
           }
-        } break;
-        default:{
-          strapi.services.order.edit({'_id': result.order_id},{status:result.status});
-          ctx.status=301;
-          let value = {data:{error:result.err_description}, sign:'profumo.com.ua'};
-          let str =encodeURIComponent(base64encode(JSON.stringify(value)));
+        }
+          break;
+        default: {
+          strapi.services.order.edit({'_id': result.order_id}, {status: result.status});
+          ctx.status = 301;
+          let value = {data: {error: result.err_description}, sign: 'profumo.com.ua'};
+          let str = encodeURIComponent(base64encode(JSON.stringify(value)));
           ctx.redirect(`/order?postdata=${str}`);
           break;
         }

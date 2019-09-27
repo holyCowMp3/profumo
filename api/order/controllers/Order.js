@@ -226,6 +226,7 @@ module.exports = {
         if(price===0){
           return {error: 'Произошла ошибка, попробуйте оформить заказ снова'};
         }
+
         let dataAndSignature = await liqPay.cnb_object({
           'action': 'pay',
           'amount': price,
