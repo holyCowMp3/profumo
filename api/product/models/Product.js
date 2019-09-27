@@ -20,7 +20,8 @@ module.exports = {
   // After saving a value.
   // Fired after an `insert` or `update` query.
   afterSave: async (model, result) => {
-    console.log(result.amount + ' !!!!!!! UPDATED');
+    console.log(result + ' !!!!!!! UPDATED');
+    console.log(model + ' !!!!!!! UPDATED');
     if (result.amount <= 0) {
       await strapi.services.product.edit({_id: result._id}, {avaliable: false});
     }
