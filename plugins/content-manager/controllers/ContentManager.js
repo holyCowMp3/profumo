@@ -296,6 +296,7 @@ module.exports = {
           minusPrice = (result.price * (category.discount.percent / 100));
         } else {
           let discount_pr=0;
+          console.log(result);
           if (result.discount && result.discount.expirate_date.getTime() > new Date().getTime()) {
             console.log('Discount Here!')
             minusPrice += (result.discount.percent / 100) * (result.price - minusPrice);
