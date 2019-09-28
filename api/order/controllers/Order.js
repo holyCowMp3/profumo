@@ -127,7 +127,7 @@ module.exports = {
       orderStr += `<tr>
     <td style="border: 1px solid gray;">${index++}</td>
     <td style="border: 1px solid gray;">
-        <img src="https://profumo.com.ua" + ${productFromDb.photos ? productFromDb.photos[0].url : ''} style="maxHeight: 50px; max-width: 50px; object-fit: contain;"/>
+        <img src="https://profumo.com.ua${productFromDb.photos ? productFromDb.photos[0].url : ''}" style="maxHeight: 50px; max-width: 50px; object-fit: contain;"/>
     </td>
     <td style="border: 1px solid gray;">
     <a href="https://profumo.com.ua/product/" + ${product.product.id}>${productFromDb.name_ru}</a>
@@ -142,20 +142,17 @@ module.exports = {
     }
     await strapi.services.order.edit({_id: order._id, order});
     if (ctx.state.user) {
-      console.log(ctx.state.user);
-      console.log("SENDING EMAIL!");
       let fs = require('fs');
       let raw = fs.readFileSync('./order.html');
       let emailText = raw.toString();
-      console.log(emailText);
       emailText = await emailText.replace(/1234566/g, orderStr);
       emailText = await emailText.replace(/user/g, ctx.state.user ? ctx.state.user.name : 'Пользователь');
       let phones = await strapi.services.contacts.fetchAll();
       if (phones) {
         let phone1 = phones[0].phones.split(',')[0];
         let phone2 = phones[0].phones.split(',')[1];
-        emailText.replace('<%= PHONE1 %>', phone1);
-        emailText.replace('<%= PHONE2 %>', phone2);
+        emailText = await emailText.replace('<%= PHONE1 %>', phone1);
+        emailText = await emailText.replace('<%= PHONE2 %>', phone2);
       }
       await strapi.plugins['email'].services.email.send({
         to: ctx.state.user.email,
