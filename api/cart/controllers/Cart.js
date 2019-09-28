@@ -37,74 +37,67 @@ module.exports = {
       }
     }
   },
-    meClear: async (ctx, next) => {
-      if (ctx.state.user) {
-        let cart = await strapi.services.cart.fetch({owner: ctx.state.user._id});
-        return strapi.services.cart.edit({_id: cart._id}, {body: []});
-      }
-    },
-      /**
-       * Retrieve a cart record.
-       *
-       * @return {Object}
-       */
+  meClear: async (ctx, next) => {
+    if (ctx.state.user) {
+      let cart = await strapi.services.cart.fetch({owner: ctx.state.user._id});
+      return strapi.services.cart.edit({_id: cart._id}, {body: []});
+    }
+  },
+  /**
+   * Retrieve a cart record.
+   *
+   * @return {Object}
+   */
 
-      findOne
-  :
-    async (ctx) => {
-      if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
-        return ctx.notFound();
-      }
+  findOne: async (ctx) => {
+    if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
+      return ctx.notFound();
+    }
 
-      return strapi.services.cart.fetch(ctx.params);
-    },
+    return strapi.services.cart.fetch(ctx.params);
+  },
 
-      /**
-       * Count cart records.
-       *
-       * @return {Number}
-       */
+  /**
+   * Count cart records.
+   *
+   * @return {Number}
+   */
 
-      count
-  :
-    async (ctx) => {
-      return strapi.services.cart.count(ctx.query);
-    },
+  count: async (ctx) => {
+    return strapi.services.cart.count(ctx.query);
+  },
 
-      /**
-       * Create a/an cart record.
-       *
-       * @return {Object}
-       */
+  /**
+   * Create a/an cart record.
+   *
+   * @return {Object}
+   */
 
-      create
-  :
+  create:
     async (ctx) => {
       return strapi.services.cart.add(ctx.request.body);
     },
 
-      /**
-       * Update a/an cart record.
-       *
-       * @return {Object}
-       */
+  /**
+   * Update a/an cart record.
+   *
+   * @return {Object}
+   */
 
-      update
-  :
+  update:
     async (ctx, next) => {
       console.log(ctx.params);
       return strapi.services.cart.edit(ctx.params, ctx.request.body);
     },
 
-      /**
-       * Destroy a/an cart record.
-       *
-       * @return {Object}
-       */
+  /**
+   * Destroy a/an cart record.
+   *
+   * @return {Object}
+   */
 
-      destroy
-  :
+  destroy:
     async (ctx, next) => {
       return strapi.services.cart.remove(ctx.params);
     }
-  };
+};
