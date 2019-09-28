@@ -135,7 +135,7 @@ module.exports = {
     <td style="border: 1px solid gray;">${productFromDb.discount_price === 0 ? productFromDb.price : productFromDb.discount_price} грн.</td>
     <td style="border: 1px solid gray;">${product.count}</td>
     <td style="border: 1px solid gray;">${(productFromDb.discount_price === 0 ? productFromDb.price : productFromDb.discount_price) * product.count} грн.</td>
-</tr>`;
+    </tr>`;
     }
     for (let i = 0; i < deleteFromOrderArray.length; i++) {
       delete order.orders[deleteFromOrderArray[i]];

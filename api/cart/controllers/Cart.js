@@ -30,11 +30,11 @@ module.exports = {
 
   meUpdate: async (ctx, next) => {
     if(ctx.state.user){
-      let cart = await  strapi.services.cart.fetch({owner:ctx.state.user._id});
-      console.log(ctx.request.body);
-      return strapi.services.cart.edit({_id:cart._id}, ctx.request.body) ;
-    }
-
+      let cart = await strapi.services.cart.fetch({owner:ctx.state.user._id});
+      console.log(cart);
+      if(cart) {
+        return strapi.services.cart.edit({_id: cart.id?cart.id:cart._id}, {body:ctx.request.body});
+      }
   },
   meClear: async (ctx, next) => {
     if(ctx.state.user){
