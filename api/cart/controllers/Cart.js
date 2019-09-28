@@ -32,6 +32,7 @@ module.exports = {
     if (ctx.state.user) {
       let cart = await strapi.services.cart.fetch({owner: ctx.state.user._id});
       console.log(cart);
+      console.log(ctx.request.body);
       if (cart) {
         return await strapi.services.cart.edit({_id: cart.id ? cart.id : cart._id}, ctx.request.body);
       } else {
