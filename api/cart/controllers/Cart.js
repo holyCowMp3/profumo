@@ -34,6 +34,8 @@ module.exports = {
       console.log(cart);
       if (cart) {
         return strapi.services.cart.edit({_id: cart.id ? cart.id : cart._id}, {body: ctx.request.body});
+      } else {
+        return strapi.services.cart.add({owner:ctx.state.user._id, body:ctx.request.body});
       }
     }
   },
