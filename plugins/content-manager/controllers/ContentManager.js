@@ -298,7 +298,7 @@ module.exports = {
           let discount_pr=0;
           console.log(result);
           if (result.discount && result.discount.expirate_date.getTime() > new Date().getTime()) {
-            console.log('Discount Here!')
+            console.log('Discount Here!');
             minusPrice += (result.discount.percent / 100) * (result.price - minusPrice);
             discount_pr = await result.discount ? (result.price - minusPrice) : 0;
             strapi.services.product.edit({'_id':ctx.body._id}, {discount_price:discount_pr});

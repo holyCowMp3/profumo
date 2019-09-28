@@ -92,7 +92,7 @@ module.exports = {
     var isoString = now.toISOString();
     let deleteFromOrderArray = [];
     let orderStr = '';
-    let index=1;
+    let index = 1;
     for (let product of order.orders) {
       let productFromDb = await strapi.services.product.fetch({'_id': product.product.id});
       if (product.count > productFromDb.amount) {
@@ -124,31 +124,32 @@ module.exports = {
       } else {
         deleteFromOrderArray.push(order.orders.indexOf(product));
       }
-      orderStr+= `<tr>
+      orderStr += `<tr>
     <td style="border: 1px solid gray;">${index++}</td>
     <td style="border: 1px solid gray;">
-        <img src="https://profumo.com.ua" + ${productFromDb.photos?productFromDb.photos[0].url:''} style="maxHeight: 50px; max-width: 50px; object-fit: contain;"/>
+        <img src="https://profumo.com.ua" + ${productFromDb.photos ? productFromDb.photos[0].url : ''} style="maxHeight: 50px; max-width: 50px; object-fit: contain;"/>
     </td>
     <td style="border: 1px solid gray;">
     <a href="https://profumo.com.ua/product/" + ${product.product.id}>${productFromDb.name_ru}</a>
     </td>
-    <td style="border: 1px solid gray;">${productFromDb.discount_price===0?productFromDb.price:productFromDb.discount_price} грн.</td>
+    <td style="border: 1px solid gray;">${productFromDb.discount_price === 0 ? productFromDb.price : productFromDb.discount_price} грн.</td>
     <td style="border: 1px solid gray;">${product.count}</td>
-    <td style="border: 1px solid gray;">${(productFromDb.discount_price===0?productFromDb.price:productFromDb.discount_price) * product.count} грн.</td>
+    <td style="border: 1px solid gray;">${(productFromDb.discount_price === 0 ? productFromDb.price : productFromDb.discount_price) * product.count} грн.</td>
 </tr>`;
     }
-    for (let  i = 0; i <deleteFromOrderArray.length; i++) {
+    for (let i = 0; i < deleteFromOrderArray.length; i++) {
       delete order.orders[deleteFromOrderArray[i]];
     }
-    await strapi.services.order.edit({_id:order._id, order});
-    if(ctx.state.user) {
+    await strapi.services.order.edit({_id: order._id, order});
+    if (ctx.state.user) {
       console.log(ctx.state.user);
       console.log("SENDING EMAIL!");
       let fs = require('fs');
       let raw = fs.readFileSync('./order.html');
       let emailText = raw.toString();
-      emailText.replace(/1234566/g, orderStr);
-      emailText.replace(/user/g, ctx.state.user ? ctx.state.user.name : 'Пользователь');
+      console.log(emailText);
+      emailText = await emailText.replace(/1234566/g, orderStr);
+      emailText = await emailText.replace(/user/g, ctx.state.user ? ctx.state.user.name : 'Пользователь');
       let phones = await strapi.services.contacts.fetchAll();
       if (phones) {
         let phone1 = phones[0].phones.split(',')[0];
@@ -207,9 +208,9 @@ module.exports = {
             strapi.services.order.edit({'_id': order._id}, order);
             for (let product of order.orders) {
               strapi.services.product.fetch({'_id': product.product.id}).then(res => {
-                let am = ((res.amount - product.count )<= 0)? 0:res.amount - product.count;
+                let am = ((res.amount - product.count) <= 0) ? 0 : res.amount - product.count;
                 strapi.services.product.edit({'_id': product.product.id}, {amount: am});
-                if (am===0){
+                if (am === 0) {
                   strapi.services.product.edit({'_id': product.product.id}, {avaliable: false});
                 }
               }).catch(err => console.log(err));
@@ -223,7 +224,7 @@ module.exports = {
         });
       }
       case 'liqpay': {
-        if(price===0){
+        if (price === 0) {
           return {error: 'Произошла ошибка, попробуйте оформить заказ снова'};
         }
 
