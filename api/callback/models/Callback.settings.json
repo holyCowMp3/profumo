@@ -129,7 +129,10 @@
         "prepared",
         "processing",
         "wait_accept",
-        "senderapp_verify"
+        "senderapp_verify",
+        "prepared",
+        "wait_secure",
+        "wait_lc"
       ]
     },
     "token": {
