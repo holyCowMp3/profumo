@@ -22,6 +22,7 @@ module.exports = {
       return strapi.services.cart.fetchAll(ctx.query, populate);
     }
   },
+
   meGet: async (ctx) => {
     if (ctx.state.user) {
       return strapi.services.cart.fetch({owner: ctx.state.user._id});
@@ -41,6 +42,7 @@ module.exports = {
       }
     }
   },
+
   meClear: async (ctx, next) => {
     if (ctx.state.user) {
       let cart = await strapi.services.cart.fetch({owner: ctx.state.user._id});

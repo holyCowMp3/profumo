@@ -128,7 +128,8 @@
         "success",
         "prepared",
         "processing",
-        "wait_accept"
+        "wait_accept",
+        "senderapp_verify"
       ]
     },
     "token": {
