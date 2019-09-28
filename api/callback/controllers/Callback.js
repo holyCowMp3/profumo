@@ -149,7 +149,7 @@ module.exports = {
                   success: 'Новый заказ',
                   revoke: 'Отказ клиента'
                 };
-                order.status = statusMap[result.status];
+                order.status = 'success';
                 strapi.services.order.edit({'_id': order._id}, order);
                 return json.data;
               }).catch(err => ({error: err}));
