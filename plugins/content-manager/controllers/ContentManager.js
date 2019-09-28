@@ -296,10 +296,12 @@ module.exports = {
         if (category.discount && category.discount.expirate_date.getTime() > new Date().getTime()) {
           minusPrice = (result.price * (category.discount.percent / 100));
         } else {
+          let discount_pr=0;
           if (result.discount && result.discount.expirate_date.getTime() > new Date().getTime()) {
             minusPrice += (result.discount.percent / 100) * (result.price - minusPrice);
+            discount_pr = result.discount ? (result.price - minusPrice) : 0;
           }
-          let discount_pr = result.discount ? (result.price - minusPrice) : 0;
+
           strapi.services.product.edit({'_id':ctx.body._id}, {discount_price:discount_pr});
 
         }

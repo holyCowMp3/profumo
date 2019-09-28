@@ -42,7 +42,7 @@ module.exports = {
   // After creating a value.
   // Fired after `insert` query.
   afterCreate: async (model, result) => {
-    Cart.create({body:[],owner:result._id});
+    // Cart.create({body:[],owner:result._id});
 
   },
 
