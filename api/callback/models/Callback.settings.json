@@ -150,7 +150,6 @@
         "ivr_verify",
         "cvv_verify",
         "captcha_verify",
-        "3ds_verify",
         "wait_secure",
         "wait_sender",
         "wait_qr",
