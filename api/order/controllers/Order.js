@@ -232,6 +232,7 @@ module.exports = {
           'currency': 'UAH',
           'order_id': order._id,
           'version': '3',
+          'language':'ru',
           'customer': ctx.state.user ? ctx.state.user._id : 'public_user'
         });
         return await dataAndSignature;

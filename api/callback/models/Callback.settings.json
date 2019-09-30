@@ -38,6 +38,14 @@
       "default": "",
       "type": "integer"
     },
+    "create_date": {
+      "default": "",
+      "type": "string"
+    },
+    "completion_date": {
+      "default": "",
+      "type": "string"
+    },
     "amount_credit": {
       "default": "",
       "type": "biginteger"
@@ -71,6 +79,10 @@
       "type": "string"
     },
     "err_code": {
+      "default": "",
+      "type": "string"
+    },
+    "err_erc": {
       "default": "",
       "type": "string"
     },
@@ -130,7 +142,22 @@
         "processing",
         "wait_accept",
         "senderapp_verify",
+        "receiver_verify",
+        "sender_verify",
+        "pin_verify",
+        "password_verify",
+        "otp_verify",
+        "ivr_verify",
+        "cvv_verify",
+        "captcha_verify",
+        "3ds_verify",
         "wait_secure",
+        "wait_sender",
+        "wait_qr",
+        "wait_card",
+        "invoice_wait",
+        "hold_wait",
+        "cash_wait",
         "wait_lc"
       ]
     },
