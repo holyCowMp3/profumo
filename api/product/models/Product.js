@@ -48,8 +48,10 @@ module.exports = {
   // },
 
   afterFetch: async (model, result) => {
-    result.order = undefined;
-    result.promocode = undefined;
+    if (result) {
+      result.order = undefined;
+      result.promocode = undefined;
+    }
   },
 
   // Before creating a value.
