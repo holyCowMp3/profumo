@@ -78,7 +78,7 @@ function getJwt(call) {
     'Connection': 'keep-alive',
   };
   var dataString = '{"identifier":"test","password":"testtest"}';
-  fetch('http://profumo.com.ua/auth/local',
+  fetch('https://profumo.com.ua/auth/local',
     {
       method: 'POST',
       headers: headers,
