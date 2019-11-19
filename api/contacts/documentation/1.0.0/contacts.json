@@ -521,6 +521,21 @@
           },
           "phones": {
             "type": "string"
+          },
+          "instagram": {
+            "type": "string"
+          },
+          "facebook": {
+            "type": "string"
+          },
+          "telegram": {
+            "type": "string"
+          },
+          "whats_app": {
+            "type": "string"
+          },
+          "viber": {
+            "type": "string"
           }
         }
       },
@@ -530,6 +545,21 @@
             "type": "string"
           },
           "phones": {
+            "type": "string"
+          },
+          "instagram": {
+            "type": "string"
+          },
+          "facebook": {
+            "type": "string"
+          },
+          "telegram": {
+            "type": "string"
+          },
+          "whats_app": {
+            "type": "string"
+          },
+          "viber": {
             "type": "string"
           }
         }

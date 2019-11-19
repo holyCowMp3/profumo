@@ -645,6 +645,9 @@
                 "id": {
                   "type": "string"
                 },
+                "name_ru": {
+                  "type": "string"
+                },
                 "name_ua": {
                   "type": "string"
                 },
@@ -666,12 +669,6 @@
                 "category": {
                   "type": "string"
                 },
-                "discounts": {
-                  "type": "string"
-                },
-                "name_ru": {
-                  "type": "string"
-                },
                 "name_en": {
                   "type": "string"
                 },
@@ -691,6 +688,12 @@
                   "type": "boolean"
                 },
                 "vendor": {
+                  "type": "string"
+                },
+                "gift_status": {
+                  "type": "boolean"
+                },
+                "gift_text": {
                   "type": "string"
                 },
                 "name_rozetka": {
@@ -725,6 +728,12 @@
                 },
                 "promocodes": {
                   "type": "string"
+                },
+                "discount": {
+                  "type": "string"
+                },
+                "discount_price": {
+                  "type": "number"
                 }
               }
             }
@@ -915,20 +924,23 @@
               "name": {
                 "type": "string"
               },
-              "expiration_date": {
-                "type": "integer"
-              },
               "percent": {
                 "type": "integer"
               },
-              "product": {
-                "type": "string"
+              "products": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "categories": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
+              },
+              "expirate_date": {
+                "type": "string"
               }
             }
           },

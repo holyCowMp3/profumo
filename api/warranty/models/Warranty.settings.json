@@ -11,6 +11,15 @@
   "attributes": {
     "text": {
       "type": "text"
+    },
+    "meta_title": {
+      "type": "string"
+    },
+    "meta_decription": {
+      "type": "text"
+    },
+    "meta_keywords": {
+      "type": "string"
     }
   }
 }
