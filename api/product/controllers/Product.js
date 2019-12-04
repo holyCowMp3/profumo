@@ -87,10 +87,13 @@ module.exports = {
               let picked = _.map(arrayOfIds, '_id');
               let res = filtered.filter(res => {
                 let mapped = res.properties.map(s => s._id.toString());
+                console.log(mapped);
+                console.log("THIS IS OBJECT PROPS");
+                console.log("THIS IS PICKED");
                 return arrayContainsArray(mapped, picked);
               });
               console.log(res)
-              console.log("THIS IS RESULT OF FILTERING");
+
             }
           }
         }
