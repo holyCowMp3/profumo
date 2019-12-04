@@ -81,11 +81,11 @@ module.exports = {
             for (let value of grouped[key]) {
               let alias = [value.property_name];
               let {[alias[0]]: mock, ...rest} = grouped[key];
-              console.log(rest);
-              console.log(value);
+              console.log(rest +"THIS IS REST");
+              console.log(value + "THIS IS VALUE");
+              console.log(grouped[key] + "THIS IS GROUPED KEY");
               let arrayOfIds = Object.entries(rest);
               arrayOfIds.push(value);
-              console.log(arrayOfIds);
               let picked = _.map(arrayOfIds, '_id');
               let res = filtered.filter(res => {
                 let mapped = res.properties.map(s => s._id.toString());
