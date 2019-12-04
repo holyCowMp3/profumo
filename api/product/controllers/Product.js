@@ -81,7 +81,6 @@ module.exports = {
           for (let key in grouped) {
             for (let value of grouped[key]) {
               let {key: mock, ...rest} = grouped[key];
-              console.log(rest);
               let arrayOfIds = Object.entries(rest);
               arrayOfIds.push(value);
               console.log(arrayOfIds);
@@ -90,7 +89,6 @@ module.exports = {
                 let mapped = res.properties.map(s => s._id.toString());
                 return arrayContainsArray(mapped, picked);
               });
-              console.log(res);
             }
           }
         }
