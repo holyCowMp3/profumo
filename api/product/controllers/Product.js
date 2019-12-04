@@ -23,23 +23,23 @@ module.exports = {
    */
   recommendationPoint: async (ctx, callback) => {
     return await client.POST('/recommendations', {
-        'namespace': 'products',
-        'thing': ctx.params._id,
-        'configuration': {
-          'actions': {'view': 5, 'buy': 10}
-        }
+      'namespace': 'products',
+      'thing': ctx.params._id,
+      'configuration': {
+        'actions': {'view': 5, 'buy': 10}
       }
+    }
     ).then(res => res.recommendations.map(i => i.thing))
       .catch(error => console.log(error));
   },
   recommendationsPersonal: async (ctx) => {
     return await client.POST('/recommendations', {
-        'namespace': 'products',
-        'person': ctx.state.user ? ctx.state.user._id : 'public_user',
-        'configuration': {
-          'actions': {'view': 5, 'buy': 10}
-        }
+      'namespace': 'products',
+      'person': ctx.state.user ? ctx.state.user._id : 'public_user',
+      'configuration': {
+        'actions': {'view': 5, 'buy': 10}
       }
+    }
     ).then(res => res.recommendations.map(i => i.thing))
       .catch(error => console.log(error));
   },
@@ -75,12 +75,23 @@ module.exports = {
           return s.map(k => {
             return {property_name: k.property_name, _id: k._id};
           });
-        }).then(mapped =>
-        {
-          let grouped = _.groupBy(mapped, 'property_name');
+        }).then(mapped => {return _.groupBy(mapped, 'property_name');}
+        ).then(grouped => {
           console.log(grouped);
+          for (let key in grouped) {
+            for (let value of grouped[key]) {
+              let {key: mock, ...rest} = grouped[key];
+              let arrayOfIds = Object.entries(rest);
+              arrayOfIds.push(value);
+              let picked = _.map(arrayOfIds, '_id');
+              let res = filtered.filter(res => {
+                let mapped = res.properties.map(s => s._id.toString());
+                return arrayContainsArray(mapped, picked);
+              });
+              console.log(res);
+            }
+          }
         }
-
         );
         return await filtered.filter(res => {
           let mapped = res.properties.map(s => s._id.toString());
