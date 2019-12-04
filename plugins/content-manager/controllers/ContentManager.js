@@ -290,8 +290,6 @@ module.exports = {
         let category = await strapi.services.category.fetch({'_id': ctx.body.category});
         let result = ctx.body;
         let minusPrice = 0;
-        console.log(body);
-        let comments = body.comments;
         if (category.discount && category.discount.expirate_date.getTime() > new Date().getTime()) {
           minusPrice = (result.price * (category.discount.percent / 100));
         } else {

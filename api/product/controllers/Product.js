@@ -67,7 +67,9 @@ module.exports = {
     } else {
       if(ctx.query['properties._id']){
         let filtered=  await strapi.services.product.fetchAll(ctx.query, populate);
-        let filteredProps = ctx.query['properties._id'];
+        let filteredProps = ctx.query['properties._id'].map(s => strapi.services.property.findOne({_id:s._id}));
+        let groupedFilter = _.groupBy(filteredProps,'property_name');
+        console.log(groupedFilter);
         return await filtered.filter(res => {
           let mapped =res.properties.map(s => s._id.toString());
           return arrayContainsArray(mapped, filteredProps);
