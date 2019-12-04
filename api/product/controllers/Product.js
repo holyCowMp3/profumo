@@ -84,15 +84,13 @@ module.exports = {
               let ids =Object.keys(rest).map(kinRest => rest[kinRest]);
               let arrayOfIds = ids.flat(Infinity);
               arrayOfIds.push(value);
-              console.log(arrayOfIds);
-              console.log("THIS IS IDS ARRRR");
               let picked = _.map(arrayOfIds, '_id');
-              console.log(picked);
-              console.log("THIS IS PICKED");
               let res = filtered.filter(res => {
                 let mapped = res.properties.map(s => s._id.toString());
                 return arrayContainsArray(mapped, picked);
               });
+              console.log(res)
+              console.log("THIS IS RESULT OF FILTERING");
             }
           }
         }
