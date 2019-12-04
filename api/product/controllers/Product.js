@@ -83,6 +83,7 @@ module.exports = {
               let {key: mock, ...rest} = grouped[key];
               let arrayOfIds = Object.entries(rest);
               arrayOfIds.push(value);
+              console.log(arrayOfIds);
               let picked = _.map(arrayOfIds, '_id');
               let res = filtered.filter(res => {
                 let mapped = res.properties.map(s => s._id.toString());
