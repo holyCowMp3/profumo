@@ -77,10 +77,10 @@ module.exports = {
           });
         }).then(mapped => {return _.groupBy(mapped, 'property_name');}
         ).then(grouped => {
-          console.log(grouped);
           for (let key in grouped) {
             for (let value of grouped[key]) {
-              let {key: mock, ...rest} = grouped[key];
+              let alias = [value.property_name];
+              let {[alias[0]]: mock, ...rest} = grouped[key];
               console.log(rest);
               console.log(value);
               let arrayOfIds = Object.entries(rest);
