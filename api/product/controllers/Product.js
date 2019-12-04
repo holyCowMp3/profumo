@@ -81,7 +81,8 @@ module.exports = {
             for (let value of grouped[key]) {
               let alias = [value.property_name];
               let {[alias[0]]: mock, ...rest} = grouped;
-              let arrayOfIds = [...Object.entries(rest)];
+              let ids =Object.keys(rest).map(kinRest => rest[kinRest]);
+              let arrayOfIds = ids.flat(Infinity);
               arrayOfIds.push(value);
               console.log(arrayOfIds);
               console.log("THIS IS IDS ARRRR");
