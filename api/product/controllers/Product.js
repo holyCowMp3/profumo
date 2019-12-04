@@ -70,7 +70,7 @@ module.exports = {
         let filteredProps = ctx.query['properties._id'];
         let filteredFullProps = await filteredProps.map( async s => await strapi.services.property.fetch({_id:s._id}));
         console.log(filteredFullProps);
-        let groupedFilter = _.groupBy(filteredFullProps,'property_name');
+        let groupedFilter = _.groupBy(Promise.all(filteredFullProps),'property_name');
         console.log(groupedFilter);
         return await filtered.filter(res => {
           let mapped =res.properties.map(s => s._id.toString());
