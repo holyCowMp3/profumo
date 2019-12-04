@@ -85,6 +85,7 @@ module.exports = {
               let arrayOfIds = ids.flat(Infinity);
               arrayOfIds.push(value);
               let picked = _.map(arrayOfIds, '_id');
+              picked = picked.map(each => each.toString());
               let res = filtered.filter(res => {
                 let mapped = res.properties.map(s => s._id.toString());
                 console.log(mapped);
