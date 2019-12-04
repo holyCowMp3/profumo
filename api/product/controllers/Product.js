@@ -81,6 +81,8 @@ module.exports = {
           for (let key in grouped) {
             for (let value of grouped[key]) {
               let {key: mock, ...rest} = grouped[key];
+              console.log(rest);
+              console.log(value);
               let arrayOfIds = Object.entries(rest);
               arrayOfIds.push(value);
               console.log(arrayOfIds);
