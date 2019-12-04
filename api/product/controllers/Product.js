@@ -88,10 +88,10 @@ module.exports = {
               picked = picked.map(each => each.toString());
               let res = filtered.filter(res => {
                 let mapped = res.properties.map(s => s._id.toString());
-                console.log(mapped);
-                console.log("THIS IS OBJECT PROPS");
-                console.log(picked);
-                console.log("THIS IS PICKED");
+                // console.log(mapped);
+                // console.log("THIS IS OBJECT PROPS");
+                // console.log(picked);
+                // console.log("THIS IS PICKED");
                 return arrayContainsArray(mapped, picked);
               });
               console.log(res)
