@@ -54,7 +54,7 @@ module.exports = {
      *
      * @returns {boolean}
      */
-    function arrayContainsArray (superset, subset) {
+    function arrayContainsArray(superset, subset) {
       if (0 === subset.length) {
         return false;
       }
@@ -62,26 +62,32 @@ module.exports = {
         return (superset.indexOf(value) >= 0);
       });
     }
+
     if (ctx.query._q) {
-      return  strapi.services.product.search(ctx.query);
+      return strapi.services.product.search(ctx.query);
     } else {
-      if(ctx.query['properties._id']){
-        let filtered=  await strapi.services.product.fetchAll(ctx.query, populate);
+      if (ctx.query['properties._id']) {
+        let filtered = await strapi.services.product.fetchAll(ctx.query, populate);
         let filteredProps = ctx.query['properties._id'];
-        let filteredFullProps = await filteredProps.map( async s => strapi.services.property.fetch({_id:s}));
+        let filteredFullProps = await filteredProps.map(async s => strapi.services.property.fetch({_id: s}));
         console.log(filteredFullProps);
         Promise.all(filteredFullProps).then(s => {
-          console.log(s);
-          let groupedFilter = _.groupBy(s,'property_name');
-          console.log(groupedFilter);
-        });
+          return s.map(k => {
+            return {property_name: k.property_name, _id: k._id};
+          });
+        }).then(mapped =>
+        {
+          let grouped = _.groupBy(mapped, 'property_name');
+          console.log(grouped);
+        }
 
+        );
         return await filtered.filter(res => {
-          let mapped =res.properties.map(s => s._id.toString());
+          let mapped = res.properties.map(s => s._id.toString());
           return arrayContainsArray(mapped, filteredProps);
         });
       }
-      return  strapi.services.product.fetchAll(ctx.query, populate);
+      return strapi.services.product.fetchAll(ctx.query, populate);
     }
   },
   build: async (ctx) => {
