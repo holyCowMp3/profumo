@@ -78,19 +78,16 @@ module.exports = {
         }).then(mapped => {return _.groupBy(mapped, 'property_name');}
         ).then(grouped => {
           for (let key in grouped) {
-
             for (let value of grouped[key]) {
               let alias = [value.property_name];
               let {[alias[0]]: mock, ...rest} = grouped;
-              console.log(rest);
-              console.log("THIS IS REST");
-              console.log(value );
-              console.log("THIS IS VALUE")
-              console.log(grouped[key]);
-              console.log("THIS IS GROUPED KEY");
-              let arrayOfIds = Object.entries(rest);
+              let arrayOfIds = [...Object.entries(rest)];
               arrayOfIds.push(value);
+              console.log(arrayOfIds);
+              console.log("THIS IS IDS ARRRR");
               let picked = _.map(arrayOfIds, '_id');
+              console.log(picked);
+              console.log("THIS IS PICKED");
               let res = filtered.filter(res => {
                 let mapped = res.properties.map(s => s._id.toString());
                 return arrayContainsArray(mapped, picked);
