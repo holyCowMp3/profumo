@@ -151,8 +151,7 @@ module.exports = {
             for (let block of parameterBlocks){
               let props = {property_value:[]};
               let name = block.querySelectorAll('[name=\'filter_parameters_title\']')[0].innerHTML;
-              if(name.includes('Производитель')
-                || name.includes('Программа лояльности')
+              if(name.includes('Программа лояльности')
                 || name.includes('Продавец') )
               {continue;}
               props.property_name = name;
@@ -189,8 +188,7 @@ module.exports = {
             for (let block of parameterBlocks){
               let props = {property_value:[]};
               let name = block.querySelectorAll('[name=\'filter_parameters_title\']')[0].innerHTML;
-              if(name.includes('Производитель')
-                || name.includes('Программа лояльности')
+              if(name.includes('Программа лояльности')
                 || name.includes('Продавец') )
               {continue;}
               props.property_name = name;
@@ -278,7 +276,7 @@ module.exports = {
     const { source } = ctx.request.query;
     try {
       // Return the last one which is the current model.
-
+      console.trace(ctx.request.body);
       ctx.body = await strapi.plugins['content-manager'].services['contentmanager'].edit(ctx.params, ctx.request.body, source);
       if (ctx.request.body.fields.child){
         let body = ctx.request.body.fields;
@@ -292,6 +290,8 @@ module.exports = {
         let category = await strapi.services.category.fetch({'_id': ctx.body.category});
         let result = ctx.body;
         let minusPrice = 0;
+        console.log(body);
+        let comments = body.comments;
         if (category.discount && category.discount.expirate_date.getTime() > new Date().getTime()) {
           minusPrice = (result.price * (category.discount.percent / 100));
         } else {
@@ -305,11 +305,15 @@ module.exports = {
           } else {
             strapi.services.product.edit({'_id':ctx.body._id}, {discount_price:discount_pr});
           }
-
         }
         if (ctx.body.amount <=0){
           strapi.services.product.edit({'_id':ctx.body._id}, {avaliable:false});
         }
+      }
+      if (ctx.request.body.fields.comments){
+        let body = ctx.request.body.fields;
+        let coms = JSON.parse(body.comments).map(s => s._id);
+        strapi.services.product.edit({'_id':body._id}, {comments:coms});
       }
 
     } catch(error) {

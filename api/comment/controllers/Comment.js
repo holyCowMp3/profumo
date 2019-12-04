@@ -70,7 +70,6 @@ module.exports = {
    */
 
   create: async (ctx) => {
-
     const { _id,name,gender } =ctx.state.user;
     const body = ctx.request.body;
     body.gender = await gender?gender+'':'female';
