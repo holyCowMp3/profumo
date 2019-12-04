@@ -78,9 +78,10 @@ module.exports = {
         }).then(mapped => {return _.groupBy(mapped, 'property_name');}
         ).then(grouped => {
           for (let key in grouped) {
+
             for (let value of grouped[key]) {
               let alias = [value.property_name];
-              let {[alias[0]]: mock, ...rest} = grouped[key];
+              let {[alias[0]]: mock, ...rest} = grouped;
               console.log(rest);
               console.log("THIS IS REST");
               console.log(value );
