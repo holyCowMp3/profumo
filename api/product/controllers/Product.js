@@ -106,9 +106,11 @@ module.exports = {
       //   });
       // }
       if (ctx.query['_sort']){
-        ctx.query['_sort'] = ctx.query['_sort']+',avaliable:DESC';
+        console.log(ctx.query);
+        ctx.query['_sort'] = ctx.query['_sort']+',amount:DESC';
       } else {
-        ctx.query['_sort'] = 'avaliable:DESC';
+        console.log(ctx.query);
+        ctx.query['_sort'] = 'amount:DESC';
       }
       return strapi.services.product.fetchAll(ctx.query, populate);
     }
