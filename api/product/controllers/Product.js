@@ -107,10 +107,10 @@ module.exports = {
       // }
       if (ctx.query['_sort']){
         console.log(ctx.query);
-        ctx.query['_sort'] = ctx.query['_sort']+',amount:DESC';
+        ctx.query['_sort'] = ctx.query['_sort']+',amount:desc,avaliable:desc';
       } else {
         console.log(ctx.query);
-        ctx.query['_sort'] = 'amount:DESC';
+        ctx.query['_sort'] = 'amount:desc,avaliable:desc';
       }
       return strapi.services.product.fetchAll(ctx.query, populate);
     }
