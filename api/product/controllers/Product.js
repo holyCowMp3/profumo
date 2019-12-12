@@ -64,10 +64,10 @@ module.exports = {
     }
     if (ctx.query['_sort']){
       console.log(ctx.query);
-      ctx.query['_sort'] = ctx.query['_sort']+',avaliable:desc';
+      ctx.query._sort = ctx.query['_sort']+',avaliable:desc';
     } else {
       console.log(ctx.query);
-      ctx.query['_sort'] = 'avaliable:desc';
+      ctx.query._sort = 'avaliable:desc';
     }
     if (ctx.query._q) {
       return strapi.services.product.search(ctx.query);
