@@ -66,46 +66,50 @@ module.exports = {
     if (ctx.query._q) {
       return strapi.services.product.search(ctx.query);
     } else {
-      if (ctx.query['properties._id']) {
-        let filtered = await strapi.services.product.fetchAll(ctx.query, populate);
-        let filteredProps = ctx.query['properties._id'];
-        let filteredFullProps = await filteredProps.map(async s => strapi.services.property.fetch({_id: s}));
-        console.log(filteredFullProps);
-        Promise.all(filteredFullProps).then(s => {
-          return s.map(k => {
-            return {property_name: k.property_name, _id: k._id};
-          });
-        }).then(mapped => {return _.groupBy(mapped, 'property_name');}
-        ).then(grouped => {
-          for (let key in grouped) {
-            for (let value of grouped[key]) {
-              let alias = [value.property_name];
-              let {[alias[0]]: mock, ...rest} = grouped;
-              let ids =Object.keys(rest).map(kinRest => rest[kinRest]);
-              let arrayOfIds = ids.flat(Infinity);
-              arrayOfIds.push(value);
-              let picked = _.map(arrayOfIds, '_id');
-              picked = picked.map(each => each.toString());
-              let res = filtered.filter(res => {
-                let mapped = res.properties.map(s => s._id.toString());
-                // console.log(mapped);
-                // console.log("THIS IS OBJECT PROPS");
-                // console.log(picked);
-                // console.log("THIS IS PICKED");
-                return arrayContainsArray(mapped, picked);
-              });
-              console.log(res);
-
-            }
-          }
-        }
-        );
-        return await filtered.filter(res => {
-          let mapped = res.properties.map(s => s._id.toString());
-          return arrayContainsArray(mapped, filteredProps);
-        });
+      // if (ctx.query['properties._id']) {
+      //   let filtered = await strapi.services.product.fetchAll(ctx.query, populate);
+      //   let filteredProps = ctx.query['properties._id'];
+      //   let filteredFullProps = await filteredProps.map(async s => strapi.services.property.fetch({_id: s}));
+      //   console.log(filteredFullProps);
+      //   Promise.all(filteredFullProps).then(s => {
+      //     return s.map(k => {
+      //       return {property_name: k.property_name, _id: k._id};
+      //     });
+      //   }).then(mapped => {return _.groupBy(mapped, 'property_name');}
+      //   ).then(grouped => {
+      //     for (let key in grouped) {
+      //       for (let value of grouped[key]) {
+      //         let alias = [value.property_name];
+      //         let {[alias[0]]: mock, ...rest} = grouped;
+      //         let ids =Object.keys(rest).map(kinRest => rest[kinRest]);
+      //         let arrayOfIds = ids.flat(Infinity);
+      //         arrayOfIds.push(value);
+      //         let picked = _.map(arrayOfIds, '_id');
+      //         picked = picked.map(each => each.toString());
+      //         let res = filtered.filter(res => {
+      //           let mapped = res.properties.map(s => s._id.toString());
+      //           // console.log(mapped);
+      //           // console.log("THIS IS OBJECT PROPS");
+      //           // console.log(picked);
+      //           // console.log("THIS IS PICKED");
+      //           return arrayContainsArray(mapped, picked);
+      //         });
+      //         console.log(res);
+      //
+      //       }
+      //     }
+      //   }
+      //   );
+      //   return await filtered.filter(res => {
+      //     let mapped = res.properties.map(s => s._id.toString());
+      //     return arrayContainsArray(mapped, filteredProps);
+      //   });
+      // }
+      if (ctx.query['_sort']){
+        ctx.query['_sort'] = ctx.query['_sort']+',avaliable:DESC';
+      } else {
+        ctx.query['_sort'] = 'avaliable:DESC';
       }
-      ctx.query['_sort']='avaliable:DESC';
       return strapi.services.product.fetchAll(ctx.query, populate);
     }
   },
