@@ -62,7 +62,13 @@ module.exports = {
         return (superset.indexOf(value) >= 0);
       });
     }
-
+    if (ctx.query['_sort']){
+      console.log(ctx.query);
+      ctx.query['_sort'] = ctx.query['_sort']+',avaliable:desc';
+    } else {
+      console.log(ctx.query);
+      ctx.query['_sort'] = 'avaliable:desc';
+    }
     if (ctx.query._q) {
       return strapi.services.product.search(ctx.query);
     } else {
@@ -105,13 +111,7 @@ module.exports = {
       //     return arrayContainsArray(mapped, filteredProps);
       //   });
       // }
-      if (ctx.query['_sort']){
-        console.log(ctx.query);
-        ctx.query['_sort'] = ctx.query['_sort']+',amount:desc,avaliable:desc';
-      } else {
-        console.log(ctx.query);
-        ctx.query['_sort'] = 'amount:desc,avaliable:desc';
-      }
+
       return strapi.services.product.fetchAll(ctx.query, populate);
     }
   },
